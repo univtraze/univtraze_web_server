@@ -17,8 +17,8 @@ module.exports = {
     },
     create: (data, callBack) => {
         pool.query(
-            `INSERT INTO users(email, provider, password) 
-                         VALUES (?,?,?)`,
+            `INSERT INTO users(email, provider, password, type) 
+                         VALUES (?,?,?, NULL)`,
             [
                 data.email,
                 data.provider,
@@ -34,7 +34,7 @@ module.exports = {
     },
     getUsers: callBack => {
         pool.query(
-            `SELECT id, type, firstname, lastname, email, provider, password, createdAt, updatedAt FROM users WHERE 1`,
+            `SELECT id, type, email, provider, password, createdAt, updatedAt FROM users WHERE 1`,
             [],
             (error, results, fields) => {
                 if(error){
