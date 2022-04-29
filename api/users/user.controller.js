@@ -105,7 +105,7 @@ module.exports = {
             } else {
                 return res.json({
                     success: 0,
-                    data: "Invalid Credentials"
+                    data: "Invalid Email or Password"
                 })
             }
         });
