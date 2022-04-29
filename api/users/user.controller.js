@@ -13,14 +13,14 @@ module.exports = {
             
             if(err){
                 console.log(err)
-                return res.status(500).json({
+                return res.json({
                     success: 0,
                     message: "Database connection Error"
                 });
             }
 
             if(results.length !== 0){
-                return res.status(500).json({
+                return res.json({
                     success: 0,
                     message: "Email already have an account"
                 });
@@ -29,7 +29,7 @@ module.exports = {
             create(body, (err, results) => {
                 if(err){
                     console.log(err)
-                    return res.status(500).json({
+                    return res.json({
                         success: 0,
                         message: "Database connection Error"
                     });
