@@ -6,7 +6,8 @@ module.exports = {
         
 
         if(token){
-            token = token.splice(5)
+
+            token = token.slice(5)
             
             verify(token, process.eventNames.JSON_KEY, (err, decoded)=>{
                 if(err){
