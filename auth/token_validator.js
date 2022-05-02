@@ -6,8 +6,6 @@ module.exports = {
         
 
         if(token){
-            token = token.slice(7)
-            
             verify(token, process.eventNames.JSON_KEY, (err, decoded)=>{
                 if(err){
                     res.json({
@@ -15,9 +13,9 @@ module.exports = {
                         message: "Invalid token"
                         
                     })
-                    console.log(token)
+                    console.log('Invalid token' + token)
                 } else {
-                    console.log(token)
+                    console.log('Proceed next' + token)
                     // next();
                 }
             })
