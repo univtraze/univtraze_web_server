@@ -6,17 +6,15 @@ module.exports = {
 
         if(token){
             verify(token, process.eventNames.JSON_KEY, (err, decoded)=>{
-                
-                console.log(token)
-
-                // if(err){
-                //     res.json({
-                //         success: 0,
-                //         message: "Invalid token"
-                //     })
-                // } else {
-                //     next();
-                // }
+                if(err){
+                    res.json({
+                        success: 0,
+                        message: "Invalid token"
+                    })
+                } else {
+                    console.log(token)
+                    // next();
+                }
             })
 
             
