@@ -9,7 +9,7 @@ module.exports = {
 
             token = token.slice(7)
             
-            verify(token, 'nicuniu', (err, decoded)=>{
+            verify(token, process.env.JSON_KEY, (err, decoded)=>{
                 if(err){
                     res.json({
                         success: 0,
