@@ -15,10 +15,9 @@ module.exports = {
                         success: 0,
                         message: "Invalid token"
                     })
-                    console.log('Invalid token: ' + token)
+
                 } else {
-                    console.log('Proceed next: ' + token)
-                    // next();
+                    next();
                 }
             })
 
