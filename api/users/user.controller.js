@@ -47,7 +47,7 @@ module.exports = {
 
         const id = req.params.id;
         
-        console.log(id + " " + req)
+        console.log(id)
         // getUserById(id, (err, results) => {
         //     if(err){
         //         console.log(err);
@@ -64,7 +64,7 @@ module.exports = {
         //         data: results
         //     })
         // })
-        
+
     },
     getUsers: (req, res) => {
         getUsers((err, results) => {
