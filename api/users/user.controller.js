@@ -44,25 +44,24 @@ module.exports = {
         });
     },
     getUserById: (req, res) => {
+        const id = req.params.id;
         
-        const id = req;
-        console.log(id)
-        // getUserById(id, (err, results) => {
-        //     if(err){
-        //         console.log(err);
-        //         return
-        //     }
-        //     if(!results){
-        //         return res.json({
-        //             success: 0,
-        //             message: "User not found"
-        //         })
-        //     }
-        //     return res.json({
-        //         success: 1,
-        //         data: results
-        //     })
-        // })
+        getUserById(id, (err, results) => {
+            if(err){
+                console.log(err);
+                return
+            }
+            if(!results){
+                return res.json({
+                    success: 0,
+                    message: "User not found"
+                })
+            }
+            return res.json({
+                success: 1,
+                data: results
+            })
+        })
     },
     getUsers: (req, res) => {
         getUsers((err, results) => {
