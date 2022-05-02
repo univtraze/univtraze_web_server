@@ -14,11 +14,11 @@ module.exports = {
                     res.json({
                         success: 0,
                         message: "Invalid token"
-                        
                     })
-                    console.log('Invalid token' + token)
+
+                    console.log('Invalid token: ' + token)
                 } else {
-                    console.log('Proceed next' + token)
+                    console.log('Proceed next: ' + token)
                     // next();
                 }
             })
