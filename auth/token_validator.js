@@ -13,7 +13,9 @@ module.exports = {
                     res.json({
                         success: 0,
                         message: "Invalid token"
+                        
                     })
+                    console.log(token)
                 } else {
                     console.log(token)
                     // next();
