@@ -67,5 +67,21 @@ module.exports = {
                     return callBack(null, results[0])
             }
         )
+    },
+
+    updateUserType: (data, callBack) => {
+        pool.query(
+            `UPDATE users SET type=? WHERE id = ?`,
+            [
+                data.type,
+                data.id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
     }
 };

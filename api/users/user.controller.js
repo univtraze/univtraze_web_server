@@ -1,4 +1,4 @@
-const { create,emailCheck, getUsers, getUserById, getUserByEmail} = require("./user.service");
+const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 
@@ -110,5 +110,24 @@ module.exports = {
             }
         });
 
-    }
+    },
+
+    updateUserType: (req, res) => {
+        const body = req.body;
+            create(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
 }
