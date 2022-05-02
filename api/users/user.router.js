@@ -7,6 +7,6 @@ router.post("/signup", createUser);
 router.get("/", checkToken, getUsers);
 router.get("/:id", getUserById);
 router.post("/login", login)
-router.post("/updateUserType", updateUserType)
+router.post("/updateUserType",checkToken, updateUserType)
 
 module.exports = router;
