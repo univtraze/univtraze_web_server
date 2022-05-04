@@ -57,7 +57,7 @@ module.exports = {
                 })
             }
 
-            console.log(results)
+            return res.json(results)
 
             // const result = compareSync(body.password, results.password);
 
