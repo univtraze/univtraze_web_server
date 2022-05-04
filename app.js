@@ -3,9 +3,12 @@ const express = require("express");
 const app = express();
 const userRouter = require("./api/users/user.router");
 const adminRouter = require("./api/admins/admin.router")
+const cors = require("cors");
 
 app.use(express.json());
-
+app.use(cors({
+    origin: "*",
+}));
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
 
