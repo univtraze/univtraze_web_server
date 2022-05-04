@@ -45,40 +45,40 @@ module.exports = {
     loginAdmin: (req, res) => {
         const body = req.body;
 
-        return res.json(body)
+        getAdminByEmail(body, (err, results) => {
+            if(err) {
+                console.log(err );
+                return
+            }
+            if(!results){
+                return res.json({
+                    success: 0,
+                    data: "Incorrect Email or Password"
+                })
+            }
 
-        // getAdminByEmail(body.email, (err, results) => {
-        //     if(err) {
-        //         console.log(err );
-        //         return
-        //     }
-        //     if(!results){
-        //         return res.json({
-        //             success: 0,
-        //             data: "Incorrect Email or Password"
-        //         })
-        //     }
+            console.log(results)
 
-        //     const result = compareSync(body.password, results.password);
+            // const result = compareSync(body.password, results.password);
 
-        //     if(result) {
-        //         result.password = undefined;
-        //         const jsonToken = sign({result: results}, process.env.JSON_KEY, {
-        //             expiresIn: "7d"
-        //         })
+            // if(result) {
+            //     result.password = undefined;
+            //     const jsonToken = sign({result: results}, process.env.JSON_KEY, {
+            //         expiresIn: "7d"
+            //     })
 
-        //         return res.json({
-        //             success: 1,
-        //             message: "Login successfully",
-        //             token: jsonToken
-        //         });
-        //     } else {
-        //         return res.json({
-        //             success: 0,
-        //             data: "Incorrect Email or Password"
-        //         })
-        //     }
-        // });
+            //     return res.json({
+            //         success: 1,
+            //         message: "Login successfully",
+            //         token: jsonToken
+            //     });
+            // } else {
+            //     return res.json({
+            //         success: 0,
+            //         data: "Incorrect Email or Password"
+            //     })
+            // }
+        });
 
     }
 

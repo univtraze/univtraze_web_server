@@ -16,6 +16,7 @@ module.exports = {
             }
         )
     },
+
     createAdmin: (data, callBack) => {
         pool.query(
             `INSERT INTO admins(username, email, password) 
@@ -34,10 +35,13 @@ module.exports = {
         )
     },
 
-    getAdminByEmail: (email, callBack) => {
+    getAdminByEmail: (data, callBack) => {
         pool.query(
             `SELECT * FROM admins WHERE email = ? || username = ?`,
-            [email],
+            [
+                data.email,
+                data.username
+            ],
             (error, results, fields) =>{
                 if(error){
                     return callBack(error)
