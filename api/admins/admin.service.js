@@ -18,7 +18,7 @@ module.exports = {
     },
     createAdmin: (data, callBack) => {
         pool.query(
-            `INSERT INTO admin(username, email, password) 
+            `INSERT INTO admins(username, email, password) 
                          VALUES (?,?,?)`,
             [
                 data.username,
