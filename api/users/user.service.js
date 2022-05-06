@@ -105,19 +105,21 @@ module.exports = {
     },
 
     getStudentDetailsById: (id, callBack) => {
-        pool.query(
-            `SELECT users.id, users.type, student_details.firstname, student_details.middlename, student_details.lastname, student_details.suffix FROM users, student_details WHERE users.id = ? AND student_details.user_id = ?`,
-            [
-                id,
-                id
-            ],
-            (error, results, fields) => {
-                if(error){
-                    return callBack(error)
-                }
-                return callBack(null, results[0]);
-            }
-        )
+
+        return callBack(null, 'Hello brother' + id);
+        // pool.query(
+        //     `SELECT users.id, users.type, student_details.firstname, student_details.middlename, student_details.lastname, student_details.suffix FROM users, student_details WHERE users.id = ? AND student_details.user_id = ?`,
+        //     [
+        //         id,
+        //         id
+        //     ],
+        //     (error, results, fields) => {
+        //         if(error){
+        //             return callBack(error)
+        //         }
+        //         return callBack(null, results[0]);
+        //     }
+        // )
     },
 
 

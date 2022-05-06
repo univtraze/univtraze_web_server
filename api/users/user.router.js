@@ -5,7 +5,7 @@ const { checkToken } = require("../../auth/token_validator")
 
 router.post("/signup", createUser);
 router.get("/", checkToken, getUsers);
-router.post("/:id", checkToken, getUserById);
+router.post("/id", checkToken, getUserById);
 router.post("/login", login)
 router.post("/updateUserType",checkToken, updateUserType)
 router.post("/addStudentDetails",checkToken, addStudentDetails)
