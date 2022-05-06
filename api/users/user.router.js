@@ -1,4 +1,4 @@
-const { createUser, getUserById, getUsers, login, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails} = require("./user.controller")
+const { createUser, getUserById, getUsers, login, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails, updateStudentDocs,updateEmployeeDocs, updateVisitorDocs} = require("./user.controller")
 
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validator")
@@ -11,6 +11,9 @@ router.post("/updateUserType",checkToken, updateUserType)
 router.post("/addStudentDetails",checkToken, addStudentDetails)
 router.post("/addEmployeeDetails",checkToken, addEmployeeDetails)
 router.post("/addVisitorDetails",checkToken, addVisitorDetails)
+router.post("/updateStudentDocs",checkToken, updateStudentDocs)
+router.post("/updateEmployeeDocs",checkToken, updateEmployeeDocs)
+router.post("/updateVisitorDocs",checkToken, updateVisitorDocs)
 
 
 

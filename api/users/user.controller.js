@@ -1,4 +1,4 @@
-const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, updateVisitorDetails,addVisitorDetails,} = require("./user.service");
+const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 
@@ -351,4 +351,62 @@ module.exports = {
 
 
     },
+
+    updateStudentDocs: (req, res) => {
+        const body = req.body;
+            updateStudentDocs(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
+    updateEmployeeDocs: (req, res) => {
+        const body = req.body;
+            updateEmployeeDocs(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
+
+    updateVisitorDocs: (req, res) => {
+        const body = req.body;
+            updateVisitorDocs(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
+
+
 }
