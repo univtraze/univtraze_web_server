@@ -45,80 +45,6 @@ module.exports = {
 
         });
     },
-    
-    getUserById: (req, res) => {
-        const id = req.body.id;
-        
-        getUserById(id, (err, results) => {
-            if(err){
-                console.log(err);
-                return
-            }
-            if(!results){
-                return res.json({
-                    success: 0,
-                    message: "User not found"
-                })
-            }
-            
-            if(results.type === 'Student'){
-                getStudentDetailsById(id, (err, results) => {
-                    if(err){
-                        console.log(err);
-                        return
-                    }
-
-                    return res.json({
-                        success: 1,
-                        data: results
-                    })
-                })
-
-
-            }
-
-            if(results.type === 'Employee'){
-
-                // getEmployeeDetailsById(id, (err, results) => {
-                //     return res.json({
-                //         success: 1,
-                //         data: 'Employee'  + id
-                //     })
-                    // if(err){
-                    //     console.log(err);
-                    //     return
-                    // }
-                    // return res.json({
-                    //     success: 1,
-                    //     data: results
-                    // })
-                // })
-            }
-
-            if(results.type === 'Visitor'){
-
-                // getVisitorDetailsById(id, (err, results) => {
-                //     return res.json({
-                //         success: 1,
-                //         data: 'Visitor' + id
-                //     })
-                    //     console.log(err);
-                    //     return
-                    // }
-                    // return res.json({
-                    //     success: 1,
-                    //     data: results
-                    // })
-                // })
-            }
-
-            return res.json({
-                success: 0,
-                message: "User type not defined"
-            })
-        })
-
-    },
     getUsers: (req, res) => {
         getUsers((err, results) => {
             if(err){
@@ -131,6 +57,65 @@ module.exports = {
             })
         })
     },
+
+    getStudentDetailsById: (req, res) => {
+        const body = req.body;
+            getStudentDetailsById(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
+
+    getEmployeeDetailsById: (req, res) => {
+        const body = req.body;
+            getEmployeeDetailsById(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
+    
+    getVisitorDetailsById: (req, res) => {
+        const body = req.body;
+            getVisitorDetailsById(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
+
+
     login: (req, res) => {
         const body = req.body;
 

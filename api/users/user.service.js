@@ -104,22 +104,6 @@ module.exports = {
         )
     },
 
-    getStudentDetailsById: (id, callBack) => {
-        pool.query(
-            `SELECT users.id, users.type, student_details.firstname, student_details.middlename, student_details.lastname, student_details.suffix FROM users, student_details WHERE users.id = ? AND student_details.user_id = ?`,
-            [
-                id
-            ],
-            (error, results, fields) => {
-                if(error){
-                    return callBack(error)
-                }
-                return callBack(null, results[0]);
-            }
-        )
-    },
-
-
     updateStudentDetails: (data, callBack) => {
         pool.query(
            `UPDATE student_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,course=?,year_section=?,birthday=?,student_id=?,email=? WHERE user_id=?`,
@@ -232,22 +216,6 @@ module.exports = {
         )
     },
 
-    getEmployeeDetailsById: (id, callBack) => {
-        pool.query(
-            `SELECT users.id, users.type, employee_details.firstname, employee_details.middlename, employee_details.lastname, employee_details.suffix FROM users, employee_details WHERE users.id = ? AND employee_details.user_id = ?`,
-            [
-                id,
-                id
-            ],
-            (error, results, fields) => {
-                if(error){
-                    return callBack(error)
-                }
-                return callBack(null, results[0]);
-            }
-        )
-    },
-
     updateEmployeeDetails: (data, callBack) => {
         pool.query(
             `UPDATE employee_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,department=?,position=?,birthday=?,employee_id=?,email=? WHERE user_id=?`,
@@ -334,21 +302,6 @@ module.exports = {
         )
     },
 
-    getVisitorDetailsById: (id, callBack) => {
-        pool.query(
-            `SELECT users.id, users.type, visitor_details.firstname, visitor_details.middlename, visitor_details.lastname, visitor_details.suffix FROM users, visitor_details WHERE users.id = ? AND visitor_details.user_id = ?`,
-            [
-                id,
-                id
-            ],
-            (error, results, fields) => {
-                if(error){
-                    return callBack(error)
-                }
-                return callBack(null, results[0]);
-            }
-        )
-    },
 
     updateVisitorDetails: (data, callBack) => {
         pool.query(
@@ -416,8 +369,52 @@ module.exports = {
         )
     },
 
-    
+    getStudentDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT users.id, users.type, student_details.firstname, student_details.middlename, student_details.lastname, student_details.suffix FROM users, student_details WHERE users.id = ? AND student_details.user_id = ?`,
+            [
+                id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results[0]);
+            }
+        )
+    },
 
+    getVisitorDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT users.id, users.type, visitor_details.firstname, visitor_details.middlename, visitor_details.lastname, visitor_details.suffix FROM users, visitor_details WHERE users.id = ? AND visitor_details.user_id = ?`,
+            [
+                id,
+                id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    
+    getEmployeeDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT users.id, users.type, employee_details.firstname, employee_details.middlename, employee_details.lastname, employee_details.suffix FROM users, employee_details WHERE users.id = ? AND employee_details.user_id = ?`,
+            [
+                id,
+                id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
 
     
 };
