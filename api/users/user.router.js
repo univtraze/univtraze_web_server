@@ -1,4 +1,4 @@
-const { createUser, getStudentDetailsById, getUsers, login, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails, updateStudentDocs,updateEmployeeDocs, updateVisitorDocs, getStudentDetailsById} = require("./user.controller")
+const { createUser, getUsers, login, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails, updateStudentDocs,updateEmployeeDocs, updateVisitorDocs, getStudentDetailsById} = require("./user.controller")
 
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validator")
