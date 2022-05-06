@@ -134,7 +134,23 @@ module.exports = {
     },
 
     addStudentDetails: (req, res) => {
+        
         const body = req.body;
+
+        if(body.user_id === ''){
+            return res.json({
+                success: 0,
+                message: "user id not found"
+            });
+        }
+
+        if(body.firstname === '' || body.lastname === '' ||body.gender === ''||body.address === '' || body.course === '' || body.year_section === '' || body.birthday === '' || body.student_id === '' || body.email === ''){
+            return res.json({
+                success: 0,
+                message: "Some fields were empty!"
+            });
+        }
+
 
             addStudentDetails(body, (err, results) => {
                 if(err){
@@ -173,7 +189,7 @@ module.exports = {
 
     },
     addVisitorDetails: (req, res) => {
-        
+
 
         const body = req.body;
 
