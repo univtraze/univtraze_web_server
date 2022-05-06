@@ -1,4 +1,4 @@
-const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType} = require("./user.service");
+const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 
@@ -133,9 +133,51 @@ module.exports = {
 
     },
 
-    updateUserCredentials: (req, res) => {
+    addStudentDetails: (req, res) => {
         const body = req.body;
-            updateUserType(body, (err, results) => {
+
+            addStudentDetails(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
+
+    addEmployeeDetails: (req, res) => {
+        const body = req.body;
+
+            addStudentDetails(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+
+    },
+    addVisitorDetails: (req, res) => {
+        
+
+        const body = req.body;
+
+            addStudentDetails(body, (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({
