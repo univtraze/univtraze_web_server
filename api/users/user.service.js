@@ -46,7 +46,7 @@ module.exports = {
     },
     getUserById: (id, callBack) => {
         pool.query(
-            `SELECT id, type, email, provider, FROM users WHERE id = ?`,
+            `SELECT id, type, email, provider FROM users WHERE id = ?`,
             [
             id
             ],
