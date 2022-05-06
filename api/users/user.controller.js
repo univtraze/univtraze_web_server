@@ -59,50 +59,54 @@ module.exports = {
                     message: "User not found"
                 })
             }
-            
-            if(results.data.type === 'Student'){
-                getStudentDetailsById(id, (err, results) => {
-                    if(err){
-                        console.log(err);
-                        return
-                    }
-                    return res.json({
-                        success: 1,
-                        data: results
-                    })
-                })
-            }
-
-            if(results.data.type === 'Employee'){
-                getEmployeeDetailsById(id, (err, results) => {
-                    if(err){
-                        console.log(err);
-                        return
-                    }
-                    return res.json({
-                        success: 1,
-                        data: results
-                    })
-                })
-            }
-
-            if(results.data.type === 'Visitor'){
-                getVisitorDetailsById(id, (err, results) => {
-                    if(err){
-                        console.log(err);
-                        return
-                    }
-                    return res.json({
-                        success: 1,
-                        data: results
-                    })
-                })
-            }
 
             return res.json({
-                success: 0,
-                message: "Please select a valid user type"
+                message: results.data
             })
+            
+            // if(results.data.type === 'Student'){
+            //     getStudentDetailsById(id, (err, results) => {
+            //         if(err){
+            //             console.log(err);
+            //             return
+            //         }
+            //         return res.json({
+            //             success: 1,
+            //             data: results
+            //         })
+            //     })
+            // }
+
+            // if(results.data.type === 'Employee'){
+            //     getEmployeeDetailsById(id, (err, results) => {
+            //         if(err){
+            //             console.log(err);
+            //             return
+            //         }
+            //         return res.json({
+            //             success: 1,
+            //             data: results
+            //         })
+            //     })
+            // }
+
+            // if(results.data.type === 'Visitor'){
+            //     getVisitorDetailsById(id, (err, results) => {
+            //         if(err){
+            //             console.log(err);
+            //             return
+            //         }
+            //         return res.json({
+            //             success: 1,
+            //             data: results
+            //         })
+            //     })
+            // }
+
+            // return res.json({
+            //     success: 0,
+            //     message: "Please select a valid user type"
+            // })
         })
 
     },
