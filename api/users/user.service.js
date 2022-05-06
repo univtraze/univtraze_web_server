@@ -325,7 +325,7 @@ module.exports = {
     },
     updateVisitorDocs: (data, callBack) => {
         pool.query(
-           `UPDATE visitor_details SET valid_id_img=?,mobile_number=?,profile_url=? WHERE user_id = 1`,
+           `UPDATE visitor_details SET valid_id_img=?,mobile_number=?,profile_url=? WHERE user_id = ?`,
             [
                 data.valid_id_img,
                 data.mobile_number,
