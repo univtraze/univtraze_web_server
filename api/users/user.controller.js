@@ -111,10 +111,10 @@ module.exports = {
         //         })
         //     }
 
-        //     return res.json({
-        //         success: 0,
-        //         message: "User type not defined"
-        //     })
+            return res.json({
+                success: 0,
+                message: results
+            })
         })
 
     },
