@@ -48,21 +48,18 @@ module.exports = {
     
     getUserById: (req, res) => {
         const id = req.body.id;
-             return res.json({
-                success: 0,
-                message: id
-            })
-        // getUserById(id, (err, results) => {
-        //     if(err){
-        //         console.log(err);
-        //         return
-        //     }
-        //     if(!results){
-        //         return res.json({
-        //             success: 0,
-        //             message: "User not found"
-        //         })
-        //     }
+        
+        getUserById(id, (err, results) => {
+            if(err){
+                console.log(err);
+                return
+            }
+            if(!results){
+                return res.json({
+                    success: 0,
+                    message: "User not found"
+                })
+            }
             
         //     if(results.type === 'Student'){
         //             return res.json({
