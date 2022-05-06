@@ -62,27 +62,20 @@ module.exports = {
             }
             
             if(results.type === 'Student'){
+                getStudentDetailsById(id, (err, results) => {
+                    if(err){
+                        console.log(err);
+                        return
+                    }
                     return res.json({
                         success: 1,
-                        data: 'Student' + id
+                        data: results
                     })
-                // getStudentDetailsById(id, (err, results) => {
-                //     if(err){
-                //         console.log(err);
-                //         return
-                //     }
-                //     return res.json({
-                //         success: 1,
-                //         data: results
-                //     })
-                // })
+                })
             }
 
             if(results.type === 'Employee'){
-                return res.json({
-                    success: 1,
-                    data: 'Employee' + id
-                })
+
                 // getEmployeeDetailsById(id, (err, results) => {
                 //     return res.json({
                 //         success: 1,
@@ -100,10 +93,7 @@ module.exports = {
             }
 
             if(results.type === 'Visitor'){
-                return res.json({
-                    success: 1,
-                    data: 'Visitor' + id
-                })
+
                 // getVisitorDetailsById(id, (err, results) => {
                 //     return res.json({
                 //         success: 1,
