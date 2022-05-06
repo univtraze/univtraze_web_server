@@ -240,7 +240,7 @@ module.exports = {
         )
     },
 
-    updateEmployeeDetails: (data, callBack) => {
+    updateVisitorDetails: (data, callBack) => {
         pool.query(
             `UPDATE visitor_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,birthday=?,valid_id=?,email=? WHERE user_id=?`,
             [
