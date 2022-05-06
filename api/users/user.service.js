@@ -104,10 +104,8 @@ module.exports = {
 
     updateStudentDetails: (data, callBack) => {
         pool.query(
-            `INSERT INTO student_details(user_id, firstname, lastname, middlename, suffix, gender, address, course, year_section, birthday, student_id, email) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
+           `UPDATE student_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,course=?,year_section=?,birthday=?,student_id=?,email=?, WHERE user_id=?`,
             [
-                data.user_id,
                 data.firstname,
                 data.lastname,
                 data.middlename,
@@ -119,6 +117,7 @@ module.exports = {
                 data.birthday,
                 data.student_id,
                 data.email,
+                data.user_id,
             ],
             (error, results, fields) => {
                 if(error) {

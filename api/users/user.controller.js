@@ -1,4 +1,4 @@
-const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails, checkStudentDetailsExist} = require("./user.service");
+const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails, checkStudentDetailsExist, updateStudentDetails} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 
@@ -154,44 +154,57 @@ module.exports = {
             }
             
             if(results.length === 0){
-                return res.json({
-                    success: 1,
-                    message: "Proceed inserting new data"
-                }); 
+                if(body.firstname === '' || body.lastname === '' ||body.gender === ''||body.address === '' || body.course === '' || body.year_section === '' || body.birthday === '' || body.student_id === '' || body.email === ''){
+                    return res.json({
+                        success: 0,
+                        message: "Some fields were empty!"
+                    });
+                }
+
+                    addStudentDetails(body, (err, results) => {
+                        if(err){
+                            console.log(err)
+                            return res.json({
+                                success: 0,
+                                message: "Database connection Error"
+                            });
+                        }
+                        
+                        return res.status(200).json({
+                            success: 1,
+                            data: results
+                        });
+                });
             }
 
             if(results.length > 0){
-                return res.json({
-                    success: 1,
-                    message: "Update data with this id"
-                }); 
+                if(body.firstname === '' || body.lastname === '' ||body.gender === ''||body.address === '' || body.course === '' || body.year_section === '' || body.birthday === '' || body.student_id === '' || body.email === ''){
+                    return res.json({
+                        success: 0,
+                        message: "Some fields were empty!"
+                    });
+                }
+
+                updateStudentDetails(body, (err, results) => {
+                        if(err){
+                            console.log(err)
+                            return res.json({
+                                success: 0,
+                                message: "Database connection Error"
+                            });
+                        }
+                        
+                        return res.status(200).json({
+                            success: 1,
+                            data: results
+                        });
+                });
             }
 
         });
 
 
-        // if(body.firstname === '' || body.lastname === '' ||body.gender === ''||body.address === '' || body.course === '' || body.year_section === '' || body.birthday === '' || body.student_id === '' || body.email === ''){
-        //     return res.json({
-        //         success: 0,
-        //         message: "Some fields were empty!"
-        //     });
-        // }
-
-        //     addStudentDetails(body, (err, results) => {
-        //         if(err){
-        //             console.log(err)
-        //             return res.json({
-        //                 success: 0,
-        //                 message: "Database connection Error"
-        //             });
-        //         }
-                
-        //         return res.status(200).json({
-        //             success: 1,
-        //             data: results
-        //         });
-        //     });
-
+        
     },
 
     addEmployeeDetails: (req, res) => {
