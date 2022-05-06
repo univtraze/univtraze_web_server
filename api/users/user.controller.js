@@ -1,4 +1,4 @@
-const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails} = require("./user.service");
+const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails, checkStudentDetailsExist} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 
@@ -144,28 +144,43 @@ module.exports = {
             });
         }
 
-        if(body.firstname === '' || body.lastname === '' ||body.gender === ''||body.address === '' || body.course === '' || body.year_section === '' || body.birthday === '' || body.student_id === '' || body.email === ''){
-            return res.json({
-                success: 0,
-                message: "Some fields were empty!"
-            });
-        }
-
-
-            addStudentDetails(body, (err, results) => {
-                if(err){
-                    console.log(err)
-                    return res.json({
-                        success: 0,
-                        message: "Database connection Error"
-                    });
-                }
-                
-                return res.status(200).json({
-                    success: 1,
-                    data: results
+        checkStudentDetailsExist(data, (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
                 });
+            }
+            
+            return res.status(200).json({
+                success: 1,
+                data: results
             });
+        });
+
+
+        // if(body.firstname === '' || body.lastname === '' ||body.gender === ''||body.address === '' || body.course === '' || body.year_section === '' || body.birthday === '' || body.student_id === '' || body.email === ''){
+        //     return res.json({
+        //         success: 0,
+        //         message: "Some fields were empty!"
+        //     });
+        // }
+
+        //     addStudentDetails(body, (err, results) => {
+        //         if(err){
+        //             console.log(err)
+        //             return res.json({
+        //                 success: 0,
+        //                 message: "Database connection Error"
+        //             });
+        //         }
+                
+        //         return res.status(200).json({
+        //             success: 1,
+        //             data: results
+        //         });
+        //     });
 
     },
 
