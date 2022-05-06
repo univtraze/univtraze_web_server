@@ -155,6 +155,49 @@ module.exports = {
         )
     },
 
+
+
+    checkEmployeeDetailsExist: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM employee_details WHERE user_id = ?`,
+            [
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    updateEmployeeDetails: (data, callBack) => {
+        pool.query(
+            `UPDATE employee_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,department=?,position=?,birthday=?,employee_id=?,email=? WHERE user_id=?`,
+            [
+                data.firstname,
+                data.lastname,
+                data.middlename,
+                data.suffix,
+                data.gender,
+                data.address,
+                data.department,
+                data.position,
+                data.birthday,
+                data.employee_id,
+                data.email,
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     addEmployeeDetails: (data, callBack) => {
         pool.query(
             `INSERT INTO employee_details(user_id, firstname, lastname, middlename, suffix, gender, address, department, position, birthday, employee_id, email) 
