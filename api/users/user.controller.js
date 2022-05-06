@@ -79,6 +79,10 @@ module.exports = {
             }
 
             if(results.type === 'Employee'){
+                return res.json({
+                    success: 1,
+                    data: 'Employee' + id
+                })
                 // getEmployeeDetailsById(id, (err, results) => {
                 //     return res.json({
                 //         success: 1,
@@ -96,6 +100,10 @@ module.exports = {
             }
 
             if(results.type === 'Visitor'){
+                return res.json({
+                    success: 1,
+                    data: 'Visitor' + id
+                })
                 // getVisitorDetailsById(id, (err, results) => {
                 //     return res.json({
                 //         success: 1,
