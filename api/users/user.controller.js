@@ -63,7 +63,6 @@ module.exports = {
             
             if(results.type === 'Student'){
                 getStudentDetailsById(id, (err, results) => {
-                    
                     if(err){
                         console.log(err);
                         return
