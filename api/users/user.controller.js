@@ -144,7 +144,7 @@ module.exports = {
             });
         }
 
-        checkStudentDetailsExist(data, (err, results) => {
+        checkStudentDetailsExist(body, (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
