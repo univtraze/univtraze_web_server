@@ -153,10 +153,20 @@ module.exports = {
                 });
             }
             
-            return res.status(200).json({
-                success: 1,
-                data: results
-            });
+            if(results.length === 0){
+                return res.json({
+                    success: 1,
+                    message: "Proceed inserting new data"
+                }); 
+            }
+
+            if(results.length > 0){
+                return res.json({
+                    success: 1,
+                    message: "Update data with this id"
+                }); 
+            }
+
         });
 
 
