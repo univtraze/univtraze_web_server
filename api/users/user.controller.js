@@ -153,10 +153,13 @@ module.exports = {
                 });
             }
             
-            return res.status(200).json({
-                success: 1,
-                data: results
-            });
+            if(results.length === 0){
+              return console.log("Insert data")
+            } 
+
+            console.log('Update data')
+            
+            
         });
 
 
