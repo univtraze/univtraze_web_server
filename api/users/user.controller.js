@@ -61,41 +61,52 @@ module.exports = {
             }
             
             if(results.type === 'Student'){
-                getStudentDetailsById(id, (err, results) => {
-                    if(err){
-                        console.log(err);
-                        return
-                    }
                     return res.json({
                         success: 1,
-                        data: results
+                        data: 'Student'
                     })
-                })
+                // getStudentDetailsById(id, (err, results) => {
+                //     if(err){
+                //         console.log(err);
+                //         return
+                //     }
+                //     return res.json({
+                //         success: 1,
+                //         data: results
+                //     })
+                // })
             }
 
             if(results.type === 'Employee'){
                 getEmployeeDetailsById(id, (err, results) => {
-                    if(err){
-                        console.log(err);
-                        return
-                    }
                     return res.json({
                         success: 1,
-                        data: results
+                        data: 'Employee'
                     })
+                    // if(err){
+                    //     console.log(err);
+                    //     return
+                    // }
+                    // return res.json({
+                    //     success: 1,
+                    //     data: results
+                    // })
                 })
             }
 
             if(results.type === 'Visitor'){
                 getVisitorDetailsById(id, (err, results) => {
-                    if(err){
-                        console.log(err);
-                        return
-                    }
                     return res.json({
                         success: 1,
-                        data: results
+                        data: 'Visitor'
                     })
+                    //     console.log(err);
+                    //     return
+                    // }
+                    // return res.json({
+                    //     success: 1,
+                    //     data: results
+                    // })
                 })
             }
 
