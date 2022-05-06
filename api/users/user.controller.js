@@ -48,74 +48,77 @@ module.exports = {
     
     getUserById: (req, res) => {
         const id = req.body.id;
-
-        getUserById(id, (err, results) => {
-            if(err){
-                console.log(err);
-                return
-            }
-            if(!results){
-                return res.json({
-                    success: 0,
-                    message: "User not found"
-                })
-            }
-            
-            if(results.type === 'Student'){
-                    return res.json({
-                        success: 1,
-                        data: 'Student' + id
-                    })
-                // getStudentDetailsById(id, (err, results) => {
-                //     if(err){
-                //         console.log(err);
-                //         return
-                //     }
-                //     return res.json({
-                //         success: 1,
-                //         data: results
-                //     })
-                // })
-            }
-
-            if(results.type === 'Employee'){
-                getEmployeeDetailsById(id, (err, results) => {
-                    return res.json({
-                        success: 1,
-                        data: 'Employee'  + id
-                    })
-                    // if(err){
-                    //     console.log(err);
-                    //     return
-                    // }
-                    // return res.json({
-                    //     success: 1,
-                    //     data: results
-                    // })
-                })
-            }
-
-            if(results.type === 'Visitor'){
-                getVisitorDetailsById(id, (err, results) => {
-                    return res.json({
-                        success: 1,
-                        data: 'Visitor' + id
-                    })
-                    //     console.log(err);
-                    //     return
-                    // }
-                    // return res.json({
-                    //     success: 1,
-                    //     data: results
-                    // })
-                })
-            }
-
-            return res.json({
+             return res.json({
                 success: 0,
-                message: "User type not defined"
+                message: id
             })
-        })
+        // getUserById(id, (err, results) => {
+        //     if(err){
+        //         console.log(err);
+        //         return
+        //     }
+        //     if(!results){
+        //         return res.json({
+        //             success: 0,
+        //             message: "User not found"
+        //         })
+        //     }
+            
+        //     if(results.type === 'Student'){
+        //             return res.json({
+        //                 success: 1,
+        //                 data: 'Student' + id
+        //             })
+        //         // getStudentDetailsById(id, (err, results) => {
+        //         //     if(err){
+        //         //         console.log(err);
+        //         //         return
+        //         //     }
+        //         //     return res.json({
+        //         //         success: 1,
+        //         //         data: results
+        //         //     })
+        //         // })
+        //     }
+
+        //     if(results.type === 'Employee'){
+        //         getEmployeeDetailsById(id, (err, results) => {
+        //             return res.json({
+        //                 success: 1,
+        //                 data: 'Employee'  + id
+        //             })
+        //             // if(err){
+        //             //     console.log(err);
+        //             //     return
+        //             // }
+        //             // return res.json({
+        //             //     success: 1,
+        //             //     data: results
+        //             // })
+        //         })
+        //     }
+
+        //     if(results.type === 'Visitor'){
+        //         getVisitorDetailsById(id, (err, results) => {
+        //             return res.json({
+        //                 success: 1,
+        //                 data: 'Visitor' + id
+        //             })
+        //             //     console.log(err);
+        //             //     return
+        //             // }
+        //             // return res.json({
+        //             //     success: 1,
+        //             //     data: results
+        //             // })
+        //         })
+        //     }
+
+        //     return res.json({
+        //         success: 0,
+        //         message: "User type not defined"
+        //     })
+        // })
 
     },
     getUsers: (req, res) => {
