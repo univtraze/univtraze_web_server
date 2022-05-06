@@ -112,7 +112,7 @@ module.exports = {
 
             return res.json({
                 success: 0,
-                message: "Please select a valid user type"
+                message: "User type not defined"
             })
         })
 
