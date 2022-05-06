@@ -104,7 +104,7 @@ module.exports = {
 
     updateStudentDetails: (data, callBack) => {
         pool.query(
-           `UPDATE student_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,course=?,year_section=?,birthday=?,student_id=?,email=?, WHERE user_id=?`,
+           `UPDATE student_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,course=?,year_section=?,birthday=?,student_id=?,email=? WHERE user_id=?`,
             [
                 data.firstname,
                 data.lastname,

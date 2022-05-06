@@ -178,6 +178,7 @@ module.exports = {
             }
 
             if(results.length > 0){
+                
                 if(body.firstname === '' || body.lastname === '' ||body.gender === ''||body.address === '' || body.course === '' || body.year_section === '' || body.birthday === '' || body.student_id === '' || body.email === ''){
                     return res.json({
                         success: 0,
