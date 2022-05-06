@@ -371,9 +371,8 @@ module.exports = {
 
     getStudentDetailsById: (id, callBack) => {
         pool.query(
-            `SELECT users.id, users.type, student_details.firstname, student_details.middlename, student_details.lastname, student_details.suffix FROM users, student_details WHERE users.id = ? AND student_details.user_id = ?`,
+            `SELECT user_id, firstname, middlename, lastname, suffix FROM student_details WHERE user_id = ?`,
             [
-                id,
                 id
             ],
             (error, results, fields) => {
@@ -387,9 +386,8 @@ module.exports = {
 
     getVisitorDetailsById: (id, callBack) => {
         pool.query(
-            `SELECT users.id, users.type, visitor_details.firstname, visitor_details.middlename, visitor_details.lastname, visitor_details.suffix FROM users, visitor_details WHERE users.id = ? AND visitor_details.user_id = ?`,
+            `SELECT user_id, firstname, middlename, lastname, suffix FROM visitor_details WHERE user_id = ?`,
             [
-                id,
                 id
             ],
             (error, results, fields) => {
@@ -403,9 +401,8 @@ module.exports = {
     
     getEmployeeDetailsById: (id, callBack) => {
         pool.query(
-            `SELECT users.id, users.type, employee_details.firstname, employee_details.middlename, employee_details.lastname, employee_details.suffix FROM users, employee_details WHERE users.id = ? AND employee_details.user_id = ?`,
+            `SELECT user_id, firstname, middlename, lastname, suffix FROM employee_details WHERE user_id = ?`,
             [
-                id,
                 id
             ],
             (error, results, fields) => {
