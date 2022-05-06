@@ -60,7 +60,6 @@ module.exports = {
 
     getStudentDetailsById: (req, res) => {
         const body = req.body;
-            
             getStudentDetailsById(body.id, (err, results) => {
                 if(err){
                     console.log(err)
@@ -72,7 +71,7 @@ module.exports = {
                 
                 return res.status(200).json({
                     success: 1,
-                    data: results + " Student"
+                    data: results
                 });
             });
 
