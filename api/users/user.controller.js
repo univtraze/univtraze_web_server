@@ -1,4 +1,7 @@
-const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs, getStudentDetailsById} = require("./user.service");
+const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, 
+        updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, 
+        updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs, getUserById,
+        getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 
@@ -43,7 +46,6 @@ module.exports = {
         });
     },
     getUserById: (req, res) => {
-
         const id = req.params.id;
 
         getUserById(id, (err, results) => {
@@ -57,9 +59,49 @@ module.exports = {
                     message: "User not found"
                 })
             }
+            
+            if(results.data.type === 'Student'){
+                getStudentDetailsById(id, (err, results) => {
+                    if(err){
+                        console.log(err);
+                        return
+                    }
+                    return res.json({
+                        success: 1,
+                        data: results
+                    })
+                })
+            }
+
+            if(results.data.type === 'Employee'){
+                getEmployeeDetailsById(id, (err, results) => {
+                    if(err){
+                        console.log(err);
+                        return
+                    }
+                    return res.json({
+                        success: 1,
+                        data: results
+                    })
+                })
+            }
+
+            if(results.data.type === 'Visitor'){
+                getVisitorDetailsById(id, (err, results) => {
+                    if(err){
+                        console.log(err);
+                        return
+                    }
+                    return res.json({
+                        success: 1,
+                        data: results
+                    })
+                })
+            }
+
             return res.json({
-                success: 1,
-                data: results
+                success: 0,
+                message: "Please select a valid user type"
             })
         })
 
