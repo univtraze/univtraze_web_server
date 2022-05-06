@@ -225,6 +225,45 @@ module.exports = {
         )
     },
 
+    checkVisitorDetailsExist: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM visitor_details WHERE user_id = ?`,
+            [
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    updateEmployeeDetails: (data, callBack) => {
+        pool.query(
+            `UPDATE visitor_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,birthday=?,valid_id=?,email=? WHERE user_id=?`,
+            [
+                data.firstname,
+                data.lastname,
+                data.middlename,
+                data.suffix,
+                data.gender,
+                data.address,
+                data.birthday,
+                data.valid_id,
+                data.email,
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     addVisitorDetails: (data, callBack) => {
         pool.query(
             `INSERT INTO visitor_details (user_id, firstname, lastname, middlename, suffix, gender, address, birthday, valid_id, email) 

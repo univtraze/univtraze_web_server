@@ -1,4 +1,4 @@
-const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, addVisitorDetails,} = require("./user.service");
+const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, updateVisitorDetails,addVisitorDetails,} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 
@@ -282,20 +282,73 @@ module.exports = {
 
         const body = req.body;
 
-            addStudentDetails(body, (err, results) => {
-                if(err){
-                    console.log(err)
+        if(body.user_id === ''){
+            return res.json({
+                success: 0,
+                message: "user id not found"
+            });
+        }
+
+        checkVisitorDetailsExist(body, (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Erro around here"
+                });
+            }
+            
+            if(results.length === 0){
+                if(body.firstname === '' || body.lastname === '' ||body.gender === ''|| body.position === '' || body.birthday === '' || body.student_id === '' || body.email === ''){
                     return res.json({
                         success: 0,
-                        message: "Database connection Error"
+                        message: "Some fields were empty!"
                     });
                 }
-                
-                return res.status(200).json({
-                    success: 1,
-                    data: results
+
+                addVisitorDetails(body, (err, results) => {
+                        if(err){
+                            console.log(err)
+                            return res.json({
+                                success: 0,
+                                message: "Database connection Error"
+                            });
+                        }
+                        
+                        return res.status(200).json({
+                            success: 1,
+                            data: results
+                        });
                 });
-            });
+            }
+
+            if(results.length > 0){
+                
+                if(body.firstname === '' || body.lastname === '' ||body.gender === ''||body.address === ''|| body.birthday === '' || body.student_id === '' || body.email === ''){
+                    return res.json({
+                        success: 0,
+                        message: "Some fields were empty!"
+                    });
+                }
+
+                updateVisitorDetails(body, (err, results) => {
+                        if(err){
+                            console.log(err)
+                            return res.json({
+                                success: 0,
+                                message: "Database connection Error"
+                            });
+                        }
+                        
+                        return res.status(200).json({
+                            success: 1,
+                            data: results
+                        });
+                });
+            }
+
+        });
+
 
     },
 }
