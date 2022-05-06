@@ -60,7 +60,8 @@ module.exports = {
 
     getStudentDetailsById: (req, res) => {
         const body = req.body;
-            getStudentDetailsById(body, (err, results) => {
+            
+            getStudentDetailsById(body.id, (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({
@@ -71,7 +72,7 @@ module.exports = {
                 
                 return res.status(200).json({
                     success: 1,
-                    data: results
+                    data: results + " Student"
                 });
             });
 
@@ -79,7 +80,7 @@ module.exports = {
 
     getEmployeeDetailsById: (req, res) => {
         const body = req.body;
-            getEmployeeDetailsById(body, (err, results) => {
+            getEmployeeDetailsById(body.id, (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({
@@ -95,10 +96,10 @@ module.exports = {
             });
 
     },
-    
+
     getVisitorDetailsById: (req, res) => {
         const body = req.body;
-            getVisitorDetailsById(body, (err, results) => {
+            getVisitorDetailsById(body.id, (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({

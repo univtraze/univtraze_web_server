@@ -405,11 +405,12 @@ module.exports = {
             [
                 id
             ],
+            
             (error, results, fields) => {
                 if(error){
                     return callBack(error)
                 }
-                return callBack(null, results[0]);
+                    return callBack(null, results[0]);
             }
         )
     },
