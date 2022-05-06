@@ -79,11 +79,11 @@ module.exports = {
             }
 
             if(results.type === 'Employee'){
-                getEmployeeDetailsById(id, (err, results) => {
-                    return res.json({
-                        success: 1,
-                        data: 'Employee'  + id
-                    })
+                // getEmployeeDetailsById(id, (err, results) => {
+                //     return res.json({
+                //         success: 1,
+                //         data: 'Employee'  + id
+                //     })
                     // if(err){
                     //     console.log(err);
                     //     return
@@ -92,15 +92,15 @@ module.exports = {
                     //     success: 1,
                     //     data: results
                     // })
-                })
+                // })
             }
 
             if(results.type === 'Visitor'){
-                getVisitorDetailsById(id, (err, results) => {
-                    return res.json({
-                        success: 1,
-                        data: 'Visitor' + id
-                    })
+                // getVisitorDetailsById(id, (err, results) => {
+                //     return res.json({
+                //         success: 1,
+                //         data: 'Visitor' + id
+                //     })
                     //     console.log(err);
                     //     return
                     // }
@@ -108,7 +108,7 @@ module.exports = {
                     //     success: 1,
                     //     data: results
                     // })
-                })
+                // })
             }
 
             return res.json({
