@@ -391,20 +391,26 @@ module.exports = {
 
     updateVisitorDocs: (req, res) => {
         const body = req.body;
-            updateVisitorDocs(body, (err, results) => {
-                if(err){
-                    console.log(err)
-                    return res.json({
-                        success: 0,
-                        message: "Database connection Error"
-                    });
-                }
-                
-                return res.status(200).json({
+
+        return res.status(200).json({
                     success: 1,
-                    data: results
+                    data: body
                 });
-            });
+
+            // updateVisitorDocs(body, (err, results) => {
+            //     if(err){
+            //         console.log(err)
+            //         return res.json({
+            //             success: 0,
+            //             message: "Database connection Error"
+            //         });
+            //     }
+                
+            //     return res.status(200).json({
+            //         success: 1,
+            //         data: results
+            //     });
+            // });
 
     },
 
