@@ -127,6 +127,49 @@ module.exports = {
             }
         )
     },
+    updateStudentDetails: (data, callBack) => {
+        pool.query(
+           `UPDATE student_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,course=?,year_section=?,birthday=?,student_id=?,email=? WHERE user_id=?`,
+            [
+                data.firstname,
+                data.lastname,
+                data.middlename,
+                data.suffix,
+                data.gender,
+                data.address,
+                data.course,
+                data.year_section,
+                data.birthday,
+                data.student_id,
+                data.email,
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    updateStudentDocs: (data, callBack) => {
+        pool.query(
+           `UPDATE student_details SET school_id_img=?,mobile_number=?,profile_url=? WHERE user_id=?`,
+            [
+                data.school_id_img,
+                data.mobile_number,
+                data.profile_url,
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 
     addStudentDetails: (data, callBack) => {
         pool.query(
@@ -154,7 +197,6 @@ module.exports = {
             }
         )
     },
-
 
 
     checkEmployeeDetailsExist: (data, callBack) => {
@@ -187,6 +229,24 @@ module.exports = {
                 data.birthday,
                 data.employee_id,
                 data.email,
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    updateEmployeeDocs: (data, callBack) => {
+        pool.query(
+           `UPDATE employee_details SET employee_id_img=?,mobile_number=?,profile_url=? WHERE user_id=?`,
+            [
+                data.employee_id_image,
+                data.mobile_number,
+                data.profile_url,
                 data.user_id,
             ],
             (error, results, fields) => {
@@ -263,6 +323,23 @@ module.exports = {
             }
         )
     },
+    updateVisitorDocs: (data, callBack) => {
+        pool.query(
+           `UPDATE visitor_details SET valid_id_img=?,mobile_number=?,profile_url=? WHERE user_id=?`,
+            [
+                data.valid_id_image,
+                data.mobile_number,
+                data.profile_url,
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 
     addVisitorDetails: (data, callBack) => {
         pool.query(
@@ -288,6 +365,8 @@ module.exports = {
             }
         )
     },
+
+    
 
 
     
