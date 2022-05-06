@@ -61,7 +61,7 @@ module.exports = {
             }
 
             return res.json({
-                message: results.data
+                message: results
             })
             
             // if(results.data.type === 'Student'){
