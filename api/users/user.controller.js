@@ -115,7 +115,7 @@ module.exports = {
         //         success: 0,
         //         message: "User type not defined"
         //     })
-        // })
+        })
 
     },
     getUsers: (req, res) => {
