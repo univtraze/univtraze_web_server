@@ -46,7 +46,7 @@ module.exports = {
     },
     getUserById: (id, callBack) => {
         pool.query(
-            `SELECT id, type, email, provider, password, createdAt, updatedAt FROM users WHERE id = ?`,
+            `SELECT users.id, users.type, email, provider, password, createdAt, updatedAt FROM users WHERE id = ?`,
             [id],
             (error, results, fields) => {
                 if(error){
@@ -98,6 +98,22 @@ module.exports = {
                     return callBack(error)
                 }
                     return callBack(null, results)
+            }
+        )
+    },
+
+    getStudentDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT users.id, users.type, student_details.firstname, student_details.middlename, student_details.lastname, student_details.suffix FROM users, student_details WHERE users.id = ? AND student_details.user_id = ?`,
+            [
+                id,
+                id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                return callBack(null, results[0]);
             }
         )
     },

@@ -1,4 +1,4 @@
-const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs} = require("./user.service");
+const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs, getStudentDetailsById} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 
@@ -407,6 +407,25 @@ module.exports = {
                 });
             });
 
+    },
+
+    getStudentDetailsById: (req, res) => {
+        const id = req.params.id
+
+            getStudentDetailsById(id, (err, results) =>{
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        success: 0,
+                        message: "Database connection Error"
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
     },
 
 
