@@ -324,23 +324,21 @@ module.exports = {
         )
     },
     updateVisitorDocs: (data, callBack) => {
-        
-        return callBack(null, data.valid_id_img);
-        // pool.query(
-        //    `UPDATE visitor_details SET valid_id_img=?,mobile_number=?,email=?,profile_url=? WHERE user_id = 1`,
-        //     [
-        //         data.valid_id_img,
-        //         data.mobile_number,
-        //         data.profile_url,
-        //         data.user_id,
-        //     ],
-        //     (error, results, fields) => {
-        //         if(error) {
-        //             return callBack(error)
-        //         }
-        //             return callBack(null, results)
-        //     }
-        // )
+        pool.query(
+           `UPDATE visitor_details SET valid_id_img=?,mobile_number=?,profile_url=? WHERE user_id = 1`,
+            [
+                data.valid_id_img,
+                data.mobile_number,
+                data.profile_url,
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
     },
 
     addVisitorDetails: (data, callBack) => {
