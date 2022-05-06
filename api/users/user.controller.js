@@ -221,7 +221,7 @@ module.exports = {
                 console.log(err)
                 return res.json({
                     success: 0,
-                    message: "Database connection Error"
+                    message: "Database connection Erro around here"
                 });
             }
             
