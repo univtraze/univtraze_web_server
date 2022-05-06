@@ -244,7 +244,7 @@ module.exports = {
         pool.query(
            `UPDATE employee_details SET employee_id_img=?,mobile_number=?,profile_url=? WHERE user_id=?`,
             [
-                data.employee_id_image,
+                data.employee_id_img,
                 data.mobile_number,
                 data.profile_url,
                 data.user_id,
