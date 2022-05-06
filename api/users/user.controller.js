@@ -63,7 +63,7 @@ module.exports = {
             if(results.type === 'Student'){
                     return res.json({
                         success: 1,
-                        data: 'Student'
+                        data: 'Student' + id
                     })
                 // getStudentDetailsById(id, (err, results) => {
                 //     if(err){
@@ -81,7 +81,7 @@ module.exports = {
                 getEmployeeDetailsById(id, (err, results) => {
                     return res.json({
                         success: 1,
-                        data: 'Employee'
+                        data: 'Employee'  + id
                     })
                     // if(err){
                     //     console.log(err);
@@ -98,7 +98,7 @@ module.exports = {
                 getVisitorDetailsById(id, (err, results) => {
                     return res.json({
                         success: 1,
-                        data: 'Visitor'
+                        data: 'Visitor' + id
                     })
                     //     console.log(err);
                     //     return
