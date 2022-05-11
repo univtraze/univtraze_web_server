@@ -18,6 +18,13 @@ app.use("/api/admin", adminRouter);
 app.use("/api/vaccine_info", vaccination_info);
 app.use("/api/rooms", roomRouter);
 
+
+app.use("/practice", (req, res) => {
+    res.json({
+        message: "Successful"
+    })
+})
+
 const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
