@@ -5,6 +5,7 @@ const userRouter = require("./api/users/user.router");
 const adminRouter = require("./api/admins/admin.router")
 const vaccination_info = require("./api/vaccination_info/vaccination.router")
 const roomRouter = require("./api/rooms/room.router")
+const router = express.Router();
 
 const cors = require("cors");
 
@@ -19,12 +20,11 @@ app.use("/api/vaccine_info", vaccination_info);
 app.use("/api/rooms", roomRouter);
 
 
-app.use("/practice", (req, res) => {
+router.get('/practice', (req,res) => {
     return res.json({
-        success: 0,
-        message: "Database connection Error"
-    });
-})
+    message: "success"
+    })
+});
 
 const port = process.env.PORT || 3001;
 
