@@ -1,4 +1,4 @@
-const { insertVaccineData } = require("./vaccination.service");
+const { insertVaccineData, updateVaccineData } = require("./vaccination.service");
 
 module.exports = {
     updateVaccineData: (req, res) => {
