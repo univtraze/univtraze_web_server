@@ -90,12 +90,19 @@ module.exports = {
 
             const user_id = results[0].user_id
             const room_id = results[0].room_id
-            const date = new Date(results[0].updatedAt).format("%Y-%m-%d");
+            const date = new Date(results[0].updatedAt);
+            
+            const year1 = date.getFullYear
+            const month1 =date.getMonth
+            const day1 = date.getDay
+
+            const updatedAt = year1+'-'+month1+'-'+day1
+
                 
 
             return res.status(200).json({
                 success: 1,
-                data: date
+                data: updatedAt
             });
         });
 
