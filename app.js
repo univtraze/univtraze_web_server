@@ -4,6 +4,7 @@ const app = express();
 const userRouter = require("./api/users/user.router");
 const adminRouter = require("./api/admins/admin.router")
 const vaccination_info = require("./api/vaccination_info/vaccination.router")
+const roomRouter = require("./api/rooms/room.router")
 
 const cors = require("cors");
 
@@ -15,6 +16,7 @@ app.use(cors({
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/vaccine_info", vaccination_info);
+app.use("/api/rooms", roomRouter);
 
 const port = process.env.PORT || 3001;
 
