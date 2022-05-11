@@ -3,10 +3,16 @@ const pool = require("../../config/database");
 module.exports = {
     updateVaccineData:(data, callBack ) => {
         pool.query(
-            `UPDATE vaccination_record SET user_id=?,firstdose_vaxname=?,firstdose_date=?,seconddose_vaxname=?,seconddose_date=?,booster_vaxname=?,booster_date=? WHERE 1`,
+            `UPDATE vaccination_record SET user_id=?,firstdose_vaxname=?,firstdose_date=?,seconddose_vaxname=?,seconddose_date=?,booster_vaxname=?,booster_date=? WHERE user_id = ?`,
             [
-                data.email,
-                data.username
+                data.user_id,
+                data.firstdose_vaxname,
+                data.firstdose_date,
+                data.seconddose_vaxname,
+                data.seconddose_date,
+                data.booster_vaxname,
+                data.booster_date,
+                data.user_id
             ],
             (error, results, fields) => {
                 if(error) {
