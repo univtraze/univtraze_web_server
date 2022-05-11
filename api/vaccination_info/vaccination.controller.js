@@ -22,6 +22,7 @@ module.exports = {
 
     insertVaccineData: (req, res) => {
         const body = req.body;
+        
         return res.json(body)
     }
 }
