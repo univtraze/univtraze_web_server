@@ -94,12 +94,12 @@ module.exports = {
             const dateToday = new Date();
             
             const year1 = date.getFullYear()
-            const month1 =date.getMonth()
+            const month1 =date.getMonth() + 1
             const day1 = date.getDay()
 
 
             const yearNow1 = dateToday.getFullYear()
-            const monthNow1 = dateToday.getMonth()
+            const monthNow1 = dateToday.getMonth() + 1
             const dayNow1 = dateToday.getDay()
 
             const updatedAt = year1+'-'+month1+'-'+day1
