@@ -1,4 +1,4 @@
-const { addRoom,  checkIfRoomExists, getAllRooms } = require("./room.service");
+const { addRoom,  checkIfRoomExists, getAllRooms, addVisitedRoom} = require("./room.service");
 
 module.exports = {
     addRoom: (req, res) => {
@@ -60,7 +60,7 @@ module.exports = {
     addVisitedRoom: (req, res) => {
         body = req.body
             
-            getAllRooms(body, (err, results) => {
+            addVisitedRoom(body, (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({
