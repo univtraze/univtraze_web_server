@@ -20,9 +20,10 @@ app.use("/api/rooms", roomRouter);
 
 
 app.use("/practice", (req, res) => {
-    res.json({
-        message: "Successful"
-    })
+    return res.json({
+        success: 0,
+        message: "Database connection Error"
+    });
 })
 
 const port = process.env.PORT || 3001;
