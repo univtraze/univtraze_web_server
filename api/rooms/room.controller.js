@@ -90,12 +90,12 @@ module.exports = {
 
             const user_id = results[0].user_id
             const room_id = results[0].room_id
-            const date = new Date(results[0].createdAt);
+            const date = new Date(results[0].updatedAt);
                 
 
             return res.status(200).json({
                 success: 1,
-                data: date
+                data: date.format("%Y-%m-%d")
             });
         });
 
