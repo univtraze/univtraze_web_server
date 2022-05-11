@@ -82,4 +82,18 @@ module.exports = {
         )
     },
 
+    updateVisitedRoom: (data, callBack) => {
+        pool.query(
+            `UPDATE room_visited SET updatedAt = CURRENT_TIMESTAMP`,
+            [
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
 };
