@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validator");
-const { insertVaccineData } = require("./vaccination.service");
+const { insertVaccineData, updateVaccineInfo } = require("./vaccination.service");
 
-router.post("/updateVaccineInfo",checkToken, updateVaccinationInfo)
+router.post("/updateVaccineInfo",checkToken, updateVaccineInfo)
 router.post("/insertVaccineInfo",checkToken, insertVaccineData)
 
 module.exports = router;
