@@ -3,7 +3,7 @@ const { insertVaccineData, updateVaccineInfo } = require("./vaccination.service"
 module.exports = {
     updateVaccineInfo: (req, res) => {
         const body = req.body;
-            updateVaccine(body, (err, results) => {
+            updateVaccineInfo(body, (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({
