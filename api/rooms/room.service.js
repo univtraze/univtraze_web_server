@@ -50,6 +50,22 @@ module.exports = {
         )
     },
 
+    checkIfRoomVisitedExists: (data, callBack) => {
+        pool.query(
+            `SELECT id, user_id, room_id, createdAt, updatedAt FROM room_visited WHERE user_id = ? AND room_id = ?`,
+            [
+                data.user_id,
+                data.room_id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     addVisitedRoom: (data, callBack) => {
         pool.query(
             `INSERT INTO room_visited(user_id, room_id) VALUES (?,?)`,
