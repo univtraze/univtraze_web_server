@@ -72,26 +72,30 @@ module.exports = {
             });
             }
             if(results.length === 0){
-                
-                  addVisitedRoom(body, (err, results) => {
-                        if(err){
-                            console.log(err)
-                            return res.json({
-                            success: 0,
-                            message: "Database connection Error"
-                        });
-                        }
+                addVisitedRoom(body, (err, results) => {
+                if(err){
+                    console.log(err)
+                 return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                 });
+                }
 
-                        return res.status(200).json({
-                            success: 1,
-                            data: results
-                        });
-                    });
-            }
+                return res.status(200).json({
+                    success: 1,
+                    data: results
+                });
+            });
+            }  
+
+            const user_id = results[0].user_id
+            const room_id = results[0].room_id
+            const date = new Date(results[0].createdAt);
+                
 
             return res.status(200).json({
                 success: 1,
-                data: results[0].createdAt
+                data: date
             });
         });
 
