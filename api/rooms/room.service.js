@@ -50,4 +50,20 @@ module.exports = {
         )
     },
 
+    addVisitedRoom: (data, callBack) => {
+        pool.query(
+            `INSERT INTO room_visited(user_id, room_id) VALUES (?,?)`,
+            [
+                data.user_id,
+                data.room_id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
 };
