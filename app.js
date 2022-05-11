@@ -5,6 +5,7 @@ const userRouter = require("./api/users/user.router");
 const adminRouter = require("./api/admins/admin.router")
 const vaccination_info = require("./api/vaccination_info/vaccination.router")
 const roomRouter = require("./api/rooms/room.router")
+
 const router = express.Router();
 
 const cors = require("cors");
@@ -21,7 +22,7 @@ app.use("/api/rooms", roomRouter);
 
 
 router.get('/practice', (req,res) => {
-    return res.json({
+    res.json({
     message: "success"
     })
 });
