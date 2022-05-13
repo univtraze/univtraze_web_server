@@ -4,7 +4,7 @@ module.exports = {
     addRoom: (req, res) => {
         body = req.body
         
-        checkIfRoomExists(body, (err, results) => {
+        checkIfRoomVisitedExists(body, (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
