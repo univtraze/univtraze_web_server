@@ -63,6 +63,33 @@ module.exports = {
        
         body = req.body
 
+        checkIfRoomVisitedExists(body, (err, results) => {
+           
+            if(err){
+                console.log(err)
+                return res.json({
+                success: 0,
+                message: "Database connection Error"
+            });
+            }
+
+            if(results.length === 0){
+                addVisitedRoom(body, (err, results) => {
+                    if(err){
+                        console.log(err)
+                        return res.json({
+                            success: 0,
+                            message: "Database connection Error"
+                        });
+                    }
+
+                    return res.status(200).json({
+                        success: 1,
+                        data: results
+                    });
+                });
+            } 
+
             addVisitedRoom(body, (err, results) => {
                 if(err){
                     console.log(err)
@@ -74,10 +101,14 @@ module.exports = {
 
                 return res.status(200).json({
                     success: 1,
-                    message: "Room visisted added successfully",
-                    results: results
+                    message: "Room visited",
+                    data: results
                 });
             });
+
+            
+        });
+
 
     },
 
