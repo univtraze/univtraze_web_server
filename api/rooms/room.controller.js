@@ -1,10 +1,10 @@
-const { addRoom, getAllRooms, addVisitedRoom, checkIfRoomVisitedExists} = require("./room.service");
+const { addRoom, getAllRooms, addVisitedRoom, checkIfRoomVisitedExists, checkIfRoomExists} = require("./room.service");
 
 module.exports = {
     addRoom: (req, res) => {
         body = req.body
         
-        checkIfRoomVisitedExists(body, (err, results) => {
+        checkIfRoomExists(body, (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
