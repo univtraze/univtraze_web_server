@@ -1,4 +1,5 @@
 
+const { addCovidPositive } = require("./covid_case.service");
 
 module.exports = {
     addCovidPositive: (req, res) => {
