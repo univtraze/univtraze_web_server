@@ -87,11 +87,19 @@ module.exports = {
                         data: "Room not yet visited"
                     });
                 // });
-            } 
+            }
+
+            const datesAreOnSameDay = (first, second) => {
+                first.getFullYear() === second.getFullYear() &&
+                first.getMonth() === second.getMonth() &&
+                first.getDate() === second.getDate();
+            }
+
 
             return res.status(200).json({
                 success: 1,
-                data: "Room Already Visited"
+                data: "Room Already Visited",
+                same: datesAreOnSameDay(new Date(results[0].updatedAt), new Date())
             });
 
             // const date = new Date(results[0].updatedAt);
