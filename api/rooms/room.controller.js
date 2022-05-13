@@ -93,7 +93,7 @@ module.exports = {
             return res.status(200).json({
                 success: 1,
                 data: "Room Already Visited",
-                lastVisitedDate: results[0]
+                lastVisitedDate: results
             });
 
             // const date = new Date(results[0].updatedAt);
