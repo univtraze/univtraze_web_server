@@ -41,13 +41,12 @@ module.exports = {
 
     addDailyAssessement: (data, callBack) => {
         pool.query(
-            `INSERT INTO emergency_reporting(reported_by, patient_name, medical_condition, description, room_number) VALUES (?,?,?,?,?)`,
+            `INSERT INTO daily_assessment(user_id, symptoms,pending_covid_test,pending_test_date) VALUES (?,?,?,?)`,
             [
-                data.reported_by,
-                data.patient_name,
-                JSON.stringify(data.medical_condition), 
+                data.id,
+                JSON.stringify(data.symptoms),
                 data.description,
-                data.room_number
+                data.pending_test_date, 
             ],
             (error, results, fields) => {
                 if(error) {

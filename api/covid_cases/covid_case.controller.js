@@ -43,22 +43,24 @@ module.exports = {
     },
 
     addDailyAssessment: (req, res) => {
+        
         const body = req.body;
-        // addDailyAssessement(body, (err, results) => {
-        //     if(err){
-        //         console.log(err)
-        //         return res.json({
-        //             success: 0,
-        //             message: "Database connection Error"
-        //         });
+
+        addDailyAssessement(body, (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
                 
-        //     }
+            }
 
             return res.json({
                 success: 1,
                 data: body
             });
-        // });
+        });
     },
 
 
