@@ -1,4 +1,4 @@
-const { addRoom, getAllRooms, addVisitedRoom, checkIfRoomVisitedExists, updateVisitedRoom} = require("./room.service");
+const { addRoom, getAllRooms, addVisitedRoom, checkIfRoomVisitedExists} = require("./room.service");
 
 module.exports = {
     addRoom: (req, res) => {
