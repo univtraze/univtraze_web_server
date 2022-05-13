@@ -73,33 +73,27 @@ module.exports = {
             }
 
             if(results.length === 0){
-                // addVisitedRoom(body, (err, results) => {
-                //     if(err){
-                //         console.log(err)
-                //         return res.json({
-                //             success: 0,
-                //             message: "Database connection Error"
-                //         });
-                //     }
+                addVisitedRoom(body, (err, results) => {
+                    if(err){
+                        console.log(err)
+                        return res.json({
+                            success: 0,
+                            message: "Database connection Error"
+                        });
+                    }
 
                     return res.status(200).json({
                         success: 1,
-                        data: "Room not yet visited uwu"
+                        data: results
                     });
-                // });
-            }
-
-            const datesAreOnSameDay = (first, second) => {
-                first.getFullYear() === second.getFullYear() &&
-                first.getMonth() === second.getMonth() &&
-                first.getDate() === second.getDate();
+                });
             }
 
 
             return res.status(200).json({
                 success: 1,
                 data: "Room Already Visited",
-                same: datesAreOnSameDay(new Date(results[0].updatedAt), new Date())
+                lastVisitedDate: results[0].updatedAt
             });
 
             // const date = new Date(results[0].updatedAt);
