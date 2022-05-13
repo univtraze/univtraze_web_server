@@ -84,7 +84,7 @@ module.exports = {
 
                     return res.status(200).json({
                         success: 1,
-                        data: "Room not yet visited"
+                        data: "Room not yet visited uwu"
                     });
                 // });
             }
