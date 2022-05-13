@@ -45,7 +45,7 @@ module.exports = {
             [
                 data.id,
                 JSON.stringify(data.symptoms),
-                data.description,
+                data.pending_covid_test,
                 data.pending_test_date, 
             ],
             (error, results, fields) => {
