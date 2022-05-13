@@ -17,6 +17,26 @@ module.exports = {
                     return callBack(null, results)
             }
         )
+    },
+
+    
+    addEmergencyReport: (data, callBack) => {
+        pool.query(
+            `INSERT INTO emergency_reporting(reported_by, patient_name, medical_condition, description, room_number) VALUES (?,?,?,?,?)`,
+            [
+                data.reported_by,
+                data.patient_name,
+                data.medical_condition, 
+                data.description,
+                data.room_number
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
     }
    
 };
