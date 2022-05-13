@@ -26,7 +26,7 @@ module.exports = {
             [
                 data.reported_by,
                 data.patient_name,
-                data.medical_condition, 
+                data.JSON.stringify(medical_condition), 
                 data.description,
                 data.room_number
             ],
