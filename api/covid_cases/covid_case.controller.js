@@ -3,12 +3,10 @@
 module.exports = {
     addCovidPositive: (req, res) => {
         const body = req.body;
-        const salt = genSaltSync(10);
-        body.password = hashSync(body.password, salt)
 
         return res.json({
             success: 1,
-            message: "Test Success"
+            message: body
         });
 
         // addCovidPositive(body, (err, results) => {
