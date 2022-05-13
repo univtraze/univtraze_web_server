@@ -62,7 +62,7 @@ module.exports = {
     addVisitedRoom: (req, res) => {
        
         body = req.body
-        
+
             addVisitedRoom(body, (err, results) => {
                 if(err){
                     console.log(err)
@@ -74,8 +74,8 @@ module.exports = {
 
                 return res.status(200).json({
                     success: 1,
-                    data: "Room Already Visited",
-                    roomVisitedHistory: results
+                    message: "Room visisted added successfully",
+                    results: results
                 });
             });
 
