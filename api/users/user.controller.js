@@ -88,11 +88,14 @@ module.exports = {
 
     getEmployeeDetailsById: (req, res) => {
         const body = req.body;
-
+                    
+        console.log(body)
                      return res.json({
                         success: 0,
                         message: body
                     });
+
+                    
 
             // getEmployeeDetailsById(body.id, (err, results) => {
             //     if(err){
