@@ -71,7 +71,7 @@ module.exports = {
                     });
                 }
                 
-                if(results.length === 0){
+                if(results === undefined){
                     return res.status(200).json({
                         success: 0,
                         message: "No data found for this user"
@@ -123,7 +123,7 @@ module.exports = {
                     });
                 }
 
-                if(results.length === 0){
+                if(results === undefined){
                     return res.status(200).json({
                         success: 0,
                         message: "No data found for this user"
