@@ -51,6 +51,14 @@ module.exports = {
                 console.log(err);
                 return
             }
+
+            if(results.length === 0){
+                return res.status(200).json({
+                    success: 0,
+                    message: "No data found for this user"
+                });
+            }
+            
             return res.json({
                 success: 1,
                 data: results
@@ -69,6 +77,13 @@ module.exports = {
                     });
                 }
                 
+                if(results.length === 0){
+                    return res.status(200).json({
+                        success: 0,
+                        message: "No data found for this user"
+                    });
+                }
+
                 return res.status(200).json({
                     success: 1,
                     data: results
@@ -85,6 +100,13 @@ module.exports = {
                     return res.json({
                         success: 0,
                         message: "Database connection Error"
+                    });
+                }
+
+                if(results.length === 0){
+                    return res.status(200).json({
+                        success: 0,
+                        message: "No data found for this user"
                     });
                 }
                 
