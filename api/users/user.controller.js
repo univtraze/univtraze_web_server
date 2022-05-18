@@ -97,12 +97,7 @@ module.exports = {
                     });
                 }
 
-                if(results.length === 0){
-                    return res.status(200).json({
-                        success: 0,
-                        message: "No data found for this user"
-                    });
-                }
+                console.log(results)
                 
                 return res.status(200).json({
                     success: 1,
