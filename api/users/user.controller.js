@@ -88,27 +88,33 @@ module.exports = {
 
     getEmployeeDetailsById: (req, res) => {
         const body = req.body;
-            getEmployeeDetailsById(body.id, (err, results) => {
-                if(err){
-                    console.log(err)
-                    return res.json({
-                        success: 0,
-                        message: "Database connection Error"
-                    });
-                }
 
-                if(results === undefined){
-                    return res.status(200).json({
+                     return res.json({
                         success: 0,
-                        message: "No data found for this user"
+                        message: body
                     });
-                }
+
+            // getEmployeeDetailsById(body.id, (err, results) => {
+            //     if(err){
+            //         console.log(err)
+            //         return res.json({
+            //             success: 0,
+            //             message: "Database connection Error"
+            //         });
+            //     }
+
+            //     if(results === undefined){
+            //         return res.status(200).json({
+            //             success: 0,
+            //             message: "No data found for this user"
+            //         });
+            //     }
                 
-                return res.status(200).json({
-                    success: 1,
-                    data: results
-                });
-            });
+            //     return res.status(200).json({
+            //         success: 1,
+            //         data: results
+            //     });
+            // });
 
     },
 
