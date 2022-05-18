@@ -46,19 +46,13 @@ module.exports = {
         });
     },
     getUsers: (req, res) => {
+
         getUsers((err, results) => {
             if(err){
                 console.log(err);
                 return
             }
 
-            if(results.length === 0){
-                return res.status(200).json({
-                    success: 0,
-                    message: "No data found for this user"
-                });
-            }
-            
             return res.json({
                 success: 1,
                 data: results
@@ -128,6 +122,14 @@ module.exports = {
                         message: "Database connection Error"
                     });
                 }
+
+                if(results.length === 0){
+                    return res.status(200).json({
+                        success: 0,
+                        message: "No data found for this user"
+                    });
+                }
+                
                 
                 return res.status(200).json({
                     success: 1,
