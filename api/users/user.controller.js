@@ -88,7 +88,7 @@ module.exports = {
 
     getEmployeeDetailsById: (req, res) => {
         const body = req.body;
-
+        
             getEmployeeDetailsById(body.id, (err, results) => {
                 if(err){
                     console.log(err)
@@ -107,7 +107,7 @@ module.exports = {
                 
                 return res.status(200).json({
                     success: 1,
-                    data: results[0]
+                    data: results
                 });
             });
 
