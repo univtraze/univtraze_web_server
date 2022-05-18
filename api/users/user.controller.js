@@ -97,7 +97,12 @@ module.exports = {
                     });
                 }
 
-                console.log(results)
+                if(results === undefined || results[0] == undefined){
+                    return res.status(200).json({
+                        success: 0,
+                        message: "No data found for this user"
+                    });
+                }
                 
                 return res.status(200).json({
                     success: 1,
