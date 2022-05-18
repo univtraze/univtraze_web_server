@@ -86,8 +86,9 @@ module.exports = {
 
     },
 
-    getEmployeeDetailsById: (req, res) => {       
-
+    getEmployeeDetailsById: (req, res) => {
+        const body = req.body;
+        
             getEmployeeDetailsById(body.id, (err, results) => {
                 if(err){
                     console.log(err)
