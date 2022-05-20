@@ -115,7 +115,7 @@ module.exports = {
     searchRoomNumber: (req, res) => {
         const body = req.body;
 
-        searchRoomNumber(body, () => {
+        searchRoomNumber(body, (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
