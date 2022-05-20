@@ -96,4 +96,19 @@ module.exports = {
         )
     },
 
+    searchRoomNumber: (data, callBack) => {
+        pool.query(
+            `SELECT id, room_number, building_name, room_name, createdAt, updatedAt FROM rooms WHERE room_number = ?`,
+            [
+                data.room_number,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
 };
