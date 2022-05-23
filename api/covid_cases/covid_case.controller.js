@@ -1,5 +1,5 @@
 
-const { addCovidPositive, addEmergencyReport, addDailyAssessement } = require("./covid_case.service");
+const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate } = require("./covid_case.service");
 
 module.exports = {
     addCovidPositive: (req, res) => {
@@ -19,6 +19,27 @@ module.exports = {
             return res.json({
                 success: 1,
                 data: results
+            });
+        });
+    },
+    
+    addDailyAssessment: (req, res) => {
+        
+        const body = req.body;
+
+        addDailyAssessement(body, (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+                
+            }
+
+            return res.json({
+                success: 1,
+                data: body
             });
         });
     },
@@ -42,11 +63,10 @@ module.exports = {
         });
     },
 
-    addDailyAssessment: (req, res) => {
-        
+    searchEmergencyReportsViaDate: (req, res) => {
         const body = req.body;
 
-        addDailyAssessement(body, (err, results) => {
+        searchEmergencyReportsViaDate(body, (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
@@ -58,11 +78,9 @@ module.exports = {
 
             return res.json({
                 success: 1,
-                data: body
+                data: results
             });
         });
-    },
 
-
-
+    }
 }

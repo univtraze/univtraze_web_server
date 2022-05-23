@@ -19,7 +19,24 @@ module.exports = {
         )
     },
 
-    
+    addDailyAssessement: (data, callBack) => {
+        pool.query(
+            `INSERT INTO daily_assessment(user_id, symptoms,pending_covid_test,pending_test_date) VALUES (?,?,?,?)`,
+            [
+                data.id,
+                JSON.stringify(data.symptoms),
+                data.pending_covid_test,
+                data.pending_test_date, 
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     addEmergencyReport: (data, callBack) => {
         pool.query(
             `INSERT INTO emergency_reporting(reported_by, patient_name, medical_condition, description, room_number) VALUES (?,?,?,?,?)`,
@@ -39,14 +56,12 @@ module.exports = {
         )
     },
 
-    addDailyAssessement: (data, callBack) => {
+    searchEmergencyReportsViaDate: (data, callBack) => {
         pool.query(
-            `INSERT INTO daily_assessment(user_id, symptoms,pending_covid_test,pending_test_date) VALUES (?,?,?,?)`,
+            `select * from emergency_reporting where createdAt between ? and CONCAT(?, ' 23:59:59')`,
             [
-                data.id,
-                JSON.stringify(data.symptoms),
-                data.pending_covid_test,
-                data.pending_test_date, 
+                data.date,
+                data.date
             ],
             (error, results, fields) => {
                 if(error) {
@@ -55,6 +70,6 @@ module.exports = {
                     return callBack(null, results)
             }
         )
-    },
+    }
    
 };
