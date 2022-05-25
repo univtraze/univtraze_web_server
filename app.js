@@ -20,7 +20,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/vaccine_info", vaccination_info);
 app.use("/api/rooms", roomRouter);
 app.use("/api/covid_cases", covidCasesRouter);
-// app.use("/api/clinic", covidCasesRouter);
+app.use("/api/clinic", covidCasesRouter);
 
 
 const port = process.env.PORT || 3001;
