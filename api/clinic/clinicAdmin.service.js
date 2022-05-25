@@ -35,21 +35,5 @@ module.exports = {
         )
     },
 
-    getClinicAdminByEmail: (data, callBack) => {
-        pool.query(
-            `SELECT * FROM  clinic_credentials WHERE email = ? || username = ?`,
-            [
-                data.email,
-                data.username
-            ],
-            (error, results, fields) =>{
-                if(error){
-                    return callBack(error)
-                }
-                    return callBack(null, results[0])
-            }
-        )
-    },
-
    
 };
