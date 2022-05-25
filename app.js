@@ -7,6 +7,7 @@ const vaccination_info = require("./api/vaccination_info/vaccination.router");
 const roomRouter = require("./api/rooms/room.router");
 const covidCasesRouter = require("./api/covid_cases/covid_case.router");
 
+
 const cors = require("cors");
 
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/vaccine_info", vaccination_info);
 app.use("/api/rooms", roomRouter);
 app.use("/api/covid_cases", covidCasesRouter);
+// app.use("/api/clinic", covidCasesRouter);
 
 
 const port = process.env.PORT || 3001;
