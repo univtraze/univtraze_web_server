@@ -132,22 +132,22 @@ module.exports = {
     userVisitedRooms: (req, res) => {
         const body = req.body;
 
-        userVisitedRooms(body, (err, results ) => {
+        // userVisitedRooms(body, (err, results ) => {
 
-            if(err){
-                console.log(err)
-                return res.json({
-                    success: 0,
-                    message: "Database connection Error"
-                });
-            }
-            return res.status(200).json({
-                success: 1,
-                data: results
-            });
+        //     if(err){
+        //         console.log(err)
+        //         return res.json({
+        //             success: 0,
+        //             message: "Database connection Error"
+        //         });
+        //     }
+        //     return res.status(200).json({
+        //         success: 1,
+        //         data: results
+        //     });
 
 
-        })
+        // })
     }
 
 
