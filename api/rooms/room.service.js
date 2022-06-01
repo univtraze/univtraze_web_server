@@ -111,4 +111,19 @@ module.exports = {
         )
     },
 
+    userVisitedRooms: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM room_visited WHERE user_id = ?`,
+            [
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
 };

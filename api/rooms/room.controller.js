@@ -1,4 +1,4 @@
-const { addRoom, getAllRooms, addVisitedRoom, checkIfRoomVisitedExists, checkIfRoomExists, searchRoomNumber} = require("./room.service");
+const { addRoom, getAllRooms, addVisitedRoom, checkIfRoomVisitedExists, checkIfRoomExists, searchRoomNumber, userVisitedRooms} = require("./room.service");
 
 module.exports = {
     addRoom: (req, res) => {
@@ -128,7 +128,32 @@ module.exports = {
                 data: results
             });
         })
-    } 
+    },
+    userVisitedRooms: (req, res) => {
+        const body = req.body;
+
+        return res.status(200).json({
+            success: 1,
+            data: body
+        });
+
+        // userVisitedRooms(body, (err, results ) => {
+
+        //     if(err){
+        //         console.log(err)
+        //         return res.json({
+        //             success: 0,
+        //             message: "Database connection Error"
+        //         });
+        //     }
+        //     return res.status(200).json({
+        //         success: 1,
+        //         data: results
+        //     });
+
+
+        // })
+    }
 
 
 }
