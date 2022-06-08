@@ -128,7 +128,7 @@ module.exports = {
 
     addUserNotification: (data, callBack) => {
         pool.query(
-            `INSERT INTO INSERT INTO notifications(user_id, notification_for, notification_description) VALUES (?,?,?)(user_id, room_id) VALUES (?,?)`,
+            `INSERT INTO notifications(user_id, notification_for, notification_description) VALUES (?,?,?)`,
             [
                 data.user_id,
                 data.notification_for,
