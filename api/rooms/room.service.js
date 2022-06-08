@@ -111,4 +111,35 @@ module.exports = {
         )
     },
 
+    // getUserTempToday: (data, callBack) => {
+    //     pool.query(
+    //         `SELECT room_visited.id,room_visited.user_id,room_visited.room_id,rooms.room_number, rooms.building_name, rooms.room_name, room_visited.temperature,room_visited.createdAt,room_visited.updatedAt FROM room_visited, rooms WHERE room_visited.user_id = ? AND rooms.id = room_visited.room_id`,
+    //         [
+    //             data.user_id,
+    //         ],
+    //         (error, results, fields) => {
+    //             if(error) {
+    //                 return callBack(error)
+    //             }
+    //                 return callBack(null, results)
+    //         }
+    //     )
+    // },
+
+    addUserNotification: (data, callBack) => {
+        pool.query(
+            `INSERT INTO INSERT INTO notifications(user_id, notification_for, notification_description) VALUES (?,?,?)(user_id, room_id) VALUES (?,?)`,
+            [
+                data.user_id,
+                data.notification_for,
+                data.notification_description
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 };
