@@ -1,4 +1,4 @@
-const { addRoom, getAllRooms, addVisitedRoom,checkIfRoomExists, searchRoomNumber, userVisitedRooms} = require("./room.service");
+const { addRoom, getAllRooms, addVisitedRoom,checkIfRoomExists, searchRoomNumber, userVisitedRooms, addUserNotification} = require("./room.service");
 
 module.exports = {
     addRoom: (req, res) => {
@@ -72,6 +72,8 @@ module.exports = {
                     });
                 }
 
+
+
                 return res.status(200).json({
                     success: 1,
                     message: "Room visited Sucessfully",
@@ -117,6 +119,15 @@ module.exports = {
 
 
         })
+    },
+
+    addUserNotification: (req, res) => {
+        const body = req.body;
+        
+        return res.status(200).json({
+            success: 1,
+            data: body
+        });
     }
 
 
