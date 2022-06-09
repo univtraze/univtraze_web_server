@@ -3,7 +3,14 @@
 
 module.exports = {
     uploadUserImageProfile: (req, res) => {
+        
         const body = req.body;
+
+        return res.json({
+            success: 1,
+            data: body
+        });
+
         // addCovidPositive(body, (err, results) => {
         //     if(err){
         //         console.log(err)
@@ -16,10 +23,10 @@ module.exports = {
                 
         //     }
 
-            return res.json({
-                success: 1,
-                data: body
-            });
+            // return res.json({
+            //     success: 1,
+            //     data: body
+            // });
         // });
     },
 }
