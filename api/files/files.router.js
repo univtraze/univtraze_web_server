@@ -1,13 +1,7 @@
 const router = require("express").Router()
-// const {  uploadUserImageProfile } = require("./files.controller");
+const { checkToken } = require("../../auth/token_validator");
+const {  uploadUserImageProfile } = require("./files.controller");
 
-router.post("/uploadUserImageProfile", function (req, res) {
-    const body = req.body;
-
-    return res.json({
-        success: 1,
-        data: body
-    });
-})
+router.post("/uploadUserImageProfile", checkToken, uploadUserImageProfile)
 
 module.exports = router;
