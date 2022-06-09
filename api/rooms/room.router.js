@@ -7,7 +7,7 @@ router.post("/allRooms", checkToken, getAllRooms)
 router.post("/addVisitedRoom", checkToken, addVisitedRoom)
 router.post("/searchRoom", checkToken, searchRoomNumber)
 router.post("/userVisitedRooms", checkToken, userVisitedRooms)
-router.post("/addUserNotification", checkToken, addUserNotification)
+// router.post("/addUserNotification", checkToken, addUserNotification)
 
 
 module.exports = router;
