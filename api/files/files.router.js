@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const {  uploadUserImageProfile } = require("./files.controller");
+// const {  uploadUserImageProfile } = require("./files.controller");
 
 router.post("/uploadUserImageProfile", (req, res) =>{
     const body = req.body;
