@@ -4,12 +4,9 @@ const router = require("express").Router()
 router.post("/uploadUserImageProfile", (req, res) =>{
     const body = req.body;
 
-    res.json({
-        hello: "Hello",
-        body: body   
+    return res.json({
+       body 
     })
 })
-// router.post("/uploadUserId", checkToken, searchEmergencyReportsViaDate)
-// router.post("/uploadUserProofDoc", checkToken, searchEmergencyReportsViaDate)
 
 module.exports = router;
