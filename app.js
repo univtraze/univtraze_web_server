@@ -11,11 +11,13 @@ const clinicRouter = require("./api/clinic/clinicAdmin.router");
 const bodyParser = require('body-parser');
 const cors = require("cors");
 
+
 //THis is where cloudinary staart
+const multer = require('multer')
 const cloudinary = require('cloudinary').v2
 const streamifier = require('streamifier')
 
-
+const fileUpload = multer()
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
