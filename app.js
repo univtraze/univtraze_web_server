@@ -34,7 +34,7 @@ app.use("/api/clinic", clinicRouter);
 // app.use("/api/files", fileRouter);
 
 app.post('/photos/upload', fileUpload.array('image', 5), function (req, res, next) {
-    console.log("Images here", req.file);  
+    console.log("Images here", req.files[0]);  
 })
 
 const port = process.env.PORT || 3001;
