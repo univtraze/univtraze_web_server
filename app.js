@@ -9,13 +9,13 @@ const covidCasesRouter = require("./api/covid_cases/covid_case.router");
 const clinicRouter = require("./api/clinic/clinicAdmin.router");
 const fileRouter = require("./api/files/files.router")
 
-
 const cors = require("cors");
 
 app.use(express.json());
-app.use(cors({
-    origin: "*",
-}));
+app.use(cors({origin: "*"}));
+app.use(express.json({limit: '50mb',}));
+app.use(express.urlencoded({limit: '50mb', extended: true}));
+
 
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
