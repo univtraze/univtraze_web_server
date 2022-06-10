@@ -40,7 +40,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: "user_profiles",
+      folder: "user_profiles_2",
     },
 });
 
