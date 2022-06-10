@@ -4,7 +4,7 @@
 module.exports = {
     
     uploadUserImageProfile: (req, res) => {
-        const body = req;
+        const body = req.body;
 
         return res.json({
             success: 1,
