@@ -11,10 +11,12 @@ const clinicRouter = require("./api/clinic/clinicAdmin.router");
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const cors = require("cors");
-const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
+const upload = require('./config/multer')
+const cloudinary = require('./config/cloudinary')
+const fs = require('fs')
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
@@ -31,25 +33,31 @@ app.use("/api/covid_cases", covidCasesRouter);
 app.use("/api/clinic", clinicRouter);
 // app.use("/api/files", fileRouter);
 
-cloudinary.config({
-    cloud_name: 'daf5a2n2t', 
-    api_key: '677141335181791', 
-    api_secret: 'S_AHiSugK75cshdLSDTacLR2kVA' 
-});
+app.use('api/uploadImage', upload.array('image'), async (req, res) => {
+    const uploader = async (path) => await cloudinary.uploads(path, 'Images')
+    if(req.method === 'POST'){
+        const urls = []
+        const files = req.files
 
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      folder: "user_profiles_2",
-    },
-});
+        for(const file of files){
+            const {path} = file
+            const newPath = await uploader(path)
+            urls.push(newPath)
 
-const upload = multer({ storage: storage });
+            fs.unlinkSync(path)
+        }
 
-app.post("/api/files/uploadUserImageProfile", upload.single("picture"), async (req, res) => {
-    return res.json({ picture: req.file });
-});
-
+        res.status(200).json({
+            success: 1,
+            message: 'Image uploaded successfully',
+            data: urls
+        }) 
+    } else {
+        res.status(405).json({
+            err: "Failed uploading images"
+        })
+    }
+})
 
 const port = process.env.PORT || 3001;
 
