@@ -10,17 +10,18 @@ const clinicRouter = require("./api/clinic/clinicAdmin.router");
 // const fileRouter = require("./api/files/files.router")
 const bodyParser = require('body-parser');
 const cors = require("cors");
-const cloudinaryConfig = require('./config/cloudinary-config')
-
 
 //THis is where cloudinary staart
 const multer = require('multer')
 const cloudinary = require('cloudinary').v2
 const streamifier = require('streamifier')
-
-cloudinaryConfig()
-
 const fileUpload = multer()
+
+cloudinary.config({ 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
