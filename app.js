@@ -25,7 +25,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: "DEV",
+      folder: "user_profiles",
     },
 });
 
