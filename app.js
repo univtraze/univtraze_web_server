@@ -47,7 +47,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 app.post("/api/files/uploadUserImageProfile", upload.single("picture"), async (req, res) => {
-    return res.json({ picture: req.file.path });
+    return res.json({ picture: req.file });
 });
 
 
