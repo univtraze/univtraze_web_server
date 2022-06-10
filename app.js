@@ -17,6 +17,12 @@ const multer = require('multer')
 const cloudinary = require('cloudinary').v2
 const streamifier = require('streamifier')
 
+cloudinary.config({ 
+    cloud_name: 'daf5a2n2t', 
+    api_key: '677141335181791',
+    api_secret: 'S_AHiSugK75cshdLSDTacLR2kVA'
+});
+
 const fileUpload = multer()
 
 app.use(express.json());
