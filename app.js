@@ -9,12 +9,13 @@ const covidCasesRouter = require("./api/covid_cases/covid_case.router");
 const clinicRouter = require("./api/clinic/clinicAdmin.router");
 const fileRouter = require("./api/files/files.router")
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const cors = require("cors");
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
-
+app.use(fileUpload());
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true}));
 
