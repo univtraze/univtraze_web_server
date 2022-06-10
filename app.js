@@ -16,24 +16,6 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
 
-cloudinary.config({
-    cloud_name: 'daf5a2n2t', 
-    api_key: '677141335181791', 
-    api_secret: 'S_AHiSugK75cshdLSDTacLR2kVA' 
-});
-
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      folder: "user_profiles",
-    },
-});
-
-const upload = multer({ storage: storage });
-app.post("/api/files/uploadUserImageProfile", upload.single("picture"), async (req, res) => {
-    return res.json({ picture: req.file.path });
-});
-
 app.use(express.json());
 app.use(cors({origin: "*"}));
 app.use(fileUpload());
@@ -48,6 +30,25 @@ app.use("/api/rooms", roomRouter);
 app.use("/api/covid_cases", covidCasesRouter);
 app.use("/api/clinic", clinicRouter);
 // app.use("/api/files", fileRouter);
+
+cloudinary.config({
+    cloud_name: 'daf5a2n2t', 
+    api_key: '677141335181791', 
+    api_secret: 'S_AHiSugK75cshdLSDTacLR2kVA' 
+});
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: "user_profiles",
+    },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/api/files/uploadUserImageProfile", upload.single("picture"), async (req, res) => {
+    return res.json({ picture: req.file.path });
+});
 
 
 const port = process.env.PORT || 3001;
