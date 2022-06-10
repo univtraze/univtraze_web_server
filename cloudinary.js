@@ -1,5 +1,5 @@
 const cloudinary = require('Cloudinary');
-const uploads = require('./multer');
+const uploads = require('multer');
 
 cloudinary.config({ 
   cloud_name: 'daf5a2n2t', 

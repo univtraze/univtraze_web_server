@@ -11,11 +11,9 @@ const clinicRouter = require("./api/clinic/clinicAdmin.router");
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const cors = require("cors");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const multer = require("multer");
 
-const upload = require('./config/multer')
-const cloudinary = require('./config/cloudinary')
+const upload = require('./multer')
+const cloudinary = require('./cloudinary')
 const fs = require('fs')
 
 app.use(express.json());
