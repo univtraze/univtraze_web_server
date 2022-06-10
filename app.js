@@ -49,7 +49,7 @@ app.post('/photos/upload', fileUpload.single('image'), function (req, res, next)
                 } else {
                   res.json({
                       success: 0,
-                      message: 'Uploading image failed, tray again later'
+                      message: 'Uploading image failed, try again later'
                   })
                   reject(error);
                 }
