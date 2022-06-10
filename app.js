@@ -10,6 +10,7 @@ const clinicRouter = require("./api/clinic/clinicAdmin.router");
 // const fileRouter = require("./api/files/files.router")
 const bodyParser = require('body-parser');
 const cors = require("cors");
+const cloudinaryConfig = require('./config/cloudinary-config')
 
 
 //THis is where cloudinary staart
@@ -17,11 +18,7 @@ const multer = require('multer')
 const cloudinary = require('cloudinary').v2
 const streamifier = require('streamifier')
 
-cloudinary.config({ 
-    cloud_name: 'daf5a2n2t', 
-    api_key: '677141335181791',
-    api_secret: 'S_AHiSugK75cshdLSDTacLR2kVA'
-});
+cloudinaryConfig()
 
 const fileUpload = multer()
 
