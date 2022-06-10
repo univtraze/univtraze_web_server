@@ -33,8 +33,10 @@ app.use("/api/covid_cases", covidCasesRouter);
 app.use("/api/clinic", clinicRouter);
 // app.use("/api/files", fileRouter);
 
-app.post('/photos/upload', fileUpload.array('image', 5), function (req, res, next) {
-    console.log("Images here", req.files[0]);  
+app.post('/photos/upload', fileUpload.single('image'), function (req, res, next) {
+    res.status(200).json({
+        image: req.file 
+    })
 })
 
 const port = process.env.PORT || 3001;
