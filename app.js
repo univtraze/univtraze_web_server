@@ -8,16 +8,15 @@ const roomRouter = require("./api/rooms/room.router");
 const covidCasesRouter = require("./api/covid_cases/covid_case.router");
 const clinicRouter = require("./api/clinic/clinicAdmin.router");
 const fileRouter = require("./api/files/files.router")
+const bodyParser = require('body-parser');
 
 const cors = require("cors");
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
 
-app.use(bodyParser.urlencoded({extended: true}));
-var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: "50mb"}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true}));
 
 
 app.use("/api/user", userRouter);
