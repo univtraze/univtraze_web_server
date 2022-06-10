@@ -1,8 +1,6 @@
 
 // const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate } = require("./covid_case.service");
-
-module.exports = {
-    
+module.exports = {    
     uploadUserImageProfile: (req, res) => {
         const body = req.files;
 
