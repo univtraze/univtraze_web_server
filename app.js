@@ -12,9 +12,11 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const cors = require("cors");
 
-const upload = require('./multer')
-const cloudinary = require('./cloudinary')
-const fs = require('fs')
+//THis is where cloudinary staart
+const cloudinary = require('cloudinary').v2
+const streamifier = require('streamifier')
+
+
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
@@ -31,30 +33,8 @@ app.use("/api/covid_cases", covidCasesRouter);
 app.use("/api/clinic", clinicRouter);
 // app.use("/api/files", fileRouter);
 
-app.use('api/uploadImage', upload.array('image'), async (req, res) => {
-    const uploader = async (path) => await cloudinary.uploads(path, 'Images')
-    if(req.method === 'POST'){
-        const urls = []
-        const files = req.files
-
-        for(const file of files){
-            const {path} = file
-            const newPath = await uploader(path)
-            urls.push(newPath)
-
-            fs.unlinkSync(path)
-        }
-
-        res.status(200).json({
-            success: 1,
-            message: 'Image uploaded successfully',
-            data: urls
-        }) 
-    } else {
-        res.status(405).json({
-            err: "Failed uploading images"
-        })
-    }
+app.post('/photos/upload', fileUpload.array('image', 5), function (req, res, next) {
+    console.log("Images ", req.file);  
 })
 
 const port = process.env.PORT || 3001;
