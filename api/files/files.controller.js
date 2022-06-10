@@ -8,7 +8,7 @@ module.exports = {
 
         return res.json({
             success: 1,
-            data: body
+            data: JSON.stringify(body)
         });
 
     },
