@@ -19,7 +19,6 @@ const streamifier = require('streamifier')
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
-app.use(fileUpload());
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({extended: false}));
 
