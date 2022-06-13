@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const cloudinary = require("../../config/cloudinary-config")
-const base64 = require('base-64');
+const base64 = require('node-base64-image')
 
 router.post("/uploadUserImageProfile", async (req, res) => {
    
