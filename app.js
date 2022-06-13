@@ -7,7 +7,7 @@ const vaccination_info = require("./api/vaccination_info/vaccination.router");
 const roomRouter = require("./api/rooms/room.router");
 const covidCasesRouter = require("./api/covid_cases/covid_case.router");
 const clinicRouter = require("./api/clinic/clinicAdmin.router");
-// const fileRouter = require("./api/files/files.router")
+const fileRouter = require("./api/files/files.router")
 const bodyParser = require('body-parser');
 const cors = require("cors");
 
@@ -17,16 +17,17 @@ const cloudinary = require('cloudinary').v2
 const streamifier = require('streamifier')
 const fileUpload = multer()
 
-cloudinary.config({ 
-    cloud_name: process.env.CLOUD_NAME, 
-    api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET
-});
+// cloudinary.config({ 
+//     cloud_name: process.env.CLOUD_NAME, 
+//     api_key: process.env.API_KEY,
+//     api_secret: process.env.API_SECRET
+// });
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
-app.use(bodyParser.json({limit: "50mb"}));
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(bodyParser.text({ limit: '200mb' }));
 
 
 app.use("/api/user", userRouter);
@@ -35,41 +36,40 @@ app.use("/api/vaccine_info", vaccination_info);
 app.use("/api/rooms", roomRouter);
 app.use("/api/covid_cases", covidCasesRouter);
 app.use("/api/clinic", clinicRouter);
-// app.use("/api/files", fileRouter);
+// app.post('/photos/upload', fileUpload.single('image'), function (req, res, next) {
+//     let streamUpload = (req) => {
+//         return new Promise((resolve, reject) => {
+//             let stream = cloudinary.uploader.upload_stream(
+//               (error, result) => {
+//                 if (result) {
+//                   resolve(result);
+//                 } else {
+//                   res.json({
+//                       success: 0,
+//                       message: 'Uploading image failed, try again later'
+//                   })
+//                   reject(error);
+//                 }
+//               }
+//             );
 
-app.post('/photos/upload', fileUpload.single('image'), function (req, res, next) {
-    let streamUpload = (req) => {
-        return new Promise((resolve, reject) => {
-            let stream = cloudinary.uploader.upload_stream(
-              (error, result) => {
-                if (result) {
-                  resolve(result);
-                } else {
-                  res.json({
-                      success: 0,
-                      message: 'Uploading image failed, try again later'
-                  })
-                  reject(error);
-                }
-              }
-            );
+//           streamifier.createReadStream(req.file.buffer).pipe(stream);
+//         });
+//     };
 
-          streamifier.createReadStream(req.file.buffer).pipe(stream);
-        });
-    };
-
-    async function upload(req) {
-        let result = await streamUpload(req);
-        res.status(200).json({
-            success: 1,
-            message: 'Image added successfully',
-            data: result
-        })
-    }
+//     async function upload(req) {
+//         let result = await streamUpload(req);
+//         res.status(200).json({
+//             success: 1,
+//             message: 'Image added successfully',
+//             data: result
+//         })
+//     }
     
-    upload(req);
-})
+//     upload(req);
+// })
 
+app.use('/api/files', fileRouter)
 const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
