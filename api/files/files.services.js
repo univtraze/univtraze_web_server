@@ -1,6 +1,6 @@
 module.exports = {
 
-    addCovidPositive: (data, callBack) => {
+    uploadUserImageProfile: (data, callBack) => {
         // pool.query(
         //     `INSERT INTO covid_reporting(user_id, case_number, proof_docs) VALUES (?,?,?)`,
         //     [
