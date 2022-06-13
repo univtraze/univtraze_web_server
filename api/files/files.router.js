@@ -72,6 +72,27 @@ router.post("/uploadUserImageProfile", upload.single("image"), async (req, res, 
   }
 );
 
+router.post("/uploadUserBase64Image", async (req, res, next) => {
+    
+    try {
+        const fileStr = req.body.image;
+
+        const result = await cloudinary.uploader.upload(fileStr, {});
+        return res.json({
+          success: 1,
+          results: result
+        })
+
+    } catch (err) {
+        return res.json({
+          success: 0,
+          results: error
+        })
+    }
+}
+);
+
+
 
 
 
