@@ -28,7 +28,7 @@ router.post("/uploadUserImageProfile", fileUpload.single('image'),  async (req, 
 
             );
 
-          streamifier.createReadStream(req.image.buffer).pipe(stream);
+          streamifier.createReadStream(req.file.buffer).pipe(stream);
         });
     };
 
