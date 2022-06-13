@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const cloudinary = require("../../config/cloudinary-config")
 
-router.post("/uploadUserImageProfile", async () => {
+router.post("/uploadUserImageProfile", async (req, res) => {
    
     const { image } = req.body;
     
