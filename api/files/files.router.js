@@ -7,10 +7,13 @@ const fileUpload = multer()
 
 
 router.post("/uploadUserImageProfile", fileUpload.single('image'),  async (req, res) => {
-    
+
         let streamUpload = (req) => {
         return new Promise((resolve, reject) => {
             let stream = cloudinary.uploader.upload_stream(
+              {
+               folder: "univtraze_app_photos"
+              },
               (error, result) => {
                 if (result) {
                   resolve(result);
@@ -21,7 +24,8 @@ router.post("/uploadUserImageProfile", fileUpload.single('image'),  async (req, 
                   })
                   reject(error);
                 }
-              }
+              },
+
             );
 
           streamifier.createReadStream(req.file.buffer).pipe(stream);
@@ -40,8 +44,8 @@ router.post("/uploadUserImageProfile", fileUpload.single('image'),  async (req, 
     upload(req);
 
     // try {
-    //     if(image){
-    //       const uploadRes =  await cloudinary.uploader.upload(image, {
+    //     if(req){
+    //       const uploadRes =  await cloudinary.uploader.upload(req, {
     //             upload_preset: "univtraze_app"
     //         })
           
