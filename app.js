@@ -25,9 +25,15 @@ const fileUpload = multer()
 
 app.use(express.json());
 app.use(cors({origin: "*"}));
-app.use(bodyParser.json({limit: '50mb', extended: true}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
-app.use(bodyParser.text({ limit: '200mb' }));
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
+
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  parameterLimit: 100000,
+  extended: true 
+}));
 
 
 app.use("/api/user", userRouter);
