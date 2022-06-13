@@ -52,7 +52,7 @@ async function uploadToCloudinary(locaFilePath) {
       });
 }
 
-app.post("/uploadUserImageProfile", upload.single("image"), async (req, res, next) => {
+router.post("/uploadUserImageProfile", upload.single("image"), async (req, res, next) => {
       // req.file is the `profile-file` file
       // req.body will hold the text fields,
       // if there were any
