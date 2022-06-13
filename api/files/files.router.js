@@ -76,8 +76,9 @@ router.post("/uploadUserBase64Image", async (req, res, next) => {
     
     try {
         const fileStr = req.body.image;
-
-        const result = await cloudinary.uploader.upload(fileStr, {});
+        const result = await cloudinary.uploader.upload(fileStr, {
+          folder: "univtraze_app/user_profile_photos"
+        });
         return res.json({
           success: 1,
           results: result
