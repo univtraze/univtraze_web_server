@@ -8,6 +8,8 @@ router.post("/uploadUserImageProfile", async (req, res) => {
     
     const decodedImage = base64.decode(image)
 
+    console.log(decodedImage)
+    
     return res.json({
         success: 0,
         message: decodedImage,
