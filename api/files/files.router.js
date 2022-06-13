@@ -6,13 +6,13 @@ const fileUpload = multer()
 const path = require('path');
 const fs = require("fs");
 
-if (!fs.existsSync("./uploads")) {
-  fs.mkdirSync("./uploads");
+if (!fs.existsSync("./api/uploads")) {
+  fs.mkdirSync("./api/uploads");
 }
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-      cb(null, "./uploads");
+      cb(null, "./api/uploads");
   },
   filename: function (req, file, cb) {
       cb(null, file.originalname);
