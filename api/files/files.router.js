@@ -3,75 +3,77 @@ const cloudinary = require("../../config/cloudinary-config")
 const multer = require('multer')
 const streamifier = require('streamifier')
 const fileUpload = multer()
+const path = require('path');
+const fs = require("fs");
+
+if (!fs.existsSync("./uploads")) {
+  fs.mkdirSync("./uploads");
+}
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname);
+  },
+});
+
+var upload = multer({ storage: storage });
+
+async function uploadToCloudinary(locaFilePath) {
+  // locaFilePath: path of image which was just
+  // uploaded to "uploads" folder
+
+  var mainFolderName = "univtraze_app";
+  // filePathOnCloudinary: path of image we want
+  // to set when it is uploaded to cloudinary
+  var filePathOnCloudinary = 
+      mainFolderName + "/" + locaFilePath;
+
+  return cloudinary.uploader
+      .upload(locaFilePath, { public_id: filePathOnCloudinary })
+      .then((result) => {
+          // Image has been successfully uploaded on
+          // cloudinary So we dont need local image 
+          // file anymore
+          // Remove file from local uploads folder
+          fs.unlinkSync(locaFilePath);
+
+          return {
+              message: "Success",
+              url: result.url,
+          };
+      })
+      .catch((error) => {
+          // Remove file from local uploads folder
+          fs.unlinkSync(locaFilePath);
+          return { message: "Fail" };
+      });
+}
+
+app.post("/uploadUserImageProfile", upload.single("image"), async (req, res, next) => {
+      // req.file is the `profile-file` file
+      // req.body will hold the text fields,
+      // if there were any
+
+      // req.file.path will have path of image
+      // stored in uploads folder
+      var locaFilePath = req.file.path;
+
+      // Upload the local image to Cloudinary 
+      // and get image url as response
+      var result = await uploadToCloudinary(locaFilePath);
+
+      return res.json({
+        success: 1,
+        results: result
+      })
+  }
+);
 
 
 
-router.post("/uploadUserImageProfile", fileUpload.single('image'),  async (req, res) => {
 
-        let streamUpload = (req) => {
-        return new Promise((resolve, reject) => {
-            let stream = cloudinary.uploader.upload_stream(
-              {
-               folder: "univtraze_app_photos"
-              },
-              (error, result) => {
-                if (result) {
-                  resolve(result);
-                } else {
-                  res.json({
-                      success: 0,
-                      message: 'Uploading image failed, try again later'
-                  })
-                  reject(error);
-                }
-              },
-
-            );
-
-          streamifier.createReadStream(req.file.buffer).pipe(stream);
-          console.log(req.file)
-        });
-    };
-
-    async function upload(req) {
-        let result = await streamUpload(req);
-        res.status(200).json({
-            success: 1,
-            message: 'Image added successfully',
-            data: result
-        })
-    }
-    
-    upload(req);
-
-    // try {
-    //     if(req){
-    //       const uploadRes =  await cloudinary.uploader.upload(req, {
-    //             upload_preset: "univtraze_app"
-    //         })
-          
-    //         if(uploadRes){
-    //             return res.json({
-    //                 success: 1,
-    //                 message: "Image added successfully",
-    //                 data: uploadRes
-    //             });
-    //         }
-
-    //         return res.json({
-    //             success: 0,
-    //             message: "Failed uploading image to cloudinary",
-    //             data: uploadRes
-    //         });
-
-    //     }
-
-    // } catch (error) {
-    //     return res.json({
-    //         success: 0,
-    //         message: "Failed uploading image to cloudinary : " + error,
-    //     });
-    // }   
-})
 
 module.exports = router;
