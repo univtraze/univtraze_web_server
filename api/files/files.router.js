@@ -84,7 +84,7 @@ router.post("/uploadUserBase64Image", async (req, res, next) => {
           results: result
         })
 
-    } catch (err) {
+    } catch (error) {
         return res.json({
           success: 0,
           results: error
