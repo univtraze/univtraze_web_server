@@ -53,10 +53,11 @@ module.exports = {
 
     addVisitedRoom: (data, callBack) => {
         pool.query(
-            `INSERT INTO room_visited(user_id, room_id) VALUES (?,?)`,
+            `INSERT INTO room_visited(user_id, room_id, temperature) VALUES (?,?,?)`,
             [
                 data.user_id,
-                data.room_id
+                data.room_id,
+                data.temp
             ],
             (error, results, fields) => {
                 if(error) {
@@ -126,20 +127,20 @@ module.exports = {
     //     )
     // },
 
-    // addUserNotification: (data, callBack) => {
-    //     pool.query(
-    //         `INSERT INTO notifications(user_id, notification_for, notification_description) VALUES (?,?,?)`,
-    //         [
-    //             data.user_id,
-    //             data.notification_for,
-    //             data.notification_description
-    //         ],
-    //         (error, results, fields) => {
-    //             if(error) {
-    //                 return callBack(error)
-    //             }
-    //                 return callBack(null, results)
-    //         }
-    //     )
-    // },
+    addUserNotification: (data, callBack) => {
+        pool.query(
+            `INSERT INTO notifications(user_id, notification_for, notification_description) VALUES (?,?,?)`,
+            [
+                data.user_id,
+                data.notification_for,
+                data.notification_description
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 };
