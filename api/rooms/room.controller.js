@@ -126,7 +126,6 @@ module.exports = {
         
         const body = req.body;
 
-        
         userTodaysTemperature(body, (err, results ) => {
 
             if(err){
