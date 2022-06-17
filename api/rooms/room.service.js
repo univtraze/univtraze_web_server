@@ -116,8 +116,8 @@ module.exports = {
         pool.query(
             `SELECT id, user_id, room_id, temperature, createdAt, updatedAt FROM room_visited where createdAt between ? and CONCAT(?, ' 23:59:59') and user_id = ? ORDER BY id desc limit 1`,
             [   
-                data.dataToday,
-                data.dataToday,
+                data.dateToday,
+                data.dateToday,
                 data.user_id,
             ],
             (error, results, fields) => {
