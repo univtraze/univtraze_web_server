@@ -112,20 +112,22 @@ module.exports = {
         )
     },
 
-    // getUserTempToday: (data, callBack) => {
-    //     pool.query(
-    //         `SELECT room_visited.id,room_visited.user_id,room_visited.room_id,rooms.room_number, rooms.building_name, rooms.room_name, room_visited.temperature,room_visited.createdAt,room_visited.updatedAt FROM room_visited, rooms WHERE room_visited.user_id = ? AND rooms.id = room_visited.room_id`,
-    //         [
-    //             data.user_id,
-    //         ],
-    //         (error, results, fields) => {
-    //             if(error) {
-    //                 return callBack(error)
-    //             }
-    //                 return callBack(null, results)
-    //         }
-    //     )
-    // },
+    userTodaysTemperature: (data, callBack) => {
+        pool.query(
+            `SELECT id, user_id, room_id, temperature, createdAt, updatedAt FROM room_visited where createdAt between ? and CONCAT(?, ' 23:59:59') and user_id = ? ORDER BY id desc limit 1`,
+            [   
+                data.dataToday,
+                data.dataToday,
+                data.user_id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 
     addUserNotification: (data, callBack) => {
         pool.query(
