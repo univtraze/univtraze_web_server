@@ -1,7 +1,17 @@
 
-const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate } = require("./covid_case.service");
+const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate, addCommunicableDiseaseCase} = require("./covid_case.service");
 
 module.exports = {
+
+    addCommunicableDiseaseCase: (req, res) => {
+        const body = req.body;
+
+        return res.json({
+            success: 1,
+            data: body
+        });
+    },
+
     addCovidPositive: (req, res) => {
         const body = req.body;
         addCovidPositive(body, (err, results) => {

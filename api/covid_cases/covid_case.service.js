@@ -2,6 +2,24 @@ const pool = require("../../config/database");
 
 module.exports = {
 
+    addCommunicableDiseaseCase: () => {
+        pool.query(
+            `INSERT INTO communicable_disease_reporting(user_id, type, disease_name, document_proof_image) VALUES (?, ?, ?, ?)`,
+            [
+                data.user_id,
+                data.type,
+                data.disease_name, 
+                data.document_proof_image
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     addCovidPositive: (data, callBack) => {
         pool.query(
             `INSERT INTO covid_reporting(user_id, case_number, proof_docs) VALUES (?,?,?)`,
