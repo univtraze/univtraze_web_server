@@ -2,7 +2,6 @@
 const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate, addCommunicableDiseaseCase} = require("./covid_case.service");
 
 module.exports = {
-
     addCommunicableDiseaseCase: (req, res) => {
         const body = req.body;
 

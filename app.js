@@ -35,38 +35,6 @@ app.use("/api/vaccine_info", vaccination_info);
 app.use("/api/rooms", roomRouter);
 app.use("/api/covid_cases", covidCasesRouter);
 app.use("/api/clinic", clinicRouter);
-// app.post('/photos/upload', fileUpload.single('image'), function (req, res, next) {
-//     let streamUpload = (req) => {
-//         return new Promise((resolve, reject) => {
-//             let stream = cloudinary.uploader.upload_stream(
-//               (error, result) => {
-//                 if (result) {
-//                   resolve(result);
-//                 } else {
-//                   res.json({
-//                       success: 0,
-//                       message: 'Uploading image failed, try again later'
-//                   })
-//                   reject(error);
-//                 }
-//               }
-//             );
-
-//           streamifier.createReadStream(req.file.buffer).pipe(stream);
-//         });
-//     };
-
-//     async function upload(req) {
-//         let result = await streamUpload(req);
-//         res.status(200).json({
-//             success: 1,
-//             message: 'Image added successfully',
-//             data: result
-//         })
-//     }
-    
-//     upload(req);
-// })
 
 app.use('/api/files', fileRouter)
 const port = process.env.PORT || 3001;
