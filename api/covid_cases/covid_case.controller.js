@@ -10,10 +10,8 @@ module.exports = {
             if(err){
                 console.log(err)
                 return res.json({
-                
                     success: 0,
                     message: "Database connection Error"
-                
                 });
                 
             }
@@ -24,8 +22,6 @@ module.exports = {
             });
         });
         
-
-
         return res.json({
             success: 1,
             data: body
