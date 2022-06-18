@@ -21,11 +21,6 @@ module.exports = {
                 data: results
             });
         });
-        
-        return res.json({
-            success: 1,
-            data: body
-        });
     },
 
     addCovidPositive: (req, res) => {
