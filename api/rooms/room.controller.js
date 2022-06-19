@@ -135,9 +135,16 @@ module.exports = {
                 });
             }
 
+            if(results.length === 0){
+                return res.status(200).json({
+                    success: 1,
+                    data: null
+                }); 
+            }
+
             return res.status(200).json({
                 success: 1,
-                data: results
+                data: results[0]
             });
             
 
