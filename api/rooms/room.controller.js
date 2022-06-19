@@ -127,7 +127,6 @@ module.exports = {
         const body = req.body;
 
         userTodaysTemperature(body, (err, results ) => {
-
             if(err){
                 console.log(err)
                 return res.json({
@@ -138,7 +137,7 @@ module.exports = {
 
             return res.status(200).json({
                 success: 1,
-                data: results[0]
+                data: results
             });
             
 
