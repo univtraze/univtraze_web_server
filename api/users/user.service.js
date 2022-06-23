@@ -303,7 +303,6 @@ module.exports = {
                 data.gender,
                 data.address,
                 data.birthday,
-                data.valid_id,
                 data.email,
                 data.profile_url, 
                 data.back_id_photo, 
@@ -337,8 +336,8 @@ module.exports = {
 
     addVisitorDetails: (data, callBack) => {
         pool.query(
-            `INSERT INTO visitor_details (user_id, firstname, lastname, middlename, suffix, gender, address, birthday, email, data.profile_url, data.back_id_photo, data.front_id_photo) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            `INSERT INTO visitor_details (user_id, firstname, lastname, middlename, suffix, gender, address, birthday, email, profile_url, back_id_photo, front_id_photo) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
                 data.user_id,
                 data.firstname,
@@ -348,7 +347,6 @@ module.exports = {
                 data.gender,
                 data.address,
                 data.birthday,
-                data.valid_id,
                 data.email,
                 data.profile_url, 
                 data.back_id_photo, 
