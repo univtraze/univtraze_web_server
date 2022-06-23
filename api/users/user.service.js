@@ -213,7 +213,6 @@ module.exports = {
                 data.birthday,
                 data.employee_id,
                 data.email,
-                data.user_id,
                 data.profile_url, 
                 data.back_id_photo, 
                 data.front_id_photo
@@ -305,7 +304,6 @@ module.exports = {
                 data.birthday,
                 data.valid_id,
                 data.email,
-                data.user_id,
                 data.profile_url, 
                 data.back_id_photo, 
                 data.front_id_photo
