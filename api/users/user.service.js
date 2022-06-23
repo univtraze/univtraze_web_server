@@ -215,7 +215,8 @@ module.exports = {
                 data.email,
                 data.profile_url, 
                 data.back_id_photo, 
-                data.front_id_photo
+                data.front_id_photo,
+                data.user_id
             ],
             (error, results, fields) => {
                 if(error) {
@@ -247,7 +248,7 @@ module.exports = {
     addEmployeeDetails: (data, callBack) => {
         pool.query(
             `INSERT INTO employee_details(user_id, firstname, lastname, middlename, suffix, gender, address, department, position, birthday, employee_id, email, profile_url, front_id_photo, back_id_photo) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?)`,
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?, ?,?)`,
             [
                 data.user_id,
                 data.firstname,
