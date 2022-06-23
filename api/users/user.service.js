@@ -306,7 +306,8 @@ module.exports = {
                 data.email,
                 data.profile_url, 
                 data.back_id_photo, 
-                data.front_id_photo
+                data.front_id_photo,
+                data.user_id
             ],
             (error, results, fields) => {
                 if(error) {
