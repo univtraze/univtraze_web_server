@@ -200,7 +200,7 @@ module.exports = {
 
     updateEmployeeDetails: (data, callBack) => {
         pool.query(
-            `UPDATE employee_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,department=?,position=?,birthday=?,employee_id=?,email=? WHERE user_id=?`,
+            `UPDATE employee_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,department=?,position=?,birthday=?,employee_id=?,email=?, profile_url=?, front_id_photo=?, back_id_photo=? WHERE user_id=?`,
             [
                 data.firstname,
                 data.lastname,
@@ -214,6 +214,9 @@ module.exports = {
                 data.employee_id,
                 data.email,
                 data.user_id,
+                data.profile_url, 
+                data.back_id_photo, 
+                data.front_id_photo
             ],
             (error, results, fields) => {
                 if(error) {
@@ -244,8 +247,8 @@ module.exports = {
 
     addEmployeeDetails: (data, callBack) => {
         pool.query(
-            `INSERT INTO employee_details(user_id, firstname, lastname, middlename, suffix, gender, address, department, position, birthday, employee_id, email) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
+            `INSERT INTO employee_details(user_id, firstname, lastname, middlename, suffix, gender, address, department, position, birthday, employee_id, email, profile_url, front_id_photo, back_id_photo) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?)`,
             [
                 data.user_id,
                 data.firstname,
@@ -290,7 +293,8 @@ module.exports = {
 
     updateVisitorDetails: (data, callBack) => {
         pool.query(
-            `UPDATE visitor_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,birthday=?,valid_id=?,email=? WHERE user_id=?`,
+            `UPDATE visitor_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,birthday=?,email=?, profile_url=?, back_id_photo=?, 
+            front_id_photo=? WHERE user_id=?`,
             [
                 data.firstname,
                 data.lastname,
@@ -334,8 +338,8 @@ module.exports = {
 
     addVisitorDetails: (data, callBack) => {
         pool.query(
-            `INSERT INTO visitor_details (user_id, firstname, lastname, middlename, suffix, gender, address, birthday, valid_id, email) 
-            VALUES (?,?,?,?,?,?,?,?,?,?)`,
+            `INSERT INTO visitor_details (user_id, firstname, lastname, middlename, suffix, gender, address, birthday, email, data.profile_url, data.back_id_photo, data.front_id_photo) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
                 data.user_id,
                 data.firstname,
@@ -347,6 +351,9 @@ module.exports = {
                 data.birthday,
                 data.valid_id,
                 data.email,
+                data.profile_url, 
+                data.back_id_photo, 
+                data.front_id_photo
             ],
             (error, results, fields) => {
                 if(error) {
