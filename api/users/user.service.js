@@ -259,6 +259,9 @@ module.exports = {
                 data.birthday,
                 data.employee_id,
                 data.email,
+                data.profile_url, 
+                data.back_id_photo, 
+                data.front_id_photo
             ],
             (error, results, fields) => {
                 if(error) {
@@ -299,6 +302,9 @@ module.exports = {
                 data.valid_id,
                 data.email,
                 data.user_id,
+                data.profile_url, 
+                data.back_id_photo, 
+                data.front_id_photo
             ],
             (error, results, fields) => {
                 if(error) {
