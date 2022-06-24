@@ -35,15 +35,17 @@ module.exports = {
                             success: 0,
                             message: "Database connection Error"
                             });                                
-                            }
-
-                        return resultData.push([...resultData, results])
+                        }
+                        
+                        return resultData.push([...resultData, results.data])
                     
                     });
 
-                    return console.log(resultData)
+                    return allDisease.push([...allDisease, resultData])
 
-                })
+            })
+
+
 
                                           
             
