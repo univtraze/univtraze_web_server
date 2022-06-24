@@ -21,34 +21,35 @@ module.exports = {
                             
             }
 
-            let allDisease = [];
+            results.map((disease) => {
+                return console.log(disease.disease_name)
+            })
+            // let allDisease = [];
 
-            var promises = results.map(function(disease){
+            // var promises = results.map(function(disease){
 
-                getCommunicableDiseaseByName(disease, (err, results) => {
-                    if(err){
-                        console.log(err)
-                        return res.json({
-                            success: 0,
-                            message: "Database connection Error while searching disease"
-                        });             
-                    }
+            //     getCommunicableDiseaseByName(disease, (err, results) => {
+            //         if(err){
+            //             console.log(err)
+            //             return res.json({
+            //                 success: 0,
+            //                 message: "Database connection Error while searching disease"
+            //             });             
+            //         }
 
-                 return allDisease.push(results)
+            //      return allDisease.push(results)
                
-                })
+            //     })
                 
-            })
+            // })
 
-            Promise.all(promises).then(function(results) {
-                return res.json({
-                    success: 1,
-                    data: results,
-                    allDisease: allDisease
-                });
-            })
-
-
+            // Promise.all(promises).then(function(results) {
+            //     return res.json({
+            //         success: 1,
+            //         data: results,
+            //         allDisease: allDisease
+            //     });
+            // })
            
         })
 
