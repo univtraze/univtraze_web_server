@@ -1,4 +1,4 @@
-import  {getAllCommunicableDisease } from './communicable_disease.service'
+const {getAllCommunicableDisease } = './communicable_disease.service'
 
 module.exports = {
     
