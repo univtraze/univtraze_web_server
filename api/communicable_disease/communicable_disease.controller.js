@@ -34,8 +34,11 @@ module.exports = {
                          message: "Database connection Error"
                         });                                
                         }
+
+                        var returnArray = []
+                        returnArray.push(results.data)
                             
-                        diseaseData.push({disease_name: disease.disease_name, data: results.data})
+                        diseaseData.push({disease_name: disease.disease_name,total: returnArray.length, data: results.data})
                         return 
                             
                     });
@@ -43,10 +46,10 @@ module.exports = {
 
                 })
 
-                        return res.json({
-                            success: 1,
-                            data: diseaseData
-                        });                                
+                return res.json({
+                 success: 1,
+                 data: diseaseData
+                });                                
             
         })
 
