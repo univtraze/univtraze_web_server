@@ -41,15 +41,12 @@ module.exports = {
                   return allDisease.push({disease_name: disease.disease_name, records: allDiseaseData})
 
                 })
-              ).then((res) => {
-                return res.json({
-                    success: 0,
-                    message: "Database connection Error"
-                });
-              }
-              ).catch(error => {
-                console.log(error)
-              })
+              )
+
+            return res.json({
+                success: 0,
+                data: allDisease
+            });
         })
 
     },
