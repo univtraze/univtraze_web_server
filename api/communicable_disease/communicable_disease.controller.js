@@ -25,31 +25,31 @@ module.exports = {
 
             results.map(async (disease) => {
                 
-                await getCommunicableDiseaseByName(disease, (err, results) => {
-                        
-                    var diseaseData = [];
+                var diseaseData = [];
 
-                        if(err){
-                            console.log(err)
-                            return res.json({
-                                     success: 0,
-                                     message: "Database connection Error"
-                                });                                
-                             }
-                        
-                            diseaseData.push({disease_name: disease.disease_name, data: results.data})
-                            return 
-                        
-                        });
+                        await getCommunicableDiseaseByName(disease, (err, results) => {
+                            
+                            if(err){
+                                console.log(err)
+                                return res.json({
+                                        success: 0,
+                                        message: "Database connection Error"
+                                    });                                
+                                }
+                            
+                                diseaseData.push({disease_name: disease.disease_name, data: results.data})
+                                return 
+                            
+                            });
 
                    return allDisease.push(diseaseData)
 
                 })
 
        
-                return res.json({
-                                success: 1,
-                                message: allDisease
+                        return res.json({
+                            success: 1,
+                            message: allDisease
                         });                                
             
         })
