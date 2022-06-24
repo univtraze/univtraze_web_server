@@ -1,4 +1,4 @@
-const {getAllCommunicableDisease} = require('./communicable_disease.service')
+const {getAllCommunicableDisease, getCommunicableDiseaseByName} = require('./communicable_disease.service')
 
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
@@ -23,14 +23,24 @@ module.exports = {
 
             let allDisease = []
 
-            results.map((disease) => {   
-                return allDisease.push(disease.disease_name)
+            results.map( async (disease) => {
+
+                await getCommunicableDiseaseByName(disease, (err, results) => {
+                    if(err){
+                        console.log(err)
+                        return res.json({
+                            success: 0,
+                            message: "Database connection Error while searching disease"
+                        });             
+                    }
+
+                    return allDisease.push({disease_name: disease.disease_name, total: results.length, results}) 
+                })
             })
 
             return res.json({
                 success: 1,
-                data: allDisease,
-                // data: results
+                data: allDisease
             });
 
         })
