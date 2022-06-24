@@ -35,17 +35,19 @@ module.exports = {
                                 
                             }
                 
-                            return results.data
-                        });
+                        
+                        return results.data
+                        
+                    });
 
-                  return allDisease.push({disease_name: disease.disease_name, records: allDiseaseData})
+                  return allDisease.push(allDiseaseData)
 
                 })
               )
 
             return res.json({
-                success: 0,
-                data: allDisease.data
+                success: 1,
+                data: allDisease
             });
         })
 
