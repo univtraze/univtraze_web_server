@@ -29,7 +29,8 @@ module.exports = {
 
             return res.json({
                 success: 1,
-                data: allDisease
+                data: allDisease,
+                data: results
             });
 
         })
