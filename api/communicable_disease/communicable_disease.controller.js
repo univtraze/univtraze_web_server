@@ -7,7 +7,7 @@ module.exports = {
         return res.json({
             // success: 1,
             // data: results
-            message: "Hello world"
+            message: "Hello worldssss"
          });
 
 
