@@ -22,10 +22,10 @@ module.exports = {
             }
 
             const allDisease = [];
-            
+
             results.map(async (disease) => {
                 
-                var diseaseData = {disease_name: disease.disease_name}
+                var diseaseData = [];
                 
                 await getCommunicableDiseaseByName(disease, (err, results) => {
                         if(err){
@@ -33,16 +33,18 @@ module.exports = {
                                 return res.json({
                                     success: 0,
                                     message: "Database connection Error"
-                                });
-                                
+                                });                                
                             }
 
-                            
-                        return allDisease.push(results);
+                        return diseaseData.push(results);
+
                     });
+
+                return allDisease.push(diseaseData);
+
                 })
-            
-               console.log(allDisease)
+
+               console.log(diseaseData)
            
         })
 
