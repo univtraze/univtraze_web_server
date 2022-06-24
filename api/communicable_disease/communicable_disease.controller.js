@@ -36,6 +36,7 @@ module.exports = {
                    disease.total = results.length
                    disease.reports = results
 
+                   console.log(disease)
                    return disease
                 })
             })
