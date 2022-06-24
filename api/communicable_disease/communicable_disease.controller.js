@@ -29,22 +29,23 @@ module.exports = {
 
                 await getCommunicableDiseaseByName(disease, (err, results) => {
                         if(err){
-                                console.log(err)
-                                return res.json({
-                                    success: 0,
-                                    message: "Database connection Error"
-                                });                                
-                            }
+                                    console.log(err)
+                                    return res.json({
+                                        success: 0,
+                                        message: "Database connection Error"
+                                    });                                
+                                }
+                        
+                        return console.log(disease.disease_name + " => " + results)
+                        
+                        });
 
-                        diseaseData.push(results.data);
+                return allDisease.push(diseaseData)
 
-                    });
+                })
 
-               console.log(diseaseData)
-
-            })
-
-               console.log(allDisease)
+            
+            return console.log(allDisease)
            
         })
 
