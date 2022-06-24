@@ -34,7 +34,7 @@ module.exports = {
                                 
                             }
                 
-                            return console.log(results)
+                            return console.log(results.data)
                         });
 
                   console.log(allDiseaseData);
