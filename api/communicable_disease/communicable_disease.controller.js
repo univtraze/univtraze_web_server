@@ -25,7 +25,7 @@ module.exports = {
 
             results.map(async (disease) => {
                 
-                const diseaseData = [];
+                let diseaseData = [];
                 
                 await getCommunicableDiseaseByName(disease, (err, results) => {
                         if(err){
@@ -44,7 +44,7 @@ module.exports = {
 
             })
 
-               console.log(diseaseData)
+               console.log(allDisease)
            
         })
 
