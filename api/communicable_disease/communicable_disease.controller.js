@@ -37,17 +37,20 @@ module.exports = {
                                 });                                
                              }
                         
-                        diseaseData.push({disease_name: disease.disease_name, data: results})
-                        return 
+                            diseaseData.push({disease_name: disease.disease_name, data: results})
+                            console.log(diseaseData)
+                            return 
                         
                         });
 
-                    return allDisease.push(diseaseData)
+                   return console.log(allDisease)
 
                 })
 
+
+                return console.log(allDisease)
             
-            return console.log(allDisease)
+           
            
         })
 
