@@ -45,13 +45,13 @@ module.exports = {
                    return allDisease.push(diseaseData)
 
                 })
+
        
                 return res.json({
                                 success: 1,
                                 message: allDisease
                         });                                
-            } 
-           
+            
         })
 
     },
