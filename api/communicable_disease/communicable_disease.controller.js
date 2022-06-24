@@ -21,9 +21,12 @@ module.exports = {
                             
             }
 
-            let allDisease = [];
-
+            const allDisease = [];
+            
             results.map(async (disease) => {
+                
+                var diseaseData = {disease_name: disease.disease_name}
+                
                 await getCommunicableDiseaseByName(disease, (err, results) => {
                         if(err){
                                 console.log(err)
@@ -33,6 +36,8 @@ module.exports = {
                                 });
                                 
                             }
+
+                            
                         return allDisease.push(results);
                     });
                 })
