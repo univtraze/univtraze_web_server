@@ -4,30 +4,21 @@ module.exports = {
     
     getAllCommunicableDisease: (req, res) => {
 
-        return res.json({
-            // success: 1,
-            // data: results
-            message: "Hello worldssss"
-         });
-
-
-        // const body = req.body;
-
-        // getAllCommunicableDisease(body, (err, results) => {
-        //     if(err){
-        //         console.log(err)
-        //         return res.json({
-        //             success: 0,
-        //             message: "Database connection Error"
-        //         });
+        getAllCommunicableDisease((err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
                             
-        //     }
-        //     return res.json({
-        //            success: 1,
-        //            data: results
-        //         });
+            }
+            return res.json({
+                   success: 1,
+                   data: results
+                });
 
-        // })
+        })
 
     },
 
