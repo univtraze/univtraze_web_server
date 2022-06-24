@@ -25,7 +25,8 @@ module.exports = {
 
             Promise.all(
                 results.map(async (disease) => {
-                  const allDiseaseData = await getCommunicableDiseaseByName(disease, (err, results) => {
+                  
+                    await getCommunicableDiseaseByName(disease, (err, results) => {
                         if(err){
                                 console.log(err)
                                 return res.json({
@@ -36,11 +37,9 @@ module.exports = {
                             }
                 
                         
-                        return results.data
+                        return allDisease.push(results.data);
                         
                     });
-
-                  return allDisease.push(allDiseaseData)
 
                 })
               ).then( () => {
