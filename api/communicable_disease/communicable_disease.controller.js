@@ -38,7 +38,7 @@ module.exports = {
                             return results.data.data
                         });
 
-                  return allDisease.push({disease_name: disease.disease_name, total: allDiseaseData.length, records: allDiseaseData})
+                  return allDisease.push({disease_name: disease.disease_name, total: allDiseaseData.data.length, records: allDiseaseData})
 
                 })
               ).then((res) => {
