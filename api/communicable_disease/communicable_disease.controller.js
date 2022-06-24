@@ -1,7 +1,6 @@
-const {getAllCommunicableDisease } = './communicable_disease.service'
+const {getAllCommunicableDisease} = require('./communicable_disease.service')
 
 module.exports = {
-    
     getAllCommunicableDisease: (req, res) => {
 
         getAllCommunicableDisease((err, results) => {
