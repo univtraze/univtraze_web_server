@@ -21,10 +21,12 @@ module.exports = {
                             
             }
 
-            let allDisease = []
+            var promises = results.map(function(disease){
 
-            results.map((disease) => {
-                getCommunicableDiseaseByName(disease, (err, results) => {
+                let allDisease = [];
+
+                return  getCommunicableDiseaseByName(disease, (err, results) => {
+                    
                     if(err){
                         console.log(err)
                         return res.json({
@@ -33,16 +35,21 @@ module.exports = {
                         });             
                     }
                    
-                    allDisease.push({disease_name: disease.disease_name, total: results.length, results})
+                   return allDisease.push({disease_name: disease.disease_name, total: results.length, results})
                
                 })
+                
             })
 
-            return res.json({
-                success: 1,
-                data: allDisease + "Data"
-            });
+            Promise.all(promises).then(function(results) {
+                return res.json({
+                    success: 1,
+                    data: results
+                });
+            })
 
+
+           
         })
 
     },
