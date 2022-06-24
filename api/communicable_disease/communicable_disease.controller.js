@@ -37,7 +37,7 @@ module.exports = {
                             });                                
                             }
 
-                        return resultData.push(results)
+                        return resultData.push(...resultData, results)
                     
                     });
 
