@@ -33,20 +33,11 @@ module.exports = {
                                 });
                                 
                             }
-                
-                        console.log(results)
-                        
-                        allDisease.push(results);
-                        
+                        return allDisease.push(results);
                     });
-
                 })
             
-                return res.json({
-                    success: 1,
-                    data: allDisease
-                });
-
+               console.log(allDisease)
            
         })
 
