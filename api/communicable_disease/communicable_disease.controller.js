@@ -41,7 +41,8 @@ module.exports = {
                                 return 
                             
                             });
-
+                    
+                   console.log(diseaseData)
                    return allDisease.push(diseaseData)
 
                 })
@@ -49,7 +50,7 @@ module.exports = {
        
                         return res.json({
                             success: 1,
-                            message: allDisease
+                            data: allDisease
                         });                                
             
         })
