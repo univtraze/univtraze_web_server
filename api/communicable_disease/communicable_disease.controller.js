@@ -21,12 +21,11 @@ module.exports = {
                             
             }
 
+            let allDisease = [];
+
             var promises = results.map(function(disease){
 
-                let allDisease = [];
-
-                return  getCommunicableDiseaseByName(disease, (err, results) => {
-                    
+                getCommunicableDiseaseByName(disease, (err, results) => {
                     if(err){
                         console.log(err)
                         return res.json({
@@ -34,8 +33,8 @@ module.exports = {
                             message: "Database connection Error while searching disease"
                         });             
                     }
-                   
-                   return allDisease.push({disease_name: disease.disease_name, total: results.length, results})
+
+                 return allDisease.push(results)
                
                 })
                 
@@ -44,7 +43,8 @@ module.exports = {
             Promise.all(promises).then(function(results) {
                 return res.json({
                     success: 1,
-                    data: results
+                    data: results,
+                    allDisease: allDisease
                 });
             })
 
