@@ -43,12 +43,15 @@ module.exports = {
                   return allDisease.push(allDiseaseData)
 
                 })
+              ).then( () => {
+                return res.json({
+                    success: 1,
+                    data: allDisease
+                });
+                }
               )
 
-            return res.json({
-                success: 1,
-                data: allDisease
-            });
+           
         })
 
     },
