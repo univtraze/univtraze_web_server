@@ -35,10 +35,11 @@ module.exports = {
                             });                                
                             }
 
-                        return results.data
+                        return results
                         });
 
                     console.log(diseaseData)
+
                     return diseaseData
                 
                 })
