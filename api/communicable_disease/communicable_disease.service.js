@@ -2,7 +2,7 @@ const pool = require("../../config/database");
 
 module.exports = {
 
-    getAllCommunicableDisease: (data, callbBack) => {
+    getAllCommunicableDisease: callBack => {
         pool.query(
             `SELECT DISTINCT disease_name FROM communicable_disease_reporting`,
             (error, results, fields) => {
@@ -13,5 +13,6 @@ module.exports = {
             }
         )
     },
+
    
 };
