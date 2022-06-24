@@ -24,7 +24,6 @@ module.exports = {
             let allDisease = []
 
             results.map((disease) => {
-                
                 getCommunicableDiseaseByName(disease, (err, results) => {
                     if(err){
                         console.log(err)
@@ -33,14 +32,15 @@ module.exports = {
                             message: "Database connection Error while searching disease"
                         });             
                     }
-
-                    return allDisease.push({disease_name: disease.disease_name, total: results.length, results}) 
+                   
+                    allDisease.push({disease_name: disease.disease_name, total: results.length, results})
+               
                 })
             })
 
             return res.json({
                 success: 1,
-                data: allDisease
+                data: allDisease + "Data"
             });
 
         })
