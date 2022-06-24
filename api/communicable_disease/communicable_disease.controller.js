@@ -21,9 +21,10 @@ module.exports = {
                             
             }
 
+            let allDisease = [];
+
             Promise.all(
                 results.map(async (disease) => {
-                    
                   const allDiseaseData = await getCommunicableDiseaseByName(disease, (err, results) => {
                         if(err){
                                 console.log(err)
@@ -34,13 +35,21 @@ module.exports = {
                                 
                             }
                 
-                            return console.log(results.data)
+                            return results.data.data
                         });
 
-                  console.log(allDiseaseData);
+                  return allDisease.push({disease_name: disease.disease_name, total: allDiseaseData.length, records: allDiseaseData})
 
                 })
-              )
+              ).then((res) => {
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+              }
+              ).catch(error => {
+                console.log(error)
+              })
         })
 
     },
