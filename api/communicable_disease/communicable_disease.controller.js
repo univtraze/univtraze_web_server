@@ -40,7 +40,7 @@ module.exports = {
 
                     });
 
-                return allDisease.push(diseaseData);
+               console.log(diseaseData)
 
             })
 
