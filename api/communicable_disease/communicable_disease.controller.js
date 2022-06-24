@@ -21,15 +21,15 @@ module.exports = {
                             
             }
 
-            // let allDisease = []
+            let allDisease = []
 
-            // results.map((disease) => {   
-            //     return allDisease.push(disease.disease_name)
-            // })
+            results.map((disease) => {   
+                return allDisease.push(disease.disease_name)
+            })
 
             return res.json({
                 success: 1,
-                // data: allDisease,
+                data: allDisease,
                 // data: results
             });
 
