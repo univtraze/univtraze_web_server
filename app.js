@@ -7,6 +7,8 @@ const vaccination_info = require("./api/vaccination_info/vaccination.router");
 const roomRouter = require("./api/rooms/room.router");
 const covidCasesRouter = require("./api/covid_cases/covid_case.router");
 const clinicRouter = require("./api/clinic/clinicAdmin.router");
+const communicable_disease = require('./api/communicable_disease/communicable_disease.router')
+
 const fileRouter = require("./api/files/files.router")
 const bodyParser = require('body-parser');
 const cors = require("cors");
@@ -17,11 +19,6 @@ const cloudinary = require('cloudinary').v2
 const streamifier = require('streamifier')
 const fileUpload = multer()
 
-// cloudinary.config({ 
-//     cloud_name: process.env.CLOUD_NAME, 
-//     api_key: process.env.API_KEY,
-//     api_secret: process.env.API_SECRET
-// });
 
 app.use(cors({origin: "*"}));
 app.use(bodyParser.json({limit: '50mb'}));
@@ -35,6 +32,7 @@ app.use("/api/vaccine_info", vaccination_info);
 app.use("/api/rooms", roomRouter);
 app.use("/api/covid_cases", covidCasesRouter);
 app.use("/api/clinic", clinicRouter);
+app.use("/api/communicable_disease", communicable_disease)
 
 app.use('/api/files', fileRouter)
 const port = process.env.PORT || 3001;
