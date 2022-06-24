@@ -12,10 +12,25 @@ module.exports = {
                 });
                             
             }
-            return res.json({
-                   success: 1,
-                   data: results
+
+            if(results.length === 0){
+                return res.json({
+                    success: 0,
+                    message: "No disease found"
                 });
+                            
+            }
+
+            let allDisease = []
+
+            results.map((disease) => {   
+                return allDisease.push(disease)
+            })
+
+            return res.json({
+                success: 1,
+                data: allDisease
+            });
 
         })
 
