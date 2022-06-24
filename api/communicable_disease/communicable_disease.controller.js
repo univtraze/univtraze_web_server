@@ -24,7 +24,7 @@ module.exports = {
             let allDisease = []
 
             results.map((disease) => {   
-                return allDisease.push(disease)
+                return allDisease.push(disease.disease_name)
             })
 
             return res.json({
