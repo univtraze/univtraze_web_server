@@ -39,10 +39,12 @@ module.exports = {
                         // disease['total'] = results.data
                         disease['cases'] = results
                         disease['totalCases'] = results.length
+
+                        return disease
                         
-                        console.log(disease)
-                    
                     });
+
+                console.log(disease)
 
                 return allDisease.push(disease)
 
