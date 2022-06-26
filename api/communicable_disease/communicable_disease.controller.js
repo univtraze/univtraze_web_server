@@ -25,9 +25,8 @@ module.exports = {
 
             results.map(async (disease) => {
 
-                    // return allDisease.push(disease)
 
-                    await getCommunicableDiseaseByName(disease, (err, results) => {
+                await getCommunicableDiseaseByName(disease, (err, results) => {
                             
                         if(err){
                             console.log(err)
@@ -39,12 +38,11 @@ module.exports = {
 
                         // disease['total'] = results.data
                         disease['cases'] = results
-
-                        console.log(disease)
-
-                        return allDisease.push(disease)
+                        disease['totalCases'] = results.length
                     
                     });
+
+                return allDisease.push(disease)
 
             })
 
