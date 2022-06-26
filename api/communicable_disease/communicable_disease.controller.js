@@ -25,26 +25,24 @@ module.exports = {
 
             results.map(async (disease) => {
 
-                    return allDisease.push(disease + "CHanged here")
+                    // return allDisease.push(disease)
 
-                    // var resultData = [];
-
-                    // await getCommunicableDiseaseByName(disease, (err, results) => {
+                    await getCommunicableDiseaseByName(disease, (err, results) => {
                             
-                    //     if(err){
-                    //         console.log(err)
-                    //         return res.json({
-                    //         success: 0,
-                    //         message: "Database connection Error"
-                    //         });                                
-                    //     }
+                        if(err){
+                            console.log(err)
+                            return res.json({
+                            success: 0,
+                            message: "Database connection Error"
+                            });                                
+                        }
 
-                    //     console.log(results.data)
-                    //     return resultData.push([...resultData, results.data])
+                        disease['total'] = results.data.length
+                        disease['cases'] = results.data
+
+                        return allDisease.push(results)
                     
-                    // });
-
-                    // return allDisease.push(resultData)
+                    });
 
             })
 
