@@ -37,8 +37,13 @@ module.exports = {
                             });                                
                         }
 
-                        disease['total'] = results.data.data.length
-                        disease['cases'] = results.data.data
+                        // disease['total'] = results.data
+                        disease['cases'] = results.data
+
+                        console.log(disease)
+
+                        console.log(results.data)
+
 
                         return allDisease.push(disease)
                     
