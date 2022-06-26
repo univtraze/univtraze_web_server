@@ -40,6 +40,8 @@ module.exports = {
                         // disease['total'] = results.data
                         disease['cases'] = results
 
+                        console.log(disease)
+
                         return allDisease.push(disease)
                     
                     });
