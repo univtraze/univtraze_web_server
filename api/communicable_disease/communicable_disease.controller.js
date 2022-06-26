@@ -25,6 +25,8 @@ module.exports = {
 
             results.map((disease) => {
 
+                var rawData = [];
+
                 getCommunicableDiseaseByName(disease, (err, results) => {
                             
                         if(err){
@@ -39,11 +41,11 @@ module.exports = {
                         disease['cases'] = results
                         disease['totalCases'] = results.length
                         
-                        return
+                        return rawData.push(disease)
                     });
 
 
-                console.log(disease)
+                console.log(rawData)
                 return allDisease.push(disease)
 
             })
