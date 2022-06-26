@@ -42,7 +42,7 @@ module.exports = {
 
                         console.log(disease)
 
-                        console.log(results.data)
+                        console.log(results)
 
 
                         return allDisease.push(disease)
