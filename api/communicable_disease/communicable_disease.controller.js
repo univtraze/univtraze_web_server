@@ -23,34 +23,34 @@ module.exports = {
 
             var allDisease = [];
 
-            results.map((disease) => {
+            const getAllDiseaseWithData = async () => {
 
-                var rawData = [];
+                    await results.map(async (disease) => {
 
-                getCommunicableDiseaseByName(disease, (err, results) => {
-                            
-                        if(err){
-                            console.log(err)
-                            return res.json({
-                            success: 0,
-                            message: "Database connection Error"
-                            });                                
-                        }
+                            var returnedData = []
 
-                        // disease['total'] = results.data
-                        disease['cases'] = results
-                        disease['totalCases'] = results.length
-                        
-                        return rawData.push(disease)
-                    });
+                            await getCommunicableDiseaseByName(disease, (err, results) => {
+                                        
+                                    if(err){
+                                        console.log(err)
+                                        return res.json({
+                                        success: 0,
+                                        message: "Database connection Error"
+                                        });                                
+                                    }
+            
+                                    // disease['total'] = results.data
+                                    disease['cases'] = results
+                                    disease['totalCases'] = results.length
+                                    
+                                    return returnedData.push(results)
+                                });
 
+                            return returnedData
+                    })
+            }
 
-                console.log(rawData)
-                return allDisease.push(disease)
-
-            })
-
-            console.log(allDisease)
+            console.log(getAllDiseaseWithData)
 
             return res.json({
                 success: 1,
