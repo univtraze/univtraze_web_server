@@ -40,7 +40,7 @@ module.exports = {
                         disease['total'] = results.data.length
                         disease['cases'] = results.data
 
-                        return allDisease.push(results)
+                        return allDisease.push(disease)
                     
                     });
 
