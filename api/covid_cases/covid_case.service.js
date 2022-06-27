@@ -88,6 +88,20 @@ module.exports = {
                     return callBack(null, results)
             }
         )
-    }
+    },
+
+    getAllEmergencyReports: callBack => {
+        pool.query(
+            `SELECT * FROM emergency_reporting WHERE 1 ORDER BY updatedAt DESC`,
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+    
+
    
 };
