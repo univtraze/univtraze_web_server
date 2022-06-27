@@ -21,37 +21,72 @@ module.exports = {
                             
             }
 
-            var allDisease = [];
+            const list = [] //...an array filled with values
 
+            const functionThatReturnsAPromise = item => { //a function that returns a promise
+                
+                var allDisease = [];
 
-           results.map(async (disease) => {
-                    
-                            await getCommunicableDiseaseByName(disease, (err, results) => {
-                                        
-                                    if(err){
-                                        console.log(err)
-                                        return res.json({
-                                        success: 0,
-                                        message: "Database connection Error"
-                                        });                                
-                                    }
-            
-                                    // disease['total'] = results.data
-                                    disease['cases'] = results
-                                    disease['totalCases'] = results.length
+                results.map((disease) => {   
+                    getCommunicableDiseaseByName(disease, (err, results) => {
+                                            
+                       if(err){
+                          console.log(err)
+                          return res.json({
+                              success: 0,
+                              message: "Database connection Error"
+                              });                                
+                         }
+                
+                          // disease['total'] = results.data
+                         disease['cases'] = results
+                         disease['totalCases'] = results.length
                                     
-                                    return console.log(disease)
-                                });  
+                        });  
 
-                    })
+                    allDisease.push(disease)
 
+                })
 
-            return res.json({
-                success: 1,
-                data: allDisease
+                return Promise.resolve('ok')
+            }
+
+            const doSomethingAsync = async item => {
+            return functionThatReturnsAPromise(item)
+            }
+
+            const getData = async () => {
+            return Promise.all(results.map(item => doSomethingAsync(item)))
+            }
+
+            getData().then(data => {
+            console.log(data)
             })
 
-                                          
+
+
+
+        //    results.map(async (disease) => {   
+        //         await getCommunicableDiseaseByName(disease, (err, results) => {
+                                        
+        //            if(err){
+        //               console.log(err)
+        //               return res.json({
+        //                   success: 0,
+        //                   message: "Database connection Error"
+        //                   });                                
+        //              }
+            
+        //               // disease['total'] = results.data
+        //              disease['cases'] = results
+        //              disease['totalCases'] = results.length
+                                    
+        //              return disease
+        //             });  
+
+        //     })
+            
+                              
             
         })
 
