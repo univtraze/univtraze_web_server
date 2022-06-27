@@ -5,7 +5,7 @@ module.exports = {
 
         var allDisease = [];
 
-        getAllCommunicableDisease((err, results) => {
+        getAllCommunicableDisease( async (err, results) => {
             
             if(err){
                 console.log(err)
