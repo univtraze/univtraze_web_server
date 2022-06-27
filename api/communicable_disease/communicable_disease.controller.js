@@ -3,7 +3,11 @@ const {getAllCommunicableDisease, getCommunicableDiseaseByName} = require('./com
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
 
+
+        var allDisease = [];
+
         getAllCommunicableDisease((err, results) => {
+            
             if(err){
                 console.log(err)
                 return res.json({
@@ -21,44 +25,50 @@ module.exports = {
                             
             }
 
-            var diseaseData = [{name: "Jay"}] //...an array filled with values
+            allDisease.push(results)
 
-            const getDiseaseData = async (disease) => {
-                
-                console.log('Dapat matapos to bago ang lahat' + disease.disease_name)
+            return res.json({
+                success: 1,
+                message: results
+            });
 
-                return await getCommunicableDiseaseByName(disease, (err, results) => {                                        
+
+            // var diseaseData = [{name: "Jay"}] //...an array filled with values
+
+            // const getDiseaseData = async (disease) => {
+
+            //     return await getCommunicableDiseaseByName(disease, (err, results) => {                                        
                     
-                    if(err){
-                        console.log(err)
-                        return res.json({
-                             success: 0,
-                             message: "Database connection Error"
-                         });                                
-                        }
-                        // disease['total'] = results.data
-                        disease['cases'] = results
-                        disease['totalCases'] = results.length
+            //         if(err){
+            //             console.log(err)
+            //             return res.json({
+            //                  success: 0,
+            //                  message: "Database connection Error"
+            //              });                                
+            //             }
+            //             // disease['total'] = results.data
+            //             disease['cases'] = results
+            //             disease['totalCases'] = results.length
                                                 
-                        diseaseData.push(disease)
-                   });  
-            }
+            //             diseaseData.push(disease)
+            //        });  
+            // }
 
-            const getAllDiseaseData = async (results) => {
-                console.log(results)
-                console.log('Dat sa taas nito mga array ng disease')
-                console.log("Pangalawang Function dito")
-                return Promise.all(results.map((disease) => getDiseaseData(disease)))
-            }
+            // const getAllDiseaseData = async (results) => {
+            //     console.log(results)
+            //     console.log('Dat sa taas nito mga array ng disease')
+            //     console.log("Pangalawang Function dito")
+            //     return Promise.all(results.map((disease) => getDiseaseData(disease)))
+            // }
 
-            getAllDiseaseData(results).then(() => {
-                console.log("Final Function dito pagkatapos ng promise" + diseaseData)
+            // getAllDiseaseData(results).then(() => {
+            //     console.log("Final Function dito pagkatapos ng promise" + diseaseData)
 
-                return res.json({
-                    success: 1,
-                    message: diseaseData
-                });
-            })
+            //     return res.json({
+            //         success: 1,
+            //         message: diseaseData
+            //     });
+            // })
 
 
         //    results.map(async (disease) => {   
