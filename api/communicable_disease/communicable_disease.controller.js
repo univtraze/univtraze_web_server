@@ -26,99 +26,24 @@ module.exports = {
 
             allDisease.push(results)
 
-
-            const promise = new Promise((resolve, reject) => {
+            const queryResults = await Promise.all(
                 
-                var currentDiseaseData = [];
+                allDisease.map(async (disease) => {
+                 
+                 return new Promise((resolve, reject) => 
+                  
+                 getCommunicableDiseaseByName(disease, (err, results) => {
+                     if (err) 
+                       return reject(err)
+                     else
+                       return resolve(results)
+                   })
+                 )
+               })
+             )
 
-                allDisease.map( async (disease) => {
-                
-                    return await getCommunicableDiseaseByName(disease, (err, results) => {                                        
-                        
-                        if(err){
-                            console.log(err)
-                            return res.json({
-                            success: 0,
-                            message: "Database connection Error"
-                             });                                
-                         }
-                            // disease['total'] = results.data
-                            disease['cases'] = results
-                            disease['totalCases'] = results.length
-
-                            currentDiseaseData.push(disease)
-
-                        });
-                        
-                })
-    
-                resolve(currentDiseaseData)
-
-              });
-
-            promise.then((resolved) =>{
-                console.log("" + resolved)
-            })  
-            // var diseaseData = [{name: "Jay"}] //...an array filled with values
-
-            // const getDiseaseData = async (disease) => {
-
-            //     return await getCommunicableDiseaseByName(disease, (err, results) => {                                        
-                    
-            //         if(err){
-            //             console.log(err)
-            //             return res.json({
-            //                  success: 0,
-            //                  message: "Database connection Error"
-            //              });                                
-            //             }
-            //             // disease['total'] = results.data
-            //             disease['cases'] = results
-            //             disease['totalCases'] = results.length
-                                                
-            //             diseaseData.push(disease)
-            //        });  
-            // }
-
-            // const getAllDiseaseData = async (results) => {
-            //     console.log(results)
-            //     console.log('Dat sa taas nito mga array ng disease')
-            //     console.log("Pangalawang Function dito")
-            //     return Promise.all(results.map((disease) => getDiseaseData(disease)))
-            // }
-
-            // getAllDiseaseData(results).then(() => {
-            //     console.log("Final Function dito pagkatapos ng promise" + diseaseData)
-
-            //     return res.json({
-            //         success: 1,
-            //         message: diseaseData
-            //     });
-            // })
-
-
-        //    results.map(async (disease) => {   
-        //         await getCommunicableDiseaseByName(disease, (err, results) => {
-                                        
-        //            if(err){
-        //               console.log(err)
-        //               return res.json({
-        //                   success: 0,
-        //                   message: "Database connection Error"
-        //                   });                                
-        //              }
-            
-        //               // disease['total'] = results.data
-        //              disease['cases'] = results
-        //              disease['totalCases'] = results.length
-                                    
-        //              return disease
-        //             });  
-
-        //     })
-            
-                              
-            
+             console.log('queryResults', queryResults)
+             // now you give this queryResults back to your FE             
         })
 
     },
