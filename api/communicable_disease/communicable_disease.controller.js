@@ -24,11 +24,9 @@ module.exports = {
                             
             }
 
-            allDisease.push(results)
-
             const queryResults = await Promise.all(
                 
-                allDisease.map(async (disease) => {
+                results.map(async (disease) => {
                  
                  return new Promise((resolve, reject) => 
                   
@@ -43,6 +41,11 @@ module.exports = {
              )
 
              console.log('queryResults', queryResults)
+
+             return res.json({
+                success: 1,
+                data: queryResults
+             })
              // now you give this queryResults back to your FE             
         })
 
