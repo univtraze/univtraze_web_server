@@ -3,6 +3,8 @@ const {getAllCommunicableDisease, getCommunicableDiseaseByName} = require('./com
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
 
+        var allDisease = [];
+
         getAllCommunicableDisease((err, results) => {
             
             if(err){
@@ -21,6 +23,8 @@ module.exports = {
                 });
                             
             }
+
+            allDisease.push(results)
 
 
             const promise = new Promise((resolve, reject) => {
