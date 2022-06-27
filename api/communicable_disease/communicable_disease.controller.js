@@ -43,12 +43,14 @@ module.exports = {
                    });  
             }
 
-            const getAllDiseaseData = async () => {
+            const getAllDiseaseData = async (results) => {
+                console.log(results)
+                console.log('Dat sa taas nito mga array ng disease')
                 console.log("Pangalawang Function dito")
                 return Promise.all(results.map((disease) => getDiseaseData(disease)))
             }
 
-            getAllDiseaseData().then(() => {
+            getAllDiseaseData(results).then(() => {
                 console.log("Final Function dito pagkatapos ng promise")
                 return res.json({
                     success: 1,
