@@ -56,7 +56,7 @@ module.exports = {
 
               });
 
-            promise.then(() =>{
+            promise.then((resolved) =>{
                 console.log("" + resolved)
             })  
             // var diseaseData = [{name: "Jay"}] //...an array filled with values
