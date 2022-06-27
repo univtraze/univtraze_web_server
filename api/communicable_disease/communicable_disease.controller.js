@@ -21,7 +21,7 @@ module.exports = {
                             
             }
 
-            const diseaseData = [] //...an array filled with values
+            var diseaseData = [] //...an array filled with values
 
             const getDiseaseData = async (disease) => {
                 
@@ -53,6 +53,7 @@ module.exports = {
 
             getAllDiseaseData(results).then(() => {
                 console.log("Final Function dito pagkatapos ng promise" + diseaseData)
+
                 return res.json({
                     success: 1,
                     message: diseaseData
