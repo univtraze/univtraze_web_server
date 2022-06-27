@@ -36,7 +36,7 @@ module.exports = {
                              message: "Database connection Error"
                          });                                
                         }
-                                  // disease['total'] = results.data
+                        // disease['total'] = results.data
                         disease['cases'] = results
                         disease['totalCases'] = results.length
                                                 
@@ -52,7 +52,7 @@ module.exports = {
             }
 
             getAllDiseaseData(results).then(() => {
-                console.log("Final Function dito pagkatapos ng promise")
+                console.log("Final Function dito pagkatapos ng promise" + diseaseData)
                 return res.json({
                     success: 1,
                     message: diseaseData
