@@ -27,7 +27,7 @@ module.exports = {
 
                 var returnData = [];
 
-                results.map(async (disease) => {
+                results.forEach(async (disease) => {
 
                     await getCommunicableDiseaseByName(disease, (err, results) => {
                                 
@@ -40,6 +40,7 @@ module.exports = {
                             }
     
                             // disease['total'] = results.data
+
                             disease['cases'] = results
                             disease['totalCases'] = results.length
     
@@ -47,7 +48,8 @@ module.exports = {
                             
                         });
                 });
-
+                
+                console.log(returnData)
                 resolve(returnData);
               });
               
