@@ -3,7 +3,7 @@ const {getAllCommunicableDisease, getCommunicableDiseaseByName} = require('./com
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
 
-        getAllCommunicableDisease((err, results) => {
+        getAllCommunicableDisease(async (err, results) => {
             
             if(err){
                 console.log(err)
