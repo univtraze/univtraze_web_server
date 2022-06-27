@@ -26,7 +26,6 @@ module.exports = {
 
            results.map(async (disease) => {
                         
-
                             await getCommunicableDiseaseByName(disease, (err, results) => {
                                         
                                     if(err){
@@ -41,21 +40,20 @@ module.exports = {
                                     disease['cases'] = results
                                     disease['totalCases'] = results.length
 
+                                    allDisease.push(disease)
                                     return console.log(disease)
                                 });
 
-                           return
-
                     })
-
-
+            
+            console.log(allDisease)
+            
             return res.json({
                 success: 1,
                 data: allDisease
             })
 
                                           
-            
         })
 
     },
