@@ -32,7 +32,7 @@ module.exports = {
                      if (err) 
                        return reject(err)
                      else
-                       return resolve({disease_name: disease.disease_name, totalCases: results.data.length, cases: results.data})
+                       return resolve({disease_name: disease.disease_name, cases: results.data})
                    })
                  )
                })
