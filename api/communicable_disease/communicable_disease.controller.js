@@ -24,8 +24,10 @@ module.exports = {
             const diseaseData = [] //...an array filled with values
 
             const getDiseaseData = async (disease) => {
-                return await getCommunicableDiseaseByName(disease, (err, results) => {
-                                        
+                
+                console.log('Dapat matapos to bago ang lahat')
+
+                return await getCommunicableDiseaseByName(disease, (err, results) => {                                        
                     if(err){
                         console.log(err)
                         return res.json({
@@ -42,10 +44,12 @@ module.exports = {
             }
 
             const getAllDiseaseData = async () => {
+                console.log("Pangalawang Function dito")
                 return Promise.all(results.map((disease) => getDiseaseData(disease)))
             }
 
             getAllDiseaseData().then(() => {
+                console.log("Final Function dito pagkatapos ng promise")
                 return res.json({
                     success: 1,
                     message: diseaseData
