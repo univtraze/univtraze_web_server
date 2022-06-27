@@ -32,12 +32,9 @@ module.exports = {
                      if (err) 
                        return reject(err)
                      else
-                        var returnArray = [];
-                        returnArray.push(results.data)
-
-                       disease['totalCases'] = returnArray.length
+                        
                        disease['cases'] = results.data
-                       
+
                        return resolve(disease)
                    })
                  )
