@@ -25,9 +25,10 @@ module.exports = {
 
             const getDiseaseData = async (disease) => {
                 
-                console.log('Dapat matapos to bago ang lahat')
+                console.log('Dapat matapos to bago ang lahat' + disease.disease_name)
 
                 return await getCommunicableDiseaseByName(disease, (err, results) => {                                        
+                    
                     if(err){
                         console.log(err)
                         return res.json({
@@ -39,7 +40,7 @@ module.exports = {
                         disease['cases'] = results
                         disease['totalCases'] = results.length
                                                 
-                        return diseaseData.push(disease)
+                        diseaseData.push(disease)
                    });  
             }
 
