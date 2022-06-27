@@ -3,27 +3,24 @@ const {getAllCommunicableDisease, getCommunicableDiseaseByName} = require('./com
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
 
-
-       
-
-        // getAllCommunicableDisease((err, results) => {
+        getAllCommunicableDisease((err, results) => {
             
-        //     if(err){
-        //         console.log(err)
-        //         return res.json({
-        //             success: 0,
-        //             message: "Database connection Error"
-        //         });
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
                             
-        //     }
+            }
 
-        //     if(results.length === 0){
-        //         return res.json({
-        //             success: 0,
-        //             message: "No disease found"
-        //         });
+            if(results.length === 0){
+                return res.json({
+                    success: 0,
+                    message: "No disease found"
+                });
                             
-        //     }
+            }
 
 
             const promise = new Promise((resolve, reject) => {
@@ -44,18 +41,19 @@ module.exports = {
                             // disease['total'] = results.data
                             disease['cases'] = results
                             disease['totalCases'] = results.length
-    
+
                             currentDiseaseData.push(disease)
+
                         });
                         
                 })
     
                 resolve(currentDiseaseData)
-                
+
               });
 
-            promise.then((resolved, rejected) =>{
-                console.log(resolved)
+            promise.then(() =>{
+                console.log("" + resolved)
             })  
             // var diseaseData = [{name: "Jay"}] //...an array filled with values
 
