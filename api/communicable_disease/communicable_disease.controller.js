@@ -48,7 +48,7 @@ module.exports = {
 
             return res.json({
                 success: 1,
-                message: results
+                message: allDisease
             });
 
 
