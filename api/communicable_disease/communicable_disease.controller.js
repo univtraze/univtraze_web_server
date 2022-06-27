@@ -21,7 +21,7 @@ module.exports = {
                             
             }
 
-            var diseaseData = [] //...an array filled with values
+            var diseaseData = [{name: "Jay"}] //...an array filled with values
 
             const getDiseaseData = async (disease) => {
                 
