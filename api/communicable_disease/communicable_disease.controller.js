@@ -4,54 +4,59 @@ module.exports = {
     getAllCommunicableDisease: (req, res) => {
 
 
-        var allDisease = [];
+       
 
-        getAllCommunicableDisease((err, results) => {
+        // getAllCommunicableDisease((err, results) => {
             
-            if(err){
-                console.log(err)
-                return res.json({
-                    success: 0,
-                    message: "Database connection Error"
-                });
+        //     if(err){
+        //         console.log(err)
+        //         return res.json({
+        //             success: 0,
+        //             message: "Database connection Error"
+        //         });
                             
-            }
+        //     }
 
-            if(results.length === 0){
-                return res.json({
-                    success: 0,
-                    message: "No disease found"
-                });
+        //     if(results.length === 0){
+        //         return res.json({
+        //             success: 0,
+        //             message: "No disease found"
+        //         });
                             
-            }
+        //     }
 
-            allDisease.map( async (disease) => {
+
+            const promise = new Promise((resolve, reject) => {
                 
-                return await getCommunicableDiseaseByName(disease, (err, results) => {                                        
-                    
-                    if(err){
-                        console.log(err)
-                        return res.json({
-                        success: 0,
-                        message: "Database connection Error"
-                         });                                
-                     }
-                        // disease['total'] = results.data
-                       disease['cases'] = results
-                       disease['totalCases'] = results.length
+                var currentDiseaseData = [];
 
-                       allDisease.push(disease)
+                allDisease.map( async (disease) => {
+                
+                    return await getCommunicableDiseaseByName(disease, (err, results) => {                                        
+                        
+                        if(err){
+                            console.log(err)
+                            return res.json({
+                            success: 0,
+                            message: "Database connection Error"
+                             });                                
+                         }
+                            // disease['total'] = results.data
+                            disease['cases'] = results
+                            disease['totalCases'] = results.length
+    
+                            currentDiseaseData.push(disease)
+                        });
+                        
+                })
+    
+                resolve(currentDiseaseData)
+                
+              });
 
-                    });
-                    
-            })
-
-            return res.json({
-                success: 1,
-                message: allDisease
-            });
-
-
+            promise.then((resolved, rejected) =>{
+                console.log(resolved)
+            })  
             // var diseaseData = [{name: "Jay"}] //...an array filled with values
 
             // const getDiseaseData = async (disease) => {
