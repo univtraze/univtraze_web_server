@@ -40,10 +40,11 @@ module.exports = {
                                     // disease['total'] = results.data
                                     disease['cases'] = results
                                     disease['totalCases'] = results.length
-                            
+
+                                    return console.log(disease)
                                 });
 
-                            return console.log(disease)
+                           return
 
                     })
 
