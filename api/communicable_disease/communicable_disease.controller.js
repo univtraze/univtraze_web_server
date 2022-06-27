@@ -21,49 +21,36 @@ module.exports = {
                             
             }
 
-            const list = [] //...an array filled with values
+            const diseaseData = [] //...an array filled with values
 
-            const functionThatReturnsAPromise = item => { //a function that returns a promise
-                
-                var allDisease = [];
-
-                results.map((disease) => {   
-                    getCommunicableDiseaseByName(disease, (err, results) => {
-                                            
-                       if(err){
-                          console.log(err)
-                          return res.json({
-                              success: 0,
-                              message: "Database connection Error"
-                              });                                
-                         }
-                
-                          // disease['total'] = results.data
-                         disease['cases'] = results
-                         disease['totalCases'] = results.length
-                                    
-                        });  
-
-                    allDisease.push(disease)
-
-                })
-
-                return Promise.resolve('ok')
+            const getDiseaseData = async (disease) => {
+                return await getCommunicableDiseaseByName(disease, (err, results) => {
+                                        
+                    if(err){
+                        console.log(err)
+                        return res.json({
+                             success: 0,
+                             message: "Database connection Error"
+                         });                                
+                        }
+                                  // disease['total'] = results.data
+                        disease['cases'] = results
+                        disease['totalCases'] = results.length
+                                                
+                        return diseaseData.push(disease)
+                   });  
             }
 
-            const doSomethingAsync = async item => {
-            return functionThatReturnsAPromise(item)
+            const getAllDiseaseData = async () => {
+                return Promise.all(results.map((disease) => getDiseaseData(disease)))
             }
 
-            const getData = async () => {
-            return Promise.all(results.map(item => doSomethingAsync(item)))
-            }
-
-            getData().then(data => {
-            console.log(data)
+            getAllDiseaseData().then(() => {
+                return res.json({
+                    success: 1,
+                    message: diseaseData
+                });
             })
-
-
 
 
         //    results.map(async (disease) => {   
