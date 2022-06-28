@@ -38,7 +38,7 @@ module.exports = {
                })
              )
 
-             console.log('queryResults', queryResults)
+            //  console.log('queryResults', queryResults)
 
              return res.json({
                 success: 1,
