@@ -84,12 +84,12 @@ module.exports = {
                 
             }
 
-            if(results.data.affectedRows === 0){
-                return res.json({
-                    success: 0,
-                    data: "No data found for this case"
-                });
-            }
+            // if(results.data.affectedRows === 0){
+            //     return res.json({
+            //         success: 0,
+            //         data: "No data found for this case"
+            //     });
+            // }
 
             return res.json({
                 success: 1,
