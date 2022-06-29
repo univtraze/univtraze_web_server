@@ -122,6 +122,16 @@ module.exports = {
                 data: results
             });
         })
-    }
+    },
+
+    getFirstDegreeCommunicableDisease: (req, res) => {
+
+        const body = req.body
+
+        return res.json({
+            message: body
+        })
+       
+    },
 
 }
