@@ -130,6 +130,37 @@ module.exports = {
         )
     },
 
+    updateEmergencyReportCaseStatus: (data, callBack) => {
+        pool.query(
+            `UPDATE emergency_reporting SET case_status = ? WHERE id = ?`,
+            [
+                data.case_status,
+                data.id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+    deleteEmergencyReportCase: (data, callBack) => {
+        pool.query(
+            `DELETE FROM emergency_reporting WHERE id = ?`,
+            [
+                data.id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+
+    }
+
     
 
    

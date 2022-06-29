@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validator");
-const { addCovidPositive, addEmergencyReport, addDailyAssessment, searchEmergencyReportsViaDate, addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved, getAllEmergencyReportsByStatus} = require("./covid_case.controller");
+const { addCovidPositive, addEmergencyReport, addDailyAssessment, searchEmergencyReportsViaDate, addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved, getAllEmergencyReportsByStatus, updateEmergencyReportCaseStatus} = require("./covid_case.controller");
 
 router.post("/addCovidPositive", checkToken, addCovidPositive)
 router.post("/addEmergencyReport", checkToken, addEmergencyReport)
@@ -10,5 +10,6 @@ router.post("/addCommunicableDiseaseCase", checkToken, addCommunicableDiseaseCas
 router.get("/getAllEmergencyReports", checkToken, getAllEmergencyReports)
 router.get("/getAllEmergencyReportsResolved", checkToken, getAllEmergencyReportsResolved)
 router.post("/getAllEmergencyReportsByStatus", checkToken, getAllEmergencyReportsByStatus)
+router.post("/updateEmergencyReportCaseStatus", checkToken, updateEmergencyReportCaseStatus)
 
 module.exports = router;
