@@ -9,6 +9,6 @@ router.post("/searchEmergencyReportsViaDate", checkToken, searchEmergencyReports
 router.post("/addCommunicableDiseaseCase", checkToken, addCommunicableDiseaseCase)
 router.get("/getAllEmergencyReports", checkToken, getAllEmergencyReports)
 router.get("/getAllEmergencyReportsResolved", checkToken, getAllEmergencyReportsResolved)
-router.get("/getAllEmergencyReportsByStatus", checkToken, getAllEmergencyReportsByStatus)
+router.post("/getAllEmergencyReportsByStatus", checkToken, getAllEmergencyReportsByStatus)
 
 module.exports = router;
