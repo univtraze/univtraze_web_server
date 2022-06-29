@@ -69,4 +69,15 @@ module.exports = {
             });
         });
     },
+
+    updateCommunicableDiseaseCaseStatus: (req, res) => {
+
+        const body = req.body
+
+        return res.json({
+            message: body
+        })
+    }
+
+    
 }

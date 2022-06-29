@@ -29,5 +29,21 @@ module.exports = {
         )
     },
 
+    updateCommunicableDiseaseCaseStatus: (data, callBack) => {
+        pool.query(
+            `UPDATE communicable_disease_reporting SET case_status = ? WHERE id = ?`,
+            [
+                data.case_status,
+                data.id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    } 
+
    
 };
