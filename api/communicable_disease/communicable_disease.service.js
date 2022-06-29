@@ -43,7 +43,21 @@ module.exports = {
                     return callBack(null, results)
             }
         )
-    } 
+    },
+    deleteCommunicableDisease: (data, callBack) => {
+        pool.query(
+            `DELETE FROM communicable_disease_reporting WHERE id = ?`,
+            [
+                data.id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
 
+    }
    
 };

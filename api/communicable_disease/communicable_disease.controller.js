@@ -96,6 +96,15 @@ module.exports = {
                 data: results
             });
         })
+    },
+    deleteCommunicableDisease: (req, res) => {
+
+        const body = req.body
+
+        return res.json({
+            message: body
+        })
+
     }
 
 }
