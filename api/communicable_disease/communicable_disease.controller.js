@@ -127,10 +127,10 @@ module.exports = {
     getFirstDegreeCommunicableDisease: (req, res) => {
         const body = req.body
 
-        var start_date = new Date(body.date_reported);
+        var start_date = new Date(body.date_reported).format("YYYY-MM-DD");
         start_date.setDate(start_date.getDate() - body.date_range);
 
-        body['start_date'] = start_date.format("YYYY-MM-DD")
+        body['start_date'] = start_date
         body['end_date'] = new Date(body.date_reported).toISOString().replace(/T/, ' ').replace(/\..+/, '')
 
 
