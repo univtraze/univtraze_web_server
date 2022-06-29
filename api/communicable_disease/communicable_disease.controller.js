@@ -1,4 +1,4 @@
-const {getAllCommunicableDisease, getCommunicableDiseaseByName, updateCommunicableDiseaseCaseStatus, deleteCommunicableDisease} = require('./communicable_disease.service')
+const {getAllCommunicableDisease, getCommunicableDiseaseByName, updateCommunicableDiseaseCaseStatus, deleteCommunicableDisease, getUserVisitedRooms} = require('./communicable_disease.service')
 
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
@@ -133,14 +133,32 @@ module.exports = {
         body['start_date'] = start_date
         body['end_date'] = new Date(body.date_reported)
 
-        return res.json({
-            message: body
+
+        getUserVisitedRooms(body, (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+            }
+
+            if(results.length === 0){
+                return res.json({
+                    success: 0,
+                    data: "No rooms visted found"
+                });
+            }
+
+
+            return res.json({
+                success: 1,
+                data: results
+            });
+
         })
         
-
         //Get rooms that this user visited for the past *n days
-
-
     },
 
 }
