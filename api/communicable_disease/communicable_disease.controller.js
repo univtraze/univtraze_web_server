@@ -127,15 +127,21 @@ module.exports = {
     getFirstDegreeCommunicableDisease: (req, res) => {
         const body = req.body
 
-        var reportedDate = new Date(body.date_reported);
+        var start_date = new Date(body.date_reported);
+        start_date.setDate(d.getDate() - 5);
 
-        reportedDate.setDate(d.getDate() - 5);
+        body['start_date'] = start_date
+        body['end_date'] = new Date(body.date_reported)
 
         return res.json({
             message: body,
             newDate: reportedDate
         })
-       
+        
+
+        //Get rooms that this user visited for the past *n days
+
+
     },
 
 }

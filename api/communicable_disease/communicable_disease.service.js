@@ -77,6 +77,22 @@ module.exports = {
     //         }
     //     )
 
-    // }
-   
+    // },
+
+    getUserVisitedRooms: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM room_visited WHERE user_id = ? AND createdAt between ? and CONCAT(?, ' 23:59:59')`,
+            [
+                data.user_id,
+                data.start_data,
+                data.end_date
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    }
 };
