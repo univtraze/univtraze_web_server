@@ -92,9 +92,7 @@ module.exports = {
                     return callBack(error)
                 }
 
-                var finalResults = [ ...new Set(results)]
-                
-                return callBack(null, finalResults)
+                return callBack(null, results)
 
             }
         )
