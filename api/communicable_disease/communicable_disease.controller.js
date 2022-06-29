@@ -130,8 +130,8 @@ module.exports = {
         var start_date = new Date(body.date_reported);
         start_date.setDate(start_date.getDate() - body.date_range);
 
-        body['start_date'] = start_date
-        body['end_date'] = new Date(body.date_reported)
+        body['start_date'] = start_date.toISOString()
+        body['end_date'] = new Date(body.date_reported).toISOString()
 
 
         getUserVisitedRooms(body, (err, results) => {
