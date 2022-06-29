@@ -16,7 +16,7 @@ module.exports = {
 
     getCommunicableDiseaseByName: (data, callBack) => {
         pool.query(
-            `SELECT id, user_id, type, disease_name, document_proof_image, createAt, updatedAt FROM communicable_disease_reporting WHERE disease_name = ?`,
+            `SELECT id, user_id, type, disease_name, document_proof_image, createAt, updatedAt FROM communicable_disease_reporting WHERE disease_name LIKE %?%`,
             [
                 data.disease_name,
             ],
@@ -44,6 +44,7 @@ module.exports = {
             }
         )
     },
+
     deleteCommunicableDisease: (data, callBack) => {
         pool.query(
             `DELETE FROM communicable_disease_reporting WHERE id = ?`,
@@ -58,6 +59,24 @@ module.exports = {
             }
         )
 
-    }
+    },
+
+    // getFirstDegreeCommunicableDisease: (data, callBack) => {
+    //     pool.query(
+    //         `DELETE FROM communicable_disease_reporting WHERE id = ?`,
+    //         [
+    //             data.user_id,
+    //             data.type,
+    //             data.createdAt
+    //         ],
+    //         (error, results, fields) => {
+    //             if(error) {
+    //                 return callBack(error)
+    //             }
+    //                 return callBack(null, results)
+    //         }
+    //     )
+
+    // }
    
 };
