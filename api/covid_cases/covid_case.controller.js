@@ -1,5 +1,5 @@
 
-const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate, addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved, getAllEmergencyReportsByStatus, updateEmergencyReportCaseStatus} = require("./covid_case.service");
+const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate, addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved, getAllEmergencyReportsByStatus, updateEmergencyReportCaseStatus, deleteEmergencyReportCase} = require("./covid_case.service");
 
 module.exports = {
     addCommunicableDiseaseCase: (req, res) => {
@@ -228,6 +228,32 @@ module.exports = {
 
         })
 
+    },
+    deleteEmergencyReportCase: (req, res) => {
+        const body = req.body
+
+        deleteEmergencyReportCase(body, (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+                
+            }
+
+            if(results.affectedRows === 0){
+                return res.json({
+                    success: 0,
+                    data: "No data found for this case"
+                });
+            }
+
+            return res.json({
+                success: 1,
+                data: results
+            }); 
+        })
     }
 
 
