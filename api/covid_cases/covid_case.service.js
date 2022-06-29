@@ -92,7 +92,7 @@ module.exports = {
 
     getAllEmergencyReports: callBack => {
         pool.query(
-            `SELECT * FROM emergency_reporting WHERE 1 ORDER BY updatedAt DESC`,
+            `SELECT * FROM emergency_reporting WHERE case_status = 'On-going' ORDER BY updatedAt DESC`,
             (error, results, fields) => {
                 if(error) {
                     return callBack(error)
@@ -101,6 +101,35 @@ module.exports = {
             }
         )
     },
+
+    getAllEmergencyReportsResolved: callBack => {
+        pool.query(
+            `SELECT * FROM emergency_reporting WHERE case_status = 'Resolved' ORDER BY updatedAt DESC`,
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+
+    getAllEmergencyReportsByStatus: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM emergency_reporting WHERE case_status = ? ORDER BY updatedAt DESC`,
+            [
+                data.case_status
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     
 
    
