@@ -92,8 +92,8 @@ module.exports = {
                     return callBack(error)
                 }
 
-                const results = [ ...new Set(items)]  
-                return callBack(null, results)
+                const finalResults = [ ...new Set(results)]  
+                return callBack(null, finalResults)
 
             }
         )
