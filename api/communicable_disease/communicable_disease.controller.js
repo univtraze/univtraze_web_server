@@ -134,8 +134,7 @@ module.exports = {
         body['end_date'] = new Date(body.date_reported)
 
         return res.json({
-            message: body,
-            newDate: reportedDate
+            message: body
         })
         
 
