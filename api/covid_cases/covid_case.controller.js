@@ -200,6 +200,7 @@ module.exports = {
     },
 
     updateEmergencyReportCaseStatus: (req, res) => {
+        
         const body = req.body
 
         updateEmergencyReportCaseStatus(body, (err, results) => {
@@ -210,22 +211,20 @@ module.exports = {
                     success: 0,
                     message: "Database connection Error"
                 });
-                            
+                
             }
 
-            if(results.length === 0){
+            if(results.affectedRows === 0){
                 return res.json({
                     success: 0,
-                    message: "No emergency reports found"
+                    data: "No data found for this case"
                 });
-                            
             }
 
-            
             return res.json({
                 success: 1,
                 data: results
-            });        
+            }); 
 
         })
 
