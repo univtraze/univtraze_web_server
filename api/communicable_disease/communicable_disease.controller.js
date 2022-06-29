@@ -126,9 +126,14 @@ module.exports = {
 
     getFirstDegreeCommunicableDisease: (req, res) => {
         const body = req.body
-        
+
+        var reportedDate = new Date(body.date_reported);
+
+        reportedDate.setDate(d.getDate() - 5);
+
         return res.json({
-            message: body
+            message: body,
+            newDate: reportedDate
         })
        
     },
