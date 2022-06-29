@@ -97,5 +97,26 @@ module.exports = {
 
             }
         )
-    }
+    },
+
+    getUsersViaRoomsAndDate: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM room_visited WHERE room_id = ? AND createdAt BETWEEN ? and CONCAT(?, ' 23:59:59')`,
+            [
+                data.room_id,
+                data.start_data,
+                data.end_date
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+
+                const finalResults = [ ...new Set(results)] 
+                
+                return callBack(null, finalResults)
+
+            }
+        )
+    },
 };

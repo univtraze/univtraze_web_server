@@ -146,7 +146,7 @@ module.exports = {
             if(results.length === 0){
                 return res.json({
                     success: 0,
-                    data: "No rooms visted found"
+                    data: "No rooms visited found"
                 });
             }
 
@@ -155,6 +155,8 @@ module.exports = {
                 success: 1,
                 data: results
             });
+
+
 
         })
         
