@@ -1,4 +1,4 @@
-const {getAllCommunicableDisease, getCommunicableDiseaseByName, updateCommunicableDiseaseCaseStatus} = require('./communicable_disease.service')
+const {getAllCommunicableDisease, getCommunicableDiseaseByName, updateCommunicableDiseaseCaseStatus, deleteCommunicableDisease} = require('./communicable_disease.service')
 
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
@@ -101,10 +101,27 @@ module.exports = {
 
         const body = req.body
 
-        return res.json({
-            message: body
-        })
+        deleteCommunicableDisease(body, (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+            }
 
+            if(results.affectedRows === 0){
+                return res.json({
+                    success: 0,
+                    data: "No data found for this case"
+                });
+            }
+
+            return res.json({
+                success: 1,
+                data: results
+            });
+        })
     }
 
 }
