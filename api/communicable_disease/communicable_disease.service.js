@@ -81,7 +81,7 @@ module.exports = {
 
     getUserVisitedRooms: (data, callBack) => {
         pool.query(
-            `SELECT * FROM room_visited WHERE user_id = ? AND createdAt between ? and CONCAT(?, ' 23:59:59')`,
+            `SELECT DISTINCT room_id FROM room_visited WHERE user_id = ? AND createdAt between ? and CONCAT(?, ' 23:59:59')`,
             [
                 data.user_id,
                 data.start_data,
@@ -91,7 +91,10 @@ module.exports = {
                 if(error) {
                     return callBack(error)
                 }
-                    return callBack(null, results)
+
+                const results = [ ...new Set(items)]  
+                return callBack(null, results)
+
             }
         )
     }

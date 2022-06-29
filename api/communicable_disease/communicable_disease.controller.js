@@ -128,7 +128,7 @@ module.exports = {
         const body = req.body
 
         var start_date = new Date(body.date_reported);
-        start_date.setDate(d.getDate() - 5);
+        start_date.setDate(start_date.getDate() - body.date_range);
 
         body['start_date'] = start_date
         body['end_date'] = new Date(body.date_reported)
