@@ -111,8 +111,6 @@ module.exports = {
                     return callBack(error)
                 }
 
-                const finalResults = [ ...new Set(results)] 
-
                 return callBack(null, finalResults)
 
             }

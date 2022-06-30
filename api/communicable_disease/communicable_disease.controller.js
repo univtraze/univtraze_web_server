@@ -150,28 +150,30 @@ module.exports = {
                 });
             }
 
-            const queryResults = await Promise.all(
-                
-                results.data.map(async (room_id) => {
-                 
-                 return new Promise((resolve, reject) => 
-                  
-                 getUsersViaRoomIdAndDate({room_id: room_id, start_date: start_date, end_date: end_date}, (err, results) => {
-                     if (err) 
-                       return reject(err)
-                     else
-                       return resolve({room_id: room_id, first_degree: results})
-                   })
-                 )
 
-               })
-             )
+
+            // const queryResults = await Promise.all(
+                
+            //     results.data.map(async (room_id) => {
+                 
+            //      return new Promise((resolve, reject) => 
+                  
+            //      getUsersViaRoomIdAndDate({room_id: room_id, start_date: start_date, end_date: end_date}, (err, results) => {
+            //          if (err) 
+            //            return reject(err)
+            //          else
+            //            return resolve({room_id: room_id, first_degree: results})
+            //        })
+            //      )
+
+            //    })
+            //  )
 
             //  console.log('queryResults', queryResults)
 
              return res.json({
                 success: 1,
-                data: queryResults
+                data: results.data
              })
 
         })
