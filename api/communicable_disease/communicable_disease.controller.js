@@ -147,7 +147,8 @@ module.exports = {
                 return res.json({
                     success: 0,
                     data: "No rooms visited found",
-                    data_used: body
+                    data_used: body,
+                    results: results
                 });
             }
 
