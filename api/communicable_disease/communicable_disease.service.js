@@ -81,7 +81,7 @@ module.exports = {
 
     getUserVisitedRooms: (data, callBack) => {
         pool.query(
-            `SELECT * FROM room_visited WHERE user_id = ? AND createdAt BETWEEN ? and ?`,
+            `SELECT DISTINCT room_id FROM room_visited WHERE user_id = ? AND createdAt BETWEEN ? and ?`,
             [
                 data.user_id,
                 data.start_date,
