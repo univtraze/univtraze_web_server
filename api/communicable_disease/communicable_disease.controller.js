@@ -133,7 +133,7 @@ module.exports = {
         body['start_date'] = start_date.toISOString().replace(/T/, ' ').replace(/\..+/, '')
         body['end_date'] = new Date(body.date_reported).toISOString().replace(/T/, ' ').replace(/\..+/, '')
 
-        getUserVisitedRooms(body, (err, results) => {
+        getUserVisitedRooms(body, async (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
@@ -173,7 +173,7 @@ module.exports = {
 
              return res.json({
                 success: 1,
-                data: results
+                data: queryResults
              })
 
         })
