@@ -92,7 +92,7 @@ module.exports = {
                     return callBack(error)
                 }
 
-                return callBack(null, {data: data, results: results})
+                return callBack(null, results)
 
             }
         )
