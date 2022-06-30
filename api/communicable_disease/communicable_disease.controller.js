@@ -146,7 +146,7 @@ module.exports = {
                 return res.json({
                     success: 0,
                     data: "No rooms visited found",
-                    config: data
+                    config: body
                 });
             }
 
@@ -173,7 +173,7 @@ module.exports = {
 
              return res.json({
                 success: 1,
-                data: results.data
+                data: results
              })
 
         })
