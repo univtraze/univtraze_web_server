@@ -133,9 +133,7 @@ module.exports = {
         body['start_date'] = start_date.toISOString().replace(/T/, ' ').replace(/\..+/, '')
         body['end_date'] = new Date(body.date_reported).toISOString().replace(/T/, ' ').replace(/\..+/, '')
 
-        const data = body
-
-        getUserVisitedRooms(data, (err, results) => {
+        getUserVisitedRooms(body, (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
@@ -148,7 +146,7 @@ module.exports = {
                 return res.json({
                     success: 0,
                     data: "No rooms visited found",
-                    data_used: data
+                    config: data
                 });
             }
 
