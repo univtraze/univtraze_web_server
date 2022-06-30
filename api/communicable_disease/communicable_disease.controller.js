@@ -130,7 +130,7 @@ module.exports = {
         var start_date = new Date(body.date_reported);
         start_date.setDate(start_date.getDate() - body.date_range);
 
-        body['start_date'] = start_date.toISOString().slice(0, 10)
+        body['start_date'] = start_date.toISOString().toISOString().replace(/T/, ' ').replace(/\..+/, '')
         body['end_date'] = new Date(body.date_reported).toISOString().replace(/T/, ' ').replace(/\..+/, '')
 
 
