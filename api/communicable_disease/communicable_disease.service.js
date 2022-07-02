@@ -61,23 +61,6 @@ module.exports = {
 
     },
 
-    // getFirstDegreeCommunicableDisease: (data, callBack) => {
-    //     pool.query(
-    //         `DELETE FROM communicable_disease_reporting WHERE id = ?`,
-    //         [
-    //             data.user_id,
-    //             data.type,
-    //             data.createdAt
-    //         ],
-    //         (error, results, fields) => {
-    //             if(error) {
-    //                 return callBack(error)
-    //             }
-    //                 return callBack(null, results)
-    //         }
-    //     )
-
-    // },
 
     getUserVisitedRooms: (data, callBack) => {
         pool.query(
