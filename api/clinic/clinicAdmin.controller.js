@@ -20,7 +20,7 @@ module.exports = {
             if(results.length !== 0){
                 return res.json({
                     success: 0,
-                    message: "Email already have an account"
+                    message: "Email/Username already have an account"
                 });
             }
 
