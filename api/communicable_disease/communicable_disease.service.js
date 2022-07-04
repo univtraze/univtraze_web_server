@@ -94,7 +94,7 @@ module.exports = {
                     return callBack(error)
                 }
 
-                return callBack(null, finalResults)
+                return callBack(null, results)
 
             }
         )
