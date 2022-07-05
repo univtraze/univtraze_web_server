@@ -130,6 +130,21 @@ module.exports = {
         )
     },
 
+    getAllEmergencyReportsByVictimName: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM emergency_reporting WHERE patient_name LIKE ?`,
+            [
+                '%'+data.patient_name+'%'
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     updateEmergencyReportCaseStatus: (data, callBack) => {
         pool.query(
             `UPDATE emergency_reporting SET case_status = ? WHERE id = ?`,
