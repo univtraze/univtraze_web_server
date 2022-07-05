@@ -132,9 +132,10 @@ module.exports = {
 
     getAllEmergencyReportsByVictimName: (data, callBack) => {
         pool.query(
-            `SELECT * FROM emergency_reporting WHERE patient_name LIKE ?`,
+            `SELECT * FROM emergency_reporting WHERE patient_name LIKE ? AND case_status = ?`,
             [
-                '%'+data.patient_name+'%'
+                '%'+data.patient_name+'%',
+                data.case_status
             ],
             (error, results, fields) => {
                 if(error) {
