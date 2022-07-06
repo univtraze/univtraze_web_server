@@ -146,9 +146,11 @@ module.exports = {
 
     searchUsersByRoomId: (data, callBack) => {
         pool.query(
-            `SELECT * FROM room_visited WHERE room_id = ?`,
+            `SELECT * FROM room_visited WHERE room_id = ? and createdAt BETWEEN ? AND ?`,
             [
                 data.id,
+                data.start_date,
+                data.end_date
             ],
             (error, results, fields) => {
                 if(error) {

@@ -40,6 +40,8 @@ module.exports = {
  
     },
     getAllRooms: (req, res) => {
+
+
             getAllRooms( async (err, results) => {
                 if(err){
                     console.log(err)
@@ -53,7 +55,13 @@ module.exports = {
                 const queryResults = await Promise.all(
                 
                     results.map(async (room) => {
-                     
+                    
+                    var start_date = new Date();
+                    start_date.setDate(start_date.getDate() - 1);
+                
+                    room['start_date'] = start_date.toISOString().replace(/T/, ' ').replace(/\..+/, '')
+                    room['end_date'] = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+                        
                      return new Promise((resolve, reject) => 
                       
                      searchUsersByRoomId(room, (err, results) => {
