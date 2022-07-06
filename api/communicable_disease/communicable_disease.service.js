@@ -111,4 +111,52 @@ module.exports = {
             }
         )
     },
+
+    getStudentDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT * FROM student_details WHERE user_id = ?`,
+            [
+                id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results[0]);
+            }
+        )
+    },
+
+    getVisitorDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT * FROM visitor_details WHERE user_id = ?`,
+            [
+                id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    
+    getEmployeeDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT * FROM employee_details WHERE user_id = ?`,
+            [
+                id
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results[0]);
+            }
+        )
+    },
+
+    
 };

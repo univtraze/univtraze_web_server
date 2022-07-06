@@ -1,5 +1,6 @@
 const {getAllCommunicableDisease, getCommunicableDiseaseByName, updateCommunicableDiseaseCaseStatus, 
-    deleteCommunicableDisease, getUserVisitedRooms, getUsersViaRoomIdAndDate, getAllCommunicableDiseaseReported} = require('./communicable_disease.service')
+    deleteCommunicableDisease, getUserVisitedRooms, getUsersViaRoomIdAndDate, getAllCommunicableDiseaseReported,
+getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById} = require('./communicable_disease.service')
 
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
@@ -52,7 +53,7 @@ module.exports = {
 
     getAllCommunicableDiseaseReported: (req, res) => {
 
-        getAllCommunicableDiseaseReported((err, results) => {
+        getAllCommunicableDiseaseReported(async (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
@@ -62,9 +63,46 @@ module.exports = {
                 
             }
 
+            const queryResults = await Promise.all(
+                
+                results.map(async (user) => {
+                    
+                    if(user.type === 'Student'){
+                          return new Promise((resolve, reject) => getStudentDetailsById(user.id, (err, results) => {
+                             if (err) 
+                               return reject(err)
+                             else
+                               return resolve({id: user.id, user_id: user.id, email: user.email, userType: user.type, information: results})
+                           })
+                     )
+                    }
+
+                    if(user.type === 'Employee'){
+                        return new Promise((resolve, reject) =>  getEmployeeDetailsById(user.id, (err, results) => {
+                           if (err) 
+                             return reject(err)
+                           else
+                             return resolve({id: user.id,user_id: user.id, email: user.email, userType: user.type, information: results})
+                         })
+                   )
+                  }
+
+                    if(user.type === 'Visitor'){
+                        return new Promise((resolve, reject) => getVisitorDetailsById(user.id, (err, results) => {
+                           if (err) 
+                             return reject(err)
+                           else
+                             return resolve({id: user.id,user_id: user.id, email: user.email, userType: user.type, information: results})
+                         })
+                   )
+                  }
+               
+               })
+             )
+
             return res.json({
                 success: 1,
-                data: results
+                data: queryResults
             });
         });
     },
