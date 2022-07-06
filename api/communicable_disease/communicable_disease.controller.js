@@ -68,7 +68,7 @@ module.exports = {
                 results.map(async (user) => {
                     
                     if(user.type === 'Student'){
-                          return new Promise((resolve, reject) => getStudentDetailsById(user.id, (err, results) => {
+                          return new Promise((resolve, reject) => getStudentDetailsById(user.user_id, (err, results) => {
                              if (err) 
                                return reject(err)
                              else
@@ -78,7 +78,7 @@ module.exports = {
                     }
 
                     if(user.type === 'Employee'){
-                        return new Promise((resolve, reject) =>  getEmployeeDetailsById(user.id, (err, results) => {
+                        return new Promise((resolve, reject) =>  getEmployeeDetailsById(user.user_id, (err, results) => {
                            if (err) 
                              return reject(err)
                            else
@@ -88,7 +88,7 @@ module.exports = {
                   }
 
                     if(user.type === 'Visitor'){
-                        return new Promise((resolve, reject) => getVisitorDetailsById(user.id, (err, results) => {
+                        return new Promise((resolve, reject) => getVisitorDetailsById(user.user_id, (err, results) => {
                            if (err) 
                              return reject(err)
                            else
