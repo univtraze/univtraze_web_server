@@ -1,4 +1,4 @@
-const { addRoom, getAllRooms, addVisitedRoom,checkIfRoomExists, searchRoomNumber, userVisitedRooms, addUserNotification, userTodaysTemperature} = require("./room.service");
+const { addRoom, getAllRooms, addVisitedRoom,checkIfRoomExists, searchRoomNumber, userVisitedRooms, addUserNotification, userTodaysTemperature,  searchUsersByRoomId} = require("./room.service");
 
 module.exports = {
     addRoom: (req, res) => {
@@ -40,18 +40,36 @@ module.exports = {
  
     },
     getAllRooms: (req, res) => {
-            getAllRooms((err, results) => {
+            getAllRooms( async (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({
-                    success: 0,
-                    message: "Database connection Error"
-                });
+                        success: 0,
+                        message: "Database connection Error"
+                    });
                 }
+
+
+                const queryResults = await Promise.all(
+                
+                    results.map(async (room) => {
+                     
+                     return new Promise((resolve, reject) => 
+                      
+                     searchUsersByRoomId(room, (err, results) => {
+                         if (err) 
+                           return reject(err)
+                         else
+                           return resolve({room_id: room.id, building_name: room.building_name, room_number: room.room_number, totalUserVisited: results.length, userVisited: results})
+                       })
+                     )
+                   })
+                 )
+
 
                 return res.status(200).json({
                     success: 1,
-                    data: results
+                    data: queryResults
                 });
             });
     },

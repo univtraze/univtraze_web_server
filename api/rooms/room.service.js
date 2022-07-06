@@ -144,4 +144,21 @@ module.exports = {
         )
     },
 
+    searchUsersByRoomId: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM room_visited WHERE room_id = ?`,
+            [
+                data.id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    
+
 };
