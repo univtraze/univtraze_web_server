@@ -1,4 +1,5 @@
-const {getAllCommunicableDisease, getCommunicableDiseaseByName, updateCommunicableDiseaseCaseStatus, deleteCommunicableDisease, getUserVisitedRooms, getUsersViaRoomIdAndDate} = require('./communicable_disease.service')
+const {getAllCommunicableDisease, getCommunicableDiseaseByName, updateCommunicableDiseaseCaseStatus, 
+    deleteCommunicableDisease, getUserVisitedRooms, getUsersViaRoomIdAndDate, getAllCommunicableDiseaseReported} = require('./communicable_disease.service')
 
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
@@ -47,6 +48,25 @@ module.exports = {
              // now you give this queryResults back to your FE             
         })
 
+    },
+
+    getAllCommunicableDiseaseReported: (req, res) => {
+
+        getAllCommunicableDiseaseReported((err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+                
+            }
+
+            return res.json({
+                success: 1,
+                data: results
+            });
+        });
     },
 
     getCommunicableDiseaseByName: (req, res) => {

@@ -2,6 +2,18 @@ const pool = require("../../config/database");
 
 module.exports = {
 
+    getAllCommunicableDiseaseReported: callBack => {
+        pool.query(
+            `SELECT * FROM communicable_disease_reporting`,
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     getAllCommunicableDisease: callBack => {
         pool.query(
             `SELECT DISTINCT disease_name FROM communicable_disease_reporting`,
