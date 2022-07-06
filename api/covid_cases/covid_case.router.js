@@ -1,8 +1,12 @@
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validator");
-const { addCovidPositive, addEmergencyReport, addDailyAssessment, searchEmergencyReportsViaDate, addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved, getAllEmergencyReportsByStatus, updateEmergencyReportCaseStatus, deleteEmergencyReportCase, getAllEmergencyReportsByVictimName} = require("./covid_case.controller");
+const { addCovidPositive, addEmergencyReport, addDailyAssessment, searchEmergencyReportsViaDate, 
+    addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved,
+     getAllEmergencyReportsByStatus, updateEmergencyReportCaseStatus, deleteEmergencyReportCase, 
+     getAllEmergencyReportsByVictimName, getAllEmergencyReported} = require("./covid_case.controller");
 
-router.post("/addCovidPositive", checkToken, addCovidPositive)
+router.get("/getAllEmergencyReported", checkToken, getAllEmergencyReported)
+router.get("/addCovidPositive", checkToken, addCovidPositive)
 router.post("/addEmergencyReport", checkToken, addEmergencyReport)
 router.post("/addDailyAssessment", checkToken, addDailyAssessment)
 router.post("/searchEmergencyReportsViaDate", checkToken, searchEmergencyReportsViaDate)

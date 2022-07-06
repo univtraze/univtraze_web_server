@@ -1,7 +1,18 @@
 const pool = require("../../config/database");
 
 module.exports = {
-
+    getAllEmergencyReported: callBack => {
+        pool.query(
+            `SELECT * FROM emergency_reporting`,
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+    
     addCommunicableDiseaseCase: (data, callBack) => {
         pool.query(
             `INSERT INTO communicable_disease_reporting(user_id, type, disease_name, document_proof_image) VALUES (?, ?, ?, ?)`,
