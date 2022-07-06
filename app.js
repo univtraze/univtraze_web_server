@@ -7,6 +7,7 @@ const vaccination_info = require("./api/vaccination_info/vaccination.router");
 const roomRouter = require("./api/rooms/room.router");
 const covidCasesRouter = require("./api/covid_cases/covid_case.router");
 const clinicRouter = require("./api/clinic/clinicAdmin.router");
+const mailerRouter = require("./api/mailer/mailer.router")
 const communicable_disease = require('./api/communicable_disease/communicable_disease.router')
 
 const fileRouter = require("./api/files/files.router")
@@ -33,6 +34,7 @@ app.use("/api/rooms", roomRouter);
 app.use("/api/covid_cases", covidCasesRouter);
 app.use("/api/clinic", clinicRouter);
 app.use("/api/communicable_disease", communicable_disease)
+app.use("/api/mailer", mailerRouter)
 
 app.use('/api/files', fileRouter)
 const port = process.env.PORT || 3001;
