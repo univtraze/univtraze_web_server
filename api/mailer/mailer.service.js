@@ -20,6 +20,7 @@ module.exports = {
             from: data.sent_by,
             to: data.user_email,
             subject: data.email_subject,
+            text: data.email_message,
             attachments: [{
                 filename: 'clinic.png',
                 path:"https://firebasestorage.googleapis.com/v0/b/univtrazeapp.appspot.com/o/Untitled.png?alt=media&token=b42bbec9-0b9d-48c1-9d76-50ec761f4578",
