@@ -40,8 +40,7 @@ module.exports = {
  
     },
     getAllRooms: (req, res) => {
-        body = req.body
-            getAllRooms(body, (err, results) => {
+            getAllRooms((err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({

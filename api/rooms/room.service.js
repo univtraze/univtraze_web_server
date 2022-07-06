@@ -36,11 +36,9 @@ module.exports = {
         )
     },
 
-    getAllRooms: (data, callBack) => {
+    getAllRooms: callBack => {
         pool.query(
             `SELECT id, room_number, building_name, room_name, createdAt, updatedAt FROM rooms WHERE 1`,
-            [
-            ],
             (error, results, fields) => {
                 if(error) {
                     return callBack(error)
@@ -145,4 +143,5 @@ module.exports = {
             }
         )
     },
+
 };
