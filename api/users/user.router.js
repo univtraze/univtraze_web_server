@@ -1,10 +1,11 @@
-const { createUser, getUsers, login, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails, updateStudentDocs,updateEmployeeDocs, updateVisitorDocs, getStudentDetailsById, getEmployeeDetailsById, getVisitorDetailsById} = require("./user.controller")
+const { createUser, getUsers, login, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails, updateStudentDocs,updateEmployeeDocs, updateVisitorDocs, getStudentDetailsById, getEmployeeDetailsById, getVisitorDetailsById, getAllUsers} = require("./user.controller")
 
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validator")
 
 router.post("/signup", createUser);
 router.get("/", checkToken, getUsers);
+router.get("/getAllUsers", checkToken, getAllUsers);
 router.post("/login", login)
 router.post("/updateUserType",checkToken, updateUserType)
 router.post("/addStudentDetails",checkToken, addStudentDetails)

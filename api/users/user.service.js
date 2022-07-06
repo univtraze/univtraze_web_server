@@ -1,6 +1,19 @@
 const pool = require("../../config/database");
 
 module.exports = {
+
+    getAllUsers: (callBack) => {
+        pool.query(
+            `SELECT * FROM users WHERE 1`,
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     emailCheck: (data, callBack ) => {
         pool.query(
             `SELECT * FROM users WHERE email = ?`,
