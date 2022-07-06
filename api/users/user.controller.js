@@ -62,7 +62,7 @@ module.exports = {
 
     getAllUsers: (req, res) => {
 
-        getAllUsers((err, results) => {
+        getAllUsers(async (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
@@ -78,9 +78,51 @@ module.exports = {
                 });
             }
 
+
+            const queryResults = await Promise.all(
+                
+                results.map(async (user) => {
+                    
+                    if(user.type === 'Student'){
+                          return new Promise((resolve, reject) => getStudentDetailsById(user.id, (err, results) => {
+                             if (err) 
+                               return reject(err)
+                             else
+                               return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
+                           })
+                     )
+                    }
+
+                    if(user.type === 'Employee'){
+                        return new Promise((resolve, reject) =>  getEmployeeDetailsById(user.id, (err, results) => {
+                           if (err) 
+                             return reject(err)
+                           else
+                             return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
+                         })
+                   )
+                  }
+
+                    if(user.type === 'Visitor'){
+                        return new Promise((resolve, reject) => getVisitorDetailsById(user.id, (err, results) => {
+                           if (err) 
+                             return reject(err)
+                           else
+                             return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
+                         })
+                   )
+                  }
+               
+                 
+               
+               })
+             )
+
+
+
             return res.status(200).json({
                 success: 1,
-                data: results
+                data: queryResults
             });
         })
        

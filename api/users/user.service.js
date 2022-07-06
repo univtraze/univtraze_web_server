@@ -4,7 +4,7 @@ module.exports = {
 
     getAllUsers: (callBack) => {
         pool.query(
-            `SELECT * FROM users WHERE 1`,
+            `SELECT * FROM users WHERE type IS NOT NULL`,
             (error, results, fields) => {
                 if(error) {
                     return callBack(error)
