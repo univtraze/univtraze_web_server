@@ -72,7 +72,7 @@ module.exports = {
                              if (err) 
                                return reject(err)
                              else
-                               return resolve({id: user.id, user_id: user.user_id, email: user.email, userType: user.type, information: results})
+                               return resolve({id: user.id, user_id: user.user_id, email: user.email, userType: user.type, reportedDate: user.createdAt, information: results})
                            })
                      )
                     }
@@ -82,7 +82,7 @@ module.exports = {
                            if (err) 
                              return reject(err)
                            else
-                             return resolve({id: user.id,user_id: user.user_id, email: user.email, userType: user.type, information: results})
+                             return resolve({id: user.id,user_id: user.user_id, email: user.email, userType: user.type, reportedDate: user.createdAt, information: results})
                          })
                    )
                   }
@@ -92,7 +92,7 @@ module.exports = {
                            if (err) 
                              return reject(err)
                            else
-                             return resolve({id: user.id,user_id:user.user_id, email: user.email, userType: user.type, information: results})
+                             return resolve({id: user.id,user_id:user.user_id, email: user.email, userType: user.type,  reportedDate: user.createdAt, information: results})
                          })
                    )
                   }
