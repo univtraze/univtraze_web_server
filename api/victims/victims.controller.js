@@ -85,6 +85,13 @@ module.exports = {
 
              return res.json({
                 success: 1,
+                initialVictim: body.user_id,
+                type: body.type,
+                case_id: body.case_id,
+                start_date: body.start_date,
+                end_date: body.end_date,
+                date_range: body.date_range,
+                date_reported: body.date_reported, 
                 firstDegreeVictimsId: firstDegreeVictimsId
              })
 
