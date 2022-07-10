@@ -605,11 +605,36 @@ module.exports = {
                 
             return res.status(200).json({
                 success: 1,
+                user_id: user_id,
                 data: 'Not verified'
             });
 
         })
         
+    },
+
+
+    getUserDetailsByIds: async (req, res) => {
+        
+        const ids = req.body.id_lists;
+        
+        const queryResults = await Promise.all(
+            ids.map(async (id) => {
+                    return new Promise((resolve, reject) => getUserById(id, async (err, results) => {
+                       if (err) 
+                         return reject(err)
+                       else
+                         return resolve({information: results})
+                     }))
+            })
+                     
+        )
+
+        return res.json({
+            success: 1,
+            results: queryResults
+        })
+
     },
 
 }
