@@ -26,6 +26,21 @@ module.exports = {
         )
     },
 
+    getCommunicableDiseaseById: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM communicable_disease_reporting WHERE id = ?`,
+            [
+                data.id,
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
     getCommunicableDiseaseByName: (data, callBack) => {
         pool.query(
             `SELECT id, user_id, type, disease_name, document_proof_image, createAt, updatedAt FROM communicable_disease_reporting WHERE disease_name LIKE ?`,
