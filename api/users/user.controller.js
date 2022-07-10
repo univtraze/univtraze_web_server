@@ -562,13 +562,16 @@ module.exports = {
             }
 
             if(results.type === 'Student'){
-                return new Promise((resolve, reject) => getStudentDetailsById(id, (err, results) => {
+                return new Promise((resolve, reject) => getStudentDetailsById(id, (err, finalResults) => {
                     if (err) 
                         return reject(err)
                     else
                         res.status(200).json({
                             success: 1,
-                            data: results
+                            user_id: id,
+                            type: results.type,
+                            email: results.email,
+                            data: finalResults
                         });
                         return resolve()
                     })
@@ -576,13 +579,16 @@ module.exports = {
             }
                 
             if(results.type === 'Employee'){
-                return new Promise((resolve, reject) =>  getEmployeeDetailsById(id, (err, results) => {
+                return new Promise((resolve, reject) =>  getEmployeeDetailsById(id, (err, finalResults) => {
                     if (err) 
                     return reject(err)
                     else
                         res.status(200).json({
                             success: 1,
-                            data: results
+                            user_id: id,
+                            type: results.type,
+                            email: results.email,
+                            data: finalResults
                         });
                         return resolve()
                     })
@@ -590,13 +596,16 @@ module.exports = {
             }
             
             if(results.type === 'Visitor'){
-                return new Promise((resolve, reject) => getVisitorDetailsById(id, (err, results) => {
+                return new Promise((resolve, reject) => getVisitorDetailsById(id, (err, finalResults) => {
                     if (err) 
                         return reject(err)
                     else
                         res.status(200).json({
                             success: 1,
-                            data: results
+                            user_id: id,
+                            type: results.type,
+                            email: results.email,
+                            data: finalResults
                         });
                         return resolve()
                     })
@@ -606,6 +615,8 @@ module.exports = {
             return res.status(200).json({
                 success: 1,
                 user_id: id,
+                type: results.type,
+                email: results.email,
                 data: 'Not verified'
             });
 
