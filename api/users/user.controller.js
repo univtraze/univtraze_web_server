@@ -541,4 +541,64 @@ module.exports = {
 
     },
 
+    getUserDetailsById: (req, res) => {
+        
+        const id = req.body.id;
+        
+        getUserById(id, async (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+            }
+
+            const queryResults = await Promise.all(
+                
+               async (user) => {
+                    
+                    if(user.type === 'Student'){
+                          return new Promise((resolve, reject) => getStudentDetailsById(user.id, (err, results) => {
+                             if (err) 
+                               return reject(err)
+                             else
+                               return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
+                           })
+                     )
+                    }
+
+                    if(user.type === 'Employee'){
+                        return new Promise((resolve, reject) =>  getEmployeeDetailsById(user.id, (err, results) => {
+                           if (err) 
+                             return reject(err)
+                           else
+                             return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
+                         })
+                   )
+                  }
+
+                    if(user.type === 'Visitor'){
+                        return new Promise((resolve, reject) => getVisitorDetailsById(user.id, (err, results) => {
+                           if (err) 
+                             return reject(err)
+                           else
+                             return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
+                         })
+                   )
+                  }
+               
+               })
+
+
+
+            return res.status(200).json({
+                success: 1,
+                data: queryResults
+            });
+
+        })
+        
+    },
+
 }
