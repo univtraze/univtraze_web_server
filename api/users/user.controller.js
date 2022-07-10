@@ -554,47 +554,58 @@ module.exports = {
                 });
             }
 
-            const queryResults = await Promise.all(
+            if(results === undefined){
+                return res.json({
+                    success: 0,
+                    message: "User id not found"
+                });
+            }
+
+            if(results.type === 'Student'){
+                return new Promise((resolve, reject) => getStudentDetailsById(id, (err, results) => {
+                    if (err) 
+                        return reject(err)
+                    else
+                        res.status(200).json({
+                            success: 1,
+                            data: results
+                        });
+                        return resolve()
+                    })
+                )
+            }
                 
-               async (user) => {
-                    
-                    if(user.type === 'Student'){
-                          return new Promise((resolve, reject) => getStudentDetailsById(user.id, (err, results) => {
-                             if (err) 
-                               return reject(err)
-                             else
-                               return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
-                           })
-                     )
-                    }
-
-                    if(user.type === 'Employee'){
-                        return new Promise((resolve, reject) =>  getEmployeeDetailsById(user.id, (err, results) => {
-                           if (err) 
-                             return reject(err)
-                           else
-                             return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
-                         })
-                   )
-                  }
-
-                    if(user.type === 'Visitor'){
-                        return new Promise((resolve, reject) => getVisitorDetailsById(user.id, (err, results) => {
-                           if (err) 
-                             return reject(err)
-                           else
-                             return resolve({user_id: user.id, email: user.email, userType: user.type, information: results})
-                         })
-                   )
-                  }
-               
-               })
-
-
-
+            if(results.type === 'Employee'){
+                return new Promise((resolve, reject) =>  getEmployeeDetailsById(id, (err, results) => {
+                    if (err) 
+                    return reject(err)
+                    else
+                        res.status(200).json({
+                            success: 1,
+                            data: results
+                        });
+                        return resolve()
+                    })
+                )
+            }
+            
+            if(results.type === 'Visitor'){
+                return new Promise((resolve, reject) => getVisitorDetailsById(id, (err, results) => {
+                    if (err) 
+                        return reject(err)
+                    else
+                        res.status(200).json({
+                            success: 1,
+                            data: results
+                        });
+                        return resolve()
+                    })
+                ) 
+            }
+                
             return res.status(200).json({
                 success: 1,
-                data: queryResults
+                data: 'Not verified'
             });
 
         })
