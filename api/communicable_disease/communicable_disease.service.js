@@ -172,6 +172,19 @@ module.exports = {
             }
         )
     },
-
+    getCommunicableDiseaseByStatus: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM communicable_disease_reporting WHERE case_status = ? ORDER BY updatedAt DESC`,
+            [
+                data.case_status
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
     
 };

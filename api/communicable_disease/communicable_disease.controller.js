@@ -1,6 +1,6 @@
 const {getAllCommunicableDisease, getCommunicableDiseaseByName, updateCommunicableDiseaseCaseStatus, 
     deleteCommunicableDisease, getUserVisitedRooms, getUsersViaRoomIdAndDate, getAllCommunicableDiseaseReported,
-getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById, getCommunicableDiseaseById} = require('./communicable_disease.service')
+getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById, getCommunicableDiseaseById, getCommunicableDiseaseByStatus} = require('./communicable_disease.service')
 
 module.exports = {
     getAllCommunicableDisease: (req, res) => {
@@ -358,7 +358,26 @@ module.exports = {
              })
 
         })
-        
+    },
 
-    }
+    getCommunicableDiseaseByStatus: (req, res) => {
+        
+        const body = req.body;
+
+        getCommunicableDiseaseByStatus(body, (err, results) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+                
+            }
+            
+            return res.json({
+                success: 1,
+                data: results
+            });
+        });
+    },
 }
