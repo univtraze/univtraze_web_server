@@ -290,6 +290,7 @@ module.exports = {
 
             return res.status(200).json({
                 success: 1,
+                config: body,
                 data: queryResults
             });
         })
