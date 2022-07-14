@@ -634,8 +634,51 @@ module.exports = {
                     return new Promise((resolve, reject) => getUserById(id, async (err, results) => {
                        if (err) 
                          return reject(err)
-                       else
-                         return resolve({information: results})
+                       else {
+
+                        if(results === undefined){
+                            return resolve({information: 'User not found'})
+                        }
+
+                        if(results.type === 'Student'){
+                            const newQueryResults = new Promise((resolve, reject) => getStudentDetailsById(id, async (err, finalResults) => {
+                                if(err)
+                                    return reject(err)
+                                else{
+                                    results['data'] = finalResults
+                                    return resolve({information: results})
+                                }
+                            }))
+
+                            return resolve(newQueryResults)
+                        }
+                        if(results.type === 'Visitor'){
+                            const newQueryResults = new Promise((resolve, reject) => getVisitorDetailsById(id, async (err, finalResults) => {
+                                if(err)
+                                    return reject(err)
+                                else{
+                                    results['data'] = finalResults
+                                    return resolve({information: results})
+                                }
+                            }))
+                            return resolve(newQueryResults)
+                        }
+                        if(results.type === 'Employee'){
+                            const newQueryResults = new Promise((resolve, reject) => getEmployeeDetailsById(id, async (err, finalResults) => {
+                                if(err)
+                                    return reject(err)
+                                else{
+                                    results['data'] = finalResults
+                                    return resolve({information: results})
+                                }
+                            }))
+                            return resolve(newQueryResults)
+                        }
+                            results['data'] = 'User not verified'
+                            return resolve({information: results})
+
+                        
+                       }
                      }))
             })
                      
