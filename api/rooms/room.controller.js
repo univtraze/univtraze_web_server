@@ -1,4 +1,6 @@
-const { addRoom, getAllRooms, addVisitedRoom,checkIfRoomExists, searchRoomNumber, userVisitedRooms, addUserNotification, userTodaysTemperature,  searchUsersByRoomId} = require("./room.service");
+const { addRoom, getAllRooms, addVisitedRoom,checkIfRoomExists, searchRoomNumber, userVisitedRooms,
+     addUserNotification, userTodaysTemperature,  searchUsersByRoomId, searchRoomsViaDateAndId, getUserById
+    , getEmployeeDetailsById, getStudentDetailsById, getVisitorDetailsById} = require("./room.service");
 
 module.exports = {
     addRoom: (req, res) => {
@@ -187,6 +189,111 @@ module.exports = {
         })
 
     },
+
+
+    searchUsersByRoomId: async (req, res) => {
+        const body = req.body
+
+        var start_date = new Date();
+        start_date.setDate(start_date.getDate() - 1);
+    
+        body['start_date'] = start_date.toISOString().replace(/T/, ' ').replace(/\..+/, '')
+        body['end_date'] = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+
+        searchRoomsViaDateAndId(body, async (err, initialResults) => {
+            if(err){
+                console.log(err)
+                return res.json({
+                    success: 0,
+                    message: "Database connection Error"
+                });
+            }
+
+            let initialIdArray = []
+            initialResults.map((visit) => {
+                return initialIdArray.push(visit.user_id)
+            })
+
+            let finalIdArray = []
+            finalIdArray.push(...new Set(initialIdArray))
+
+            const queryResults = await Promise.all(
+                finalIdArray.map(async (id) => {
+                        return new Promise((resolve, reject) => getUserById(id, async (err, results) => {
+                           if (err) 
+                             return reject(err)
+                           else {
+    
+                            if(results === undefined){
+                                return resolve({information: 'User not found'})
+                            }
+    
+                            if(results.type === 'Student'){
+                                const newQueryResults = new Promise((resolve, reject) => getStudentDetailsById(id, async (err, finalResults) => {
+                                    if(err)
+                                        return reject(err)
+                                    else{
+                                        
+                                        if(finalResults === undefined){
+                                            results['data'] = 'Not verified'
+                                            return resolve({information: results})
+                                        }
+    
+                                        results['data'] = finalResults
+                                        return resolve({information: results})
+                                    }
+                                }))
+    
+                                return resolve(newQueryResults)
+                            }
+                            if(results.type === 'Visitor'){
+                                const newQueryResults = new Promise((resolve, reject) => getVisitorDetailsById(id, async (err, finalResults) => {
+                                    if(err)
+                                        return reject(err)
+                                    else{
+                                        if(finalResults === undefined){
+                                            results['data'] = 'Not verified'
+                                            return resolve({information: results})
+                                        }
+                                        results['data'] = finalResults
+                                        return resolve({information: results})
+                                    }
+                                }))
+                                return resolve(newQueryResults)
+                            }
+                            if(results.type === 'Employee'){
+                                const newQueryResults = new Promise((resolve, reject) => getEmployeeDetailsById(id, async (err, finalResults) => {
+                                    if(err)
+                                        return reject(err)
+                                    else{
+                                        if(finalResults === undefined){
+                                            results['data'] = 'Not verified'
+                                            return resolve({information: results})
+                                        }
+                                        results['data'] = finalResults
+                                        return resolve({information: results})
+                                    }
+                                }))
+                                return resolve(newQueryResults)
+                            }
+                            
+                                results['data'] = 'Not verified'
+                                return resolve({information: results})
+    
+                            
+                           }
+                         }))
+                })
+                         
+            )
+
+
+            return res.status(200).json({
+                success: 1,
+                data: queryResults
+            });
+        })
+    }
 
 
 }

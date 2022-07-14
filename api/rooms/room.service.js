@@ -161,6 +161,82 @@ module.exports = {
         )
     },
 
+    searchRoomsViaDateAndId: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM room_visited WHERE room_id = ? AND createdAt BETWEEN ? AND ?`,
+            [
+                data.room_id,
+                data.start_date,
+                data.end_date
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    getUserById: (id, callBack) => {
+        pool.query(
+            `SELECT id, type, email, provider FROM users WHERE id = ?`,
+            [
+            id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
+    getStudentDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT * FROM student_details WHERE user_id = ?`,
+            [
+                id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results[0]);
+            }
+        )
+    },
+
+    getVisitorDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT * FROM visitor_details WHERE user_id = ?`,
+            [
+                id
+            ],
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                return callBack(null, results[0]);
+            }
+        )
+    },
     
+    getEmployeeDetailsById: (id, callBack) => {
+        pool.query(
+            `SELECT * FROM employee_details WHERE user_id = ?`,
+            [
+                id
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results[0]);
+            }
+        )
+    },
+
 
 };
