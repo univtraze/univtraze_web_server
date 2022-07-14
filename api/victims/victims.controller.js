@@ -9,7 +9,7 @@ module.exports = {
         start_date.setDate(start_date.getDate() - body.date_range);
 
         body['start_date'] = start_date.toISOString().replace(/T/, ' ').replace(/\..+/, '')
-        body['end_date'] = new Date(body.date_reported).toISOString().replace(/T/, ' ').replace(/\..+/, '')
+        body['end_date'] = body.date_reported
 
         getUserVisitedRooms(body, async (err, results) => {
             if(err){
@@ -27,7 +27,7 @@ module.exports = {
                     config: body
                 });
             }
-            
+
             //COnstructing of return array to a single array of rooms
             let newRoomArray = [];
             results.map((room_id) => {
@@ -85,14 +85,17 @@ module.exports = {
 
              return res.json({
                 success: 1,
-                initialVictim: body.user_id,
-                type: body.type,
-                case_id: body.case_id,
-                start_date: body.start_date,
-                end_date: body.end_date,
-                date_range: body.date_range,
-                date_reported: body.date_reported, 
-                firstDegreeVictimsId: firstDegreeVictimsId
+                data: {
+                    initialVictim: body.user_id,
+                    type: body.type,
+                    case_id: body.case_id,
+                    start_date: body.start_date,
+                    end_date: body.end_date,
+                    date_range: body.date_range,
+                    date_reported: body.date_reported, 
+                    firstDegreeVictimsId: firstDegreeVictimsId
+                }
+                
              })
 
         })

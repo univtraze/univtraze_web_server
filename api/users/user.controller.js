@@ -645,6 +645,12 @@ module.exports = {
                                 if(err)
                                     return reject(err)
                                 else{
+                                    
+                                    if(finalResults === undefined){
+                                        results['data'] = 'Not verified'
+                                        return resolve({information: results})
+                                    }
+
                                     results['data'] = finalResults
                                     return resolve({information: results})
                                 }
@@ -657,6 +663,10 @@ module.exports = {
                                 if(err)
                                     return reject(err)
                                 else{
+                                    if(finalResults === undefined){
+                                        results['data'] = 'Not verified'
+                                        return resolve({information: results})
+                                    }
                                     results['data'] = finalResults
                                     return resolve({information: results})
                                 }
@@ -668,13 +678,18 @@ module.exports = {
                                 if(err)
                                     return reject(err)
                                 else{
+                                    if(finalResults === undefined){
+                                        results['data'] = 'Not verified'
+                                        return resolve({information: results})
+                                    }
                                     results['data'] = finalResults
                                     return resolve({information: results})
                                 }
                             }))
                             return resolve(newQueryResults)
                         }
-                            results['data'] = 'User not verified'
+                        
+                            results['data'] = 'Not verified'
                             return resolve({information: results})
 
                         
