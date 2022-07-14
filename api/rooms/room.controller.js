@@ -67,8 +67,19 @@ module.exports = {
                      searchUsersByRoomId(room, (err, results) => {
                          if (err) 
                            return reject(err)
-                         else
-                           return resolve({room_id: room.id, building_name: room.building_name, room_number: room.room_number, totalUserVisited: results.length, userVisited: results})
+                         else{
+                            let returnIdArray = []
+                            
+                            results.map((user) => {
+                                return returnIdArray.push(user.user_id)
+                            })
+
+                            let finalReturnedId = []
+                            finalReturnedId.push(...new Set(returnIdArray))
+
+                            return resolve({room_id: room.id, building_name: room.building_name, room_number: room.room_number, totalUserVisited: results.length, userVisited: results, userVisitedByIds: finalReturnedId})
+                         }
+                           
                        })
                      )
                    })
