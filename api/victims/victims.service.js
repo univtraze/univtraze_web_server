@@ -37,6 +37,25 @@ module.exports = {
 
             }
         )
+    },
+
+    getUserIdsViaRoomIdAndDate: (data, callBack) => {
+        pool.query(
+            `SELECT DISTINCT user_id FROM room_visited WHERE room_id = ? AND createdAt BETWEEN ? and ?`,
+            [
+                data.room_id,
+                data.start_date,
+                data.end_date
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+
+                return callBack(null, results)
+
+            }
+        )
     }
    
 };

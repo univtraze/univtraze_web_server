@@ -1,4 +1,4 @@
-const { getUserVisitedRooms, getUsersViaRoomIdAndDate } = require("./victims.service");
+const { getUserVisitedRooms, getUsersViaRoomIdAndDate, getUserIdsViaRoomIdAndDate} = require("./victims.service");
 
 module.exports = {
     getFirstDegreeVictims: (req, res) => {
@@ -100,6 +100,133 @@ module.exports = {
 
         })
         
+
+    },
+
+    getSecondDegreeVictims:async (req, res) => {
+
+        // "initialVictim": 34,
+        // "initialVictimType": "Employee",
+        // "case_id": 1,
+        // "start_date": "2022-06-13 21:12:15",
+        // "end_date": "2022-07-14 05:12:15",
+        // "date_range": 30,
+        // "first_degree_victims": [ 4,3,37,15,16,10,12,2,38]
+
+        const body = req.body
+        let roomsVisitedLists = []
+        let allUserVisitedRooms = []
+
+        if(body.first_degree_victims.length === 0){
+            return res.json({
+                success: 0,
+                message: "No first degree victims found to get the second degree."
+            })
+        }
+
+        await Promise.all(
+            body.first_degree_victims.map(async (victim) => {
+                return new Promise((resolve, reject) => 
+                getUserVisitedRooms({user_id: victim, start_date: body.start_date, end_date: body.end_date}, (err, roomResults) => {
+                    if (err) 
+                        return reject(err)
+                    else{
+                       return resolve(roomResults)
+                    } 
+                })
+                )
+           })
+         ).then(async results => {
+
+            let initialReturnedRoomId = []
+
+            results.map((room) => {
+                return initialReturnedRoomId.push(...room)
+            })
+
+            let finalInitialRoomIds = []
+
+            initialReturnedRoomId.map((id) => {
+                return finalInitialRoomIds.push(id.room_id)
+            })
+            
+            roomsVisitedLists.push(...new Set(finalInitialRoomIds))
+
+            const finalRoomIdlists = []
+
+            finalRoomIdlists.push(...new Set(finalInitialRoomIds))
+
+            await Promise.all(
+                finalRoomIdlists.map((room_id) => {
+                    return new Promise((resolve, reject) => 
+                        getUserIdsViaRoomIdAndDate({room_id: room_id, start_date: body.start_date, end_date: body.end_date}, (err, finalUsersResults) => {
+                            if (err) 
+                                return reject(err)
+                            else{
+                                let returnArray = []
+                                finalUsersResults.map((user) => {
+                                    return returnArray.push(user)
+                                })
+
+                                let finalReturnArrayists = []
+                                returnArray.map((arr) => {
+                                    return finalReturnArrayists.push(arr.user_id)
+                                })
+                                return resolve(finalReturnArrayists)
+                            } 
+                        })
+                        )
+                })
+            ).then((results) => {
+                let idLists = []
+
+                results.map((result) => {
+                    return idLists.push(result)
+                })
+
+                let initialfinalIdLists = []
+
+                idLists.map((id) => {
+                    
+                    for(let i=0; i < id.length; i++) {
+                        initialfinalIdLists.push(id[i]);
+                    }
+
+                    return
+                })
+
+                //Remove duplicates
+                let finalUserIdArray = []
+                finalUserIdArray.push(...new Set(initialfinalIdLists))
+                
+                //remove user that are included in 2nd degree
+
+                let arrayToRemove = body.first_degree_victims;
+                arrayToRemove.push(body.initialVictim)
+                
+                finalUserIdArray = finalUserIdArray.filter( function( n ) {
+                return arrayToRemove.indexOf( n ) < 0;
+                } );
+
+                allUserVisitedRooms = finalUserIdArray
+            })
+
+         }
+
+         )
+
+       
+        return res.json({
+            initialVictim: body.user_id,
+            type: body.type,
+            case_id: body.case_id,
+            start_date: body.start_date,
+            end_date: body.end_date,
+            date_range: body.date_range,
+            date_reported: body.date_reported, 
+            firstDegreeVictimsId: body.first_degree_victims,
+            secondDegreeVictimsId: allUserVisitedRooms
+        })
 
     }
 
