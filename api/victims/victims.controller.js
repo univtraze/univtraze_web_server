@@ -217,15 +217,18 @@ module.exports = {
 
        
         return res.json({
-            initialVictim: body.initialVictim,
-            initialVictimType: body.initialVictimType,
-            case_id: body.case_id,
-            start_date: body.start_date,
-            end_date: body.end_date,
-            date_range: body.date_range,
-            date_reported: body.date_reported, 
-            firstDegreeVictimsId: body.first_degree_victims,
-            secondDegreeVictimsId: allUserVisitedRooms
+            success: 1,
+            data: {
+                initialVictim: body.initialVictim,
+                initialVictimType: body.initialVictimType,
+                case_id: body.case_id,
+                start_date: body.start_date,
+                end_date: body.end_date,
+                date_range: body.date_range,
+                date_reported: body.date_reported, 
+                firstDegreeVictimsId: body.first_degree_victims,
+                secondDegreeVictimsId: allUserVisitedRooms
+            }
         })
 
     },
@@ -317,8 +320,6 @@ module.exports = {
                    finalUserIdArray = finalUserIdArray.filter( function( n ) {
                    return arrayToRemove.indexOf( n ) < 0;
                    });
-                   
-                   console.log(finalUserIdArray)
 
                    allUserVisitedRooms = finalUserIdArray
             })
@@ -327,16 +328,19 @@ module.exports = {
          })
 
         return res.json({
-            initialVictim: body.initialVictim,
-            initialVictimType: body.initialVictimType,
-            case_id: body.case_id,
-            start_date: body.start_date,
-            end_date: body.end_date,
-            date_range: body.date_range,
-            date_reported: body.date_reported, 
-            firstDegreeVictimsId: body.firstDegreeVictimsId,
-            secondDegreeVictimsId: body.secondDegreeVictimsId,
-            thirdDegreeVictimsId: allUserVisitedRooms
+            success: 1,
+            data: {
+                initialVictim: body.initialVictim,
+                initialVictimType: body.initialVictimType,
+                case_id: body.case_id,
+                start_date: body.start_date,
+                end_date: body.end_date,
+                date_range: body.date_range,
+                date_reported: body.date_reported, 
+                firstDegreeVictimsId: body.firstDegreeVictimsId,
+                secondDegreeVictimsId: body.secondDegreeVictimsId,
+                thirdDegreeVictimsId: allUserVisitedRooms
+                }
         })
 
     }
