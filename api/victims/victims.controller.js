@@ -116,6 +116,7 @@ module.exports = {
         // "first_degree_victims": [ 4,3,37,15,16,10,12,2,38]
 
         const body = req.body
+
         let roomsVisitedLists = []
         let allUserVisitedRooms = []
 
@@ -332,7 +333,7 @@ module.exports = {
 
         return res.json({
             success: 1,
-            config: body,
+            config: "Hello",
             data: {
                 initialVictim: body.initialVictim,
                 initialVictimType: body.initialVictimType,
