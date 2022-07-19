@@ -73,15 +73,11 @@ module.exports = {
                 
                 firstDegreeVictimsId.push(...new Set(initialReturnArray))
 
-                const valueToRemove = body.user_id
-                const filteredItems = firstDegreeVictimsId.filter(function(item) {
+                let valueToRemove = body.user_id
+
+                let filteredItems = firstDegreeVictimsId.filter(function(item) {
                 return item !== valueToRemove
                 })
-
-                const index = filteredItems.indexOf(body.user_id);
-                if (index > -1) { // only splice array when item is found
-                filteredItems.splice(index, 1); // 2nd parameter means remove one item only
-                }
 
                 firstDegreeVictimsId = filteredItems
                 
@@ -90,6 +86,7 @@ module.exports = {
 
              return res.json({
                 success: 1,
+                config: body,
                 data: {
                     initialVictim: body.user_id,
                     type: body.type,
