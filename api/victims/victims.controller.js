@@ -204,12 +204,18 @@ module.exports = {
                 
                 //remove user that are included in 2nd degree
 
-                let arrayToRemove = body.first_degree_victims;
-                arrayToRemove.push(body.initialVictim)
+                let arrayToRemove = [];
                 
+                body.first_degree_victims.map((id) => {
+                    return arrayToRemove.push(id);
+                })
+
+                arrayToRemove.push(body.initialVictim)
+
                 finalUserIdArray = finalUserIdArray.filter( function( n ) {
                 return arrayToRemove.indexOf( n ) < 0;
-                } );
+                });
+
 
                 allUserVisitedRooms = finalUserIdArray
             })
