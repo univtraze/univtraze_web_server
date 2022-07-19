@@ -319,14 +319,18 @@ module.exports = {
                   
                   //remove user that are included in 2nd degree
   
-                  let arrayToRemove = body.firstDegreeVictimsId;
+                  let arrayToRemove = [];
+
+                  body.firstDegreeVictimsId.map((id) => {
+                    return arrayToRemove.push(id)
+                  })
+
                   arrayToRemove.push(body.initialVictim)
 
                   body.secondDegreeVictimsId.map((id) => {
                     return arrayToRemove.push(id)
                   }) 
                   
-                     
                    finalUserIdArray = finalUserIdArray.filter( function( n ) {
                    return arrayToRemove.indexOf( n ) < 0;
                    });
