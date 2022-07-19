@@ -218,7 +218,7 @@ module.exports = {
        
         return res.json({
             initialVictim: body.initialVictim,
-            type: body.initialVictimType,
+            initialVictimType: body.initialVictimType,
             case_id: body.case_id,
             start_date: body.start_date,
             end_date: body.end_date,
@@ -228,6 +228,13 @@ module.exports = {
             secondDegreeVictimsId: allUserVisitedRooms
         })
 
+    },
+    getThirdDegreeVictims: (req, res) => {   
+        body = req.body;
+
+        return res.json({
+            body: body
+        })
     }
 
 }
