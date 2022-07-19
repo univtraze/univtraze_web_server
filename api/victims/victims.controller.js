@@ -78,6 +78,11 @@ module.exports = {
                 return item !== valueToRemove
                 })
 
+                const index = filteredItems.indexOf(body.user_id);
+                if (index > -1) { // only splice array when item is found
+                filteredItems.splice(index, 1); // 2nd parameter means remove one item only
+                }
+
                 firstDegreeVictimsId = filteredItems
                 
              })
