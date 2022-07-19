@@ -6,4 +6,5 @@ router.post("/getFirstDegreeVictims",checkToken, getFirstDegreeVictims)
 router.post("/getSecondDegreeVictims",checkToken, getSecondDegreeVictims)
 router.post("/getThirdDegreeVictims",checkToken, getThirdDegreeVictims)
 
+
 module.exports = router;

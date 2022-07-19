@@ -229,12 +229,115 @@ module.exports = {
         })
 
     },
-    getThirdDegreeVictims: (req, res) => {   
-        body = req.body;
+
+    getThirdDegreeVictims: async (req, res) => {
+
+        const body = req.body
+        let roomsVisitedLists = []
+        let allUserVisitedRooms = []
+
+        if(body.secondDegreeVictimsId.length === 0){
+            return res.json({
+                success: 0,
+                message: "No second degree victims found to get the third degree victims."
+            })
+        }
+
+        await Promise.all(
+            body.secondDegreeVictimsId.map(async (victim) => {
+                return new Promise((resolve, reject) => 
+                getUserVisitedRooms({user_id: victim, start_date: body.start_date, end_date: body.end_date}, (err, roomResults) => {
+                    if (err) 
+                        return reject(err)
+                    else{
+                       return resolve(roomResults)
+                    } 
+                })
+                )
+           })
+         ).then(async roomLists => {
+            let initialRoomIds = []
+
+            roomLists.map((id) => {
+                for(let i=0; i < id.length; i++) {
+                    initialRoomIds.push(id[i].room_id);
+                }
+                return 
+            })
+
+            let finalRoomIdlists = []
+            finalRoomIdlists.push(...new Set(initialRoomIds))
+
+            await Promise.all(
+                finalRoomIdlists.map((room_id) => {
+                    return new Promise((resolve, reject) => 
+                        getUserIdsViaRoomIdAndDate({room_id: room_id, start_date: body.start_date, end_date: body.end_date}, (err, finalUsersResults) => {
+                            if (err) 
+                                return reject(err)
+                            else{
+                                let returnArray = []
+                                finalUsersResults.map((user) => {
+                                    return returnArray.push(user)
+                                })
+
+                                let finalReturnArrayists = []
+                                returnArray.map((arr) => {
+                                    return finalReturnArrayists.push(arr.user_id)
+                                })
+                                return resolve(finalReturnArrayists)
+                            } 
+                        })
+                        )
+                })
+            ).then(userIdLists => {
+                
+                let initialUserIdLists = [];
+
+                userIdLists.map((id) => {
+                    for(let i=0; i < id.length; i++) {
+                        initialUserIdLists.push(id[i])
+                    }
+                    return
+                })
+
+                  //Remove duplicates
+                  let finalUserIdArray = []
+                  finalUserIdArray.push(...new Set(initialUserIdLists))
+                  
+                  //remove user that are included in 2nd degree
+  
+                  let arrayToRemove = body.firstDegreeVictimsId;
+                  arrayToRemove.push(body.initialVictim)
+
+                  body.secondDegreeVictimsId.map((id) => {
+                    return arrayToRemove.push(id)
+                  }) 
+                  
+                     
+                   finalUserIdArray = finalUserIdArray.filter( function( n ) {
+                   return arrayToRemove.indexOf( n ) < 0;
+                   });
+                   
+                   console.log(finalUserIdArray)
+
+                   allUserVisitedRooms = finalUserIdArray
+            })
+
+
+         })
 
         return res.json({
-            body: body
+            initialVictim: body.initialVictim,
+            initialVictimType: body.initialVictimType,
+            case_id: body.case_id,
+            start_date: body.start_date,
+            end_date: body.end_date,
+            date_range: body.date_range,
+            date_reported: body.date_reported, 
+            firstDegreeVictimsId: body.firstDegreeVictimsId,
+            secondDegreeVictimsId: body.secondDegreeVictimsId,
+            thirdDegreeVictimsId: allUserVisitedRooms
         })
-    }
 
+    }
 }
