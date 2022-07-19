@@ -217,8 +217,8 @@ module.exports = {
 
        
         return res.json({
-            initialVictim: body.user_id,
-            type: body.type,
+            initialVictim: body.initialVictim,
+            type: body.initialVictimType,
             case_id: body.case_id,
             start_date: body.start_date,
             end_date: body.end_date,
