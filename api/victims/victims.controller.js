@@ -220,6 +220,7 @@ module.exports = {
        
         return res.json({
             success: 1,
+            config: body,
             data: {
                 initialVictim: body.initialVictim,
                 initialVictimType: body.initialVictimType,
@@ -331,6 +332,7 @@ module.exports = {
 
         return res.json({
             success: 1,
+            config: body,
             data: {
                 initialVictim: body.initialVictim,
                 initialVictimType: body.initialVictimType,
