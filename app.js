@@ -10,6 +10,7 @@ const clinicRouter = require("./api/clinic/clinicAdmin.router");
 const mailerRouter = require("./api/mailer/mailer.router")
 const communicable_disease = require('./api/communicable_disease/communicable_disease.router')
 const victimsRouter = require('./api/victims/victims.router')
+const notificationsRouter = require('./api/notifications/notifications.router')
 
 const fileRouter = require("./api/files/files.router")
 const bodyParser = require('body-parser');
@@ -37,6 +38,7 @@ app.use("/api/clinic", clinicRouter);
 app.use("/api/communicable_disease", communicable_disease)
 app.use("/api/mailer", mailerRouter)
 app.use("/api/victims", victimsRouter)
+app.use("/api/notifications", notificationsRouter)
 
 app.use('/api/files', fileRouter)
 const port = process.env.PORT || 3001;
