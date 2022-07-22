@@ -17,5 +17,21 @@ module.exports = {
             }
         )
     },
+    updateAdminNotificationStatus: (data, callBack) => {
+        pool.query(
+            `UPDATE admin_notifications SET notification_is_viewed= ?  WHERE id = ?`,
+            [   
+                data.is_viewed,
+                data.id
+               
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 
 }
