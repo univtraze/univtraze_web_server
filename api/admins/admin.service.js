@@ -99,5 +99,38 @@ module.exports = {
                 return callBack(null, info.response);
             }
           });
-    }
+    },
+
+    updateAdminPassword: (data, callBack) => {
+        pool.query(
+            `UPDATE admins SET password=? WHERE email = ? AND recovery_password = ?`,
+            [   
+                data.new_password,
+                data.email,
+                data.recovery_password
+            ],
+            (error, results, fields) =>{
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    checkIfEmailAndRecoveryPasswordMatched: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM admins WHERE email = ? AND recovery_password = ?`,
+            [
+                data.email,
+                data.recovery_password
+            ],
+            (error, results, fields) =>{
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 };
