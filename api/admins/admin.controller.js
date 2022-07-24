@@ -1,7 +1,7 @@
 const {getAdminByEmail, createAdmin, emailAdminCheck, addAdminRecoveryPassword, sendLinkToEmail, checkIfEmailAndRecoveryPasswordMatched, updateAdminPassword} = require("./admin.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
-
+var generator = require('generate-password');
 
 
 module.exports = {
@@ -100,8 +100,13 @@ module.exports = {
                 })
             }
 
+
+
             const salt = genSaltSync(10);
-            body['recovery_password'] = hashSync('143', salt)
+            body['recovery_password'] = generator.generate({
+                                            length: 10,
+                                            numbers: true
+                                        });
 
             addAdminRecoveryPassword(body, async (err, results) => {
 
