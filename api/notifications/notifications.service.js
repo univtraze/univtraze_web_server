@@ -34,4 +34,17 @@ module.exports = {
         )
     },
 
+    getTotalActiveAdminNotifications: (callBack) => {
+        pool.query(
+            `SELECT COUNT(notification_is_viewed) AS total_active_notifications FROM admin_notifications WHERE notification_is_viewed = 0`,
+            [],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    }
+
 }
