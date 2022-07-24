@@ -1,6 +1,8 @@
-const {getAdminByEmail, createAdmin, emailAdminCheck} = require("./admin.service");
+const {getAdminByEmail, createAdmin, emailAdminCheck, addAdminRecoveryPassword, sendLinkToEmail} = require("./admin.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
+
+
 
 module.exports = {
     createAdmin: (req, res) => {
@@ -78,6 +80,57 @@ module.exports = {
             }
         });
 
-    }
+    },
+    resetAdminPassword: (req, res) => {
+        const body = req.body
 
+        emailAdminCheck(body, (err, results) => {
+            if(err)
+            {
+                return res.json({
+                    success: false,
+                    message: err.message
+                })
+            }
+
+            if(results.length === 0){
+                return res.json({
+                    success: false,
+                    message: 'Email is not registered as an admin'
+                })
+            }
+
+            const salt = genSaltSync(10);
+            body['recovery_password'] = hashSync('143', salt)
+
+            addAdminRecoveryPassword(body, async (err, results) => {
+
+                    if(err){
+                        return res.json({
+                            success: false,
+                            message: err.message
+                        })
+                    }
+
+                    await new Promise((resolve, reject) => {
+                        sendLinkToEmail(body, (err, results) => {
+                            if(err)
+                            return reject(res.json({
+                                success: false,
+                                message: err.message
+                            }))
+
+                            
+                            return resolve(res.json({
+                                    success: true,
+                                    data: results,
+                                    message: 'Recovery password was sent to your email',
+                            }))
+                        })
+
+                    })
+            })
+        })
+      
+    }
 }
