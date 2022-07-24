@@ -105,7 +105,8 @@ module.exports = {
             const salt = genSaltSync(10);
             body['recovery_password'] = generator.generate({
                                             length: 10,
-                                            numbers: true
+                                            numbers: true,
+                                            exclude: '/'
                                         });
 
             addAdminRecoveryPassword(body, async (err, results) => {
