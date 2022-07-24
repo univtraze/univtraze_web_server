@@ -101,8 +101,6 @@ module.exports = {
             }
 
 
-
-            const salt = genSaltSync(10);
             body['recovery_password'] = generator.generate({
                                             length: 10,
                                             numbers: true,
@@ -117,6 +115,8 @@ module.exports = {
                             message: err.message
                         })
                     }
+
+
 
                     await new Promise((resolve, reject) => {
                         sendLinkToEmail(body, (err, results) => {
@@ -151,11 +151,13 @@ module.exports = {
                 })
            }
 
+           console.log(results)
+
            if(results.length === 0){
-            return res.json({
-                success: false,
-                message: 'Recovery password not matched!.'
-            })
+                return res.json({
+                    success: false,
+                    message: 'Recovery password not matched!.'
+                })
             }
 
             const salt = genSaltSync(10);

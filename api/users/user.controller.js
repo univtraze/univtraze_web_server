@@ -227,6 +227,7 @@ module.exports = {
 
             if(result) {
                 result.password = undefined;
+                
                 const jsonToken = sign({result: results}, process.env.JSON_KEY, {
                     expiresIn: "7d"
                 })
