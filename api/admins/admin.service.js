@@ -133,4 +133,36 @@ module.exports = {
             }
         )
     },
+
+    checkIfPasswordMatched: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM admins WHERE id = ? and password = ?`,
+            [
+                data.id,
+                data.old_password
+            ],
+            (error, results, fields) =>{
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    updateAdminCredentials: (data, callBack) => {
+        pool.query(
+            `UPDATE admins SET password=? WHERE id = ?`,
+            [
+                data.new_password,
+                data.id
+            ],
+            (error, results, fields) =>{
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    }
 };

@@ -1,4 +1,6 @@
-const {getAdminByEmail, createAdmin, emailAdminCheck, addAdminRecoveryPassword, sendLinkToEmail, checkIfEmailAndRecoveryPasswordMatched, updateAdminPassword} = require("./admin.service");
+const {getAdminByEmail, createAdmin, emailAdminCheck, addAdminRecoveryPassword, sendLinkToEmail, 
+    checkIfEmailAndRecoveryPasswordMatched, updateAdminPassword, checkIfPasswordMatched,
+updateAdminCredentials} = require("./admin.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 var generator = require('generate-password');
@@ -151,8 +153,6 @@ module.exports = {
                 })
            }
 
-           console.log(results)
-
            if(results.length === 0){
                 return res.json({
                     success: false,
@@ -182,5 +182,45 @@ module.exports = {
                         
         })
 
+    },
+    updateAdminCredentials: (req, res) => {
+        const body = req.body
+
+        checkIfPasswordMatched(body, (err, results) => {
+            if(err){
+                return res.json({
+                    success: false,
+                    message: error.message
+                })
+            }
+
+            if(results.length === 0){
+                return res.json({
+                    success: false,
+                    message: 'Password did not match.'
+                })
+            }
+
+            const salt = genSaltSync(10);
+            body.new_password = hashSync(body.new_password, salt)
+
+            updateAdminCredentials(body, (err, results) => {
+                if(err){
+                    return res.json({
+                        success: false,
+                        message: error.message
+                    })
+                } 
+
+                return res.json({
+                    success: true,
+                    results: results,
+                    message: 'Password updated successfully.'
+                })
+
+
+            })
+
+        })
     }
 }
