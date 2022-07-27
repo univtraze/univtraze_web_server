@@ -136,16 +136,15 @@ module.exports = {
 
     checkIfPasswordMatched: (data, callBack) => {
         pool.query(
-            `SELECT * FROM admins WHERE id = ? and password = ?`,
+            `SELECT * FROM admins WHERE id = ?`,
             [
-                data.id,
-                data.old_password
+                data.id
             ],
             (error, results, fields) =>{
                 if(error){
                     return callBack(error)
                 }
-                    return callBack(null, results)
+                    return callBack(null, results[0])
             }
         )
     },

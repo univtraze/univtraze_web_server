@@ -1,7 +1,7 @@
 const {getAdminByEmail, createAdmin, emailAdminCheck, addAdminRecoveryPassword, sendLinkToEmail, 
     checkIfEmailAndRecoveryPasswordMatched, updateAdminPassword, checkIfPasswordMatched,
 updateAdminCredentials} = require("./admin.service");
-const {genSaltSync, hashSync, compareSync} = require('bcrypt');
+const {genSaltSync, hashSync, compareSync, compare} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 var generator = require('generate-password');
 
@@ -184,9 +184,12 @@ module.exports = {
 
     },
     updateAdminCredentials: (req, res) => {
+        
+        const id = req.body.id
         const body = req.body
 
-        checkIfPasswordMatched(body, (err, results) => {
+
+        checkIfPasswordMatched(body, async (err, results) => {
             if(err){
                 return res.json({
                     success: false,
@@ -194,33 +197,36 @@ module.exports = {
                 })
             }
 
-            if(results.length === 0){
+            const checkIfMatched = compareSync(body.old_password, results.password)
+
+            if(!checkIfMatched){
+
                 return res.json({
-                    success: false,
-                    message: 'Password did not match.'
+                    success: false, 
+                    message: 'Old password is incorrect',
                 })
-            }
+            } 
+                    
+                    const salt = genSaltSync(10);
+                    const new_password = hashSync(body.new_password, salt)
 
-            const salt = genSaltSync(10);
-            body.new_password = hashSync(body.new_password, salt)
+                    updateAdminCredentials({id: results.id, new_password: new_password}, (err, finalResults) => {
+                        if(err){
+                            return res.json({
+                                success: false,
+                                message: 'Database connection error'
+                            })
+                           
+                        }    
 
-            updateAdminCredentials(body, (err, results) => {
-                if(err){
-                    return res.json({
-                        success: false,
-                        message: error.message
+                            return res.json({
+                                    success: true,
+                                    message: 'Updated successfully!',
+                                    results: finalResults
+                                })
+ 
                     })
-                } 
-
-                return res.json({
-                    success: true,
-                    results: results,
-                    message: 'Password updated successfully.'
-                })
-
-
-            })
-
+           
         })
     }
 }
