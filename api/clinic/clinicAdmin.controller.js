@@ -1,6 +1,9 @@
-const {emailClinicAdminCheck, createClinicAdmin, getClinicAdminByEmail} = require("./clinicAdmin.service");
+const {emailClinicAdminCheck, createClinicAdmin, getClinicAdminByEmail, 
+    getTotalActiveEmergencyReports, getTotalCommunicableDiseaseReports,
+    getTotalCommunicableDiseaseReportedOngoing, getTotalCommunicableDiseaseReportedResolved, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved} = require("./clinicAdmin.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
+const moment = require('moment')
 
 module.exports = {
     createClinicAdmin: (req, res) => {
@@ -79,8 +82,85 @@ module.exports = {
             }
         });
 
+    },
+
+    getAllTotalCases: async (req, res) => {
+
+        var start_date = moment();
+        start_date = start_date.subtract(1, "days");
+        start_date = start_date.format("YYYY-MM-DD HH:mm:ss");
+        var end_date = moment().format("YYYY-MM-DD HH:mm:ss")
+        
+        let totalEmergencyReports = await new Promise((resolve, reject) => {
+            getTotalActiveEmergencyReports((err, results) => {
+                if(err){
+                    return reject(err.message)
+                }
+                    return resolve(results[0].totalEmergencyReport)
+            })
+        })
+
+        let totalCommunicableDiseaseReports = await new Promise((resolve, reject) => {
+            getTotalCommunicableDiseaseReports((err, results) => {
+                if(err){
+                    return reject(err.message)
+                }
+                    return resolve(results[0].totalCommunicableDiseaseReport)
+            })
+        })
+
+        let totalCommunicableDiseaseReportedOngoing = await new Promise((resolve, reject) => {
+            getTotalCommunicableDiseaseReportedOngoing((err, results) => {
+                if(err){
+                    return reject(err.message)
+                }
+                    return resolve(results[0].totalCommunicableDiseaseReportedOngoing)
+            })
+        })
+
+        let totalCommunicableDiseaseReportedResolved = await new Promise((resolve, reject) => {
+            getTotalCommunicableDiseaseReportedResolved((err, results) => {
+                if(err){
+                    return reject(err.message)
+                }   
+                    
+                    return resolve(results[0].totalCommunicableDiseaseReportedResolved)
+            })
+        })
+
+        let totalCommunicableDiseaseReportedTodayOngoing = await new Promise((resolve, reject) => {
+            getTotalCommunicableDiseaseReportedTodayOngoing({start_date, end_date}, (err, results) => {
+                if(err){
+                    return reject(err.message)
+                }   
+                    
+                    return resolve(results[0].totalCommunicableDiseaseReportedOngoingToday)
+            })
+        })
+
+        let totalCommunicableDiseaseReportedTodayResolved = await new Promise((resolve, reject) => {
+            getTotalCommunicableDiseaseReportedTodayResolved({start_date, end_date}, (err, results) => {
+                if(err){
+                    return reject(err.message)
+                }   
+                    
+                    return resolve(results[0].totalCommunicableDiseaseReportedResolvedToday)
+            })
+        })
+
+    
+
+        return res.json({
+            success: 1,
+            results: {
+                totalEmergencyReports,
+                totalCommunicableDiseaseReports,
+                totalCommunicableDiseaseReportedOngoing,
+                totalCommunicableDiseaseReportedResolved,
+                totalCommunicableDiseaseReportedTodayOngoing,
+                totalCommunicableDiseaseReportedTodayResolved
+            }
+        })
+
     }
-
-
-
 }
