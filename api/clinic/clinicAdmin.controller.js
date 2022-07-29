@@ -1,6 +1,7 @@
 const {emailClinicAdminCheck, createClinicAdmin, getClinicAdminByEmail, 
     getTotalActiveEmergencyReports, getTotalCommunicableDiseaseReports,
-    getTotalCommunicableDiseaseReportedOngoing, getTotalCommunicableDiseaseReportedResolved, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved} = require("./clinicAdmin.service");
+    getTotalCommunicableDiseaseReportedOngoing, getTotalCommunicableDiseaseReportedResolved, 
+    getTotalResolvedEmergencyReports, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved} = require("./clinicAdmin.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 const moment = require('moment')
@@ -100,6 +101,15 @@ module.exports = {
             })
         })
 
+        let totalResolvedEmergencyReports = await new Promise((resolve, reject) => {
+            getTotalResolvedEmergencyReports((err, results) => {
+                if(err){
+                    return reject(err.message)
+                }
+                    return resolve(results[0].totalResolvedEmergencyReport)
+            })
+        })
+
         let totalCommunicableDiseaseReports = await new Promise((resolve, reject) => {
             getTotalCommunicableDiseaseReports((err, results) => {
                 if(err){
@@ -148,12 +158,15 @@ module.exports = {
             })
         })
 
+
+
     
 
         return res.json({
             success: 1,
             results: {
                 totalEmergencyReports,
+                totalResolvedEmergencyReports,
                 totalCommunicableDiseaseReports,
                 totalCommunicableDiseaseReportedOngoing,
                 totalCommunicableDiseaseReportedResolved,

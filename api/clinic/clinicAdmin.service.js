@@ -63,6 +63,18 @@ module.exports = {
             }
         )
     },
+    getTotalResolvedEmergencyReports: callBack =>{
+        pool.query(
+            `SELECT DISTINCT COUNT(id) as totalResolvedEmergencyReport FROM emergency_reporting where case_status = "resolved"`,
+            [],
+            (error, results, fields) =>{
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 
     getTotalCommunicableDiseaseReports: callBack =>{
         pool.query(
