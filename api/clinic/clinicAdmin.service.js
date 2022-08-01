@@ -141,5 +141,35 @@ module.exports = {
                     return callBack(null, results)
             }
         )
+    },
+
+    checkIfIdAndPasswordMatched: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM clinic_credentials WHERE id = ?`,
+            [
+                data.user_id
+            ],
+            (error, results, fields) =>{
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results[0])
+            }
+        )
+    },
+   updateNewPassword: (data, callBack) => {
+        pool.query(
+            `UPDATE clinic_credentials SET password=? WHERE id = ?`,
+            [
+                data.new_password, 
+                data.user_id
+            ],
+            (error, results, fields) =>{
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
     }
 };

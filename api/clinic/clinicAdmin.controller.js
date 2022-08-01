@@ -1,7 +1,8 @@
 const {emailClinicAdminCheck, createClinicAdmin, getClinicAdminByEmail, 
     getTotalActiveEmergencyReports, getTotalCommunicableDiseaseReports,
     getTotalCommunicableDiseaseReportedOngoing, getTotalCommunicableDiseaseReportedResolved, 
-    getTotalResolvedEmergencyReports, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved} = require("./clinicAdmin.service");
+    getTotalResolvedEmergencyReports, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved,
+    checkIfIdAndPasswordMatched, updateNewPassword } = require("./clinicAdmin.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 const moment = require('moment')
@@ -175,5 +176,55 @@ module.exports = {
             }
         })
 
+    },
+    updateClinicPassword: (req, res) => {
+        const body = req.body
+        
+        checkIfIdAndPasswordMatched(body, (err, results) => {
+            if(err){
+                return res.json({
+                    success: false,
+                    message: err.message
+                })
+            }
+
+            if(results.length === 0){
+                return res.json({
+                    success: false,
+                    message: 'User not found'
+                })
+            }
+
+            const checkIfMatched = compareSync(body.old_password, results.password)
+
+            if(!checkIfMatched){
+                return res.json({
+                    success: false,
+                    message: 'Old password is incorrect'
+                })
+            }
+
+            const salt = genSaltSync(10);
+            const new_password = hashSync(body.new_password, salt)
+
+            updateNewPassword({user_id: body.user_id, new_password: new_password}, (err, results) => {
+
+                if(err){
+                    return res.json({
+                        success: false,
+                        message: 'Failed updating your password.'
+                    })
+                }
+
+                return res.json({
+                    success: true,
+                    message: 'Password updated successfully.',
+                    results: results
+                })
+
+
+            })
+        })
+    
     }
 }

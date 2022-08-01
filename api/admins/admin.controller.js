@@ -1,7 +1,7 @@
 const {getAdminByEmail, createAdmin, emailAdminCheck, addAdminRecoveryPassword, sendLinkToEmail, 
     checkIfEmailAndRecoveryPasswordMatched, updateAdminPassword, checkIfPasswordMatched,
 updateAdminCredentials} = require("./admin.service");
-const {genSaltSync, hashSync, compareSync, compare} = require('bcrypt');
+const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 var generator = require('generate-password');
 
@@ -183,6 +183,7 @@ module.exports = {
         })
 
     },
+    
     updateAdminCredentials: (req, res) => {
         
         const id = req.body.id
