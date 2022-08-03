@@ -1,11 +1,11 @@
 const {emailClinicAdminCheck, createClinicAdmin, getClinicAdminByEmail, 
     getTotalActiveEmergencyReports, getTotalCommunicableDiseaseReports,
     getTotalCommunicableDiseaseReportedOngoing, getTotalCommunicableDiseaseReportedResolved, 
-    getTotalResolvedEmergencyReports, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved,
-    checkIfIdAndPasswordMatched, updateNewPassword } = require("./clinicAdmin.service");
+    getTotalResolvedEmergencyReports, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved, updateNewPassword, checkIfEmailExist, addClinicRecoveryPassword, sendLinkToEmail,checkIfEmailAndRecoveryPasswordMatched, updateClinicCredentials} = require("./clinicAdmin.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 const moment = require('moment')
+var generator = require('generate-password');
 
 module.exports = {
     createClinicAdmin: (req, res) => {
@@ -226,5 +226,103 @@ module.exports = {
             })
         })
     
+    },
+    
+    clinicForgotPassword: (req, res) => {
+
+        const body = req.body
+
+        checkIfEmailExist(body, (err, results) => {
+                if(err){
+                    return res.json({
+                        success: false,
+                        message: err.message
+                    })
+                }
+
+                if(results.length === 0){
+                    return res.json({
+                        success: false,
+                        message: 'Email does not exist.'
+                    })
+                }
+
+                body['recovery_password'] = generator.generate({
+                    length: 10,
+                    numbers: true,
+                    exclude: '/'
+                });
+
+                addClinicRecoveryPassword(body, async (err, results) => {
+                    if(err){
+                        return res.json({
+                            success: false,
+                            message: err.message
+                        })
+                    }
+                    
+                   
+                    await new Promise((resolve, reject) => {
+                        sendLinkToEmail(body, (err, results) => {
+                            if(err)
+                            return reject(res.json({
+                                success: false,
+                                message: err.message
+                            }))
+
+                            
+                            return resolve(res.json({
+                                    success: true,
+                                    data: results,
+                                    message: 'Recovery password was sent to your email',
+                            }))
+                        })
+
+                    })
+                })
+        })
+    },
+
+    updateClinicPassword: (req, res) => {
+        const body = req.body
+
+        checkIfEmailAndRecoveryPasswordMatched(body, (err, results) => {
+            if(err){
+                return res.json({
+                    success: false,
+                    message: err.message
+                })
+           }
+           if(results.length === 0){
+                return res.json({
+                    success: false,
+                    message: 'Recovery password is incorrect. Please try again.'
+                })
+             }
+
+             
+            const salt = genSaltSync(10);
+            body.new_password = hashSync(body.new_password, salt)
+
+
+            updateClinicCredentials({id: results.id, new_password: body.new_password}, (err, results) => {
+                if(err)
+                {
+                     return res.json({
+                         success: false,
+                         message: error.message
+                     })
+                }
+
+                return res.json({
+                        success: true,
+                        results: results,
+                        message: 'Password updated successfully!'
+                    })
+
+            })
+        })
+
     }
+
 }
