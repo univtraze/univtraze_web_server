@@ -45,6 +45,34 @@ module.exports = {
                     return callBack(null, results)
             }
         )
-    }
+    },
+    getClinicNotifications: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM clinic_notifications  where notification_for = ? ORDER BY createdAt LIMIT ? OFFSET ?`,
+            [   
+                data.notification_for,
+                data.page_limit,
+                data.start_at - 1
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+    getTotalActiveClinicNotifications: (callBack) => {
+        pool.query(
+            `SELECT COUNT(notification_is_viewed) AS total_active_notifications FROM admin_notifications WHERE notification_is_viewed = 0`,
+            [],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
 
 }

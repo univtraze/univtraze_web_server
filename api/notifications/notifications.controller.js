@@ -1,4 +1,5 @@
-const { getAdminNotifications, updateAdminNotificationStatus, getTotalActiveAdminNotifications } = require("./notifications.service");
+const { getAdminNotifications, updateAdminNotificationStatus, getTotalActiveAdminNotifications,
+    getClinicNotifications} = require("./notifications.service");
 
 module.exports = {
     adminNotifications: (req, res) => {
@@ -55,5 +56,26 @@ module.exports = {
             })
         })
 
+    },
+    getClinicNotifications: (req, res) => {
+
+        const body = req.body;
+
+        getClinicNotifications(body, (error, results) => {
+            if (error) {
+                return res.json({
+                    success: 0,
+                    message: error.message
+                })
+            }
+            
+            return res.json({
+                success: 1,
+                config: body,
+                data: results
+            })
+        })
+
     }
+
 }
