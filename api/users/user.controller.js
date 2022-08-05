@@ -1,9 +1,10 @@
 const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, 
         updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, 
         updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs,
-        getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById, getAllUsers} = require("./user.service");
+        getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById, getAllUsers, updateUserRecoveryPassword, sendLinkToEmail, checkIfEmailAndRecoveryPasswordMatched, updateUserPassword} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
+var generator = require('generate-password');
 
 module.exports = {
     createUser: (req, res) => {
@@ -706,5 +707,108 @@ module.exports = {
         })
 
     },
+
+    sendRecoveryPasswordViaEmail: (req, res) => {
+        const body = req.body
+
+        emailCheck(body, (err, results) => {
+            if(err){
+                return res.json({
+                    success: false,
+                    message: err.message
+                })
+            }
+
+            if(results.length === 0){
+                return res.json({
+                    success: false,
+                    message: "Email is not registered yet."
+                })
+            }
+
+            body['recovery_password'] = generator.generate({
+                length: 10,
+                numbers: true,
+                exclude: '/'
+            });
+
+            let returnedResults = results[0];
+
+            updateUserRecoveryPassword({recovery_password: body.recovery_password, id: returnedResults.id},async (err, finalResults) => {
+                if(err){
+                    return res.json({
+                        success: false,
+                        message: err.message
+                    })
+                }
+
+                await new Promise((resolve, reject) => {
+                    sendLinkToEmail(body, (err, results) => {
+                        if(err)
+                        return reject(res.json({
+                            success: false,
+                            message: err.message
+                        }))
+                        
+                        return resolve(res.json({
+                                success: true,
+                                data: results,
+                                message: 'Recovery password was sent to your email',
+                        }))
+                    })
+
+                })
+
+            })
+        })
+    },
+    updateUserPassword: (req, res) => {
+        const body = req.body
+
+        return res.json({
+            body
+        })
+    },
+
+    updateUserPasswordFromRecovery: (req, res) => {
+        const body = req.body
+
+        checkIfEmailAndRecoveryPasswordMatched(body, (err, results) => {
+            if(err){
+               return res.json({ 
+                    success: false,
+                    message: err.message   
+                })
+            }
+
+            if(results.length === 0){
+                return res.json({
+                    success: false,
+                    message: 'Recovery password do not matched. Please try again'
+                })
+            }
+
+            let returnedResults = results[0]
+
+            const salt = genSaltSync(10);
+            body.new_password = hashSync(body.new_password, salt)
+            
+            updateUserPassword({id: returnedResults.id, new_password: body.new_password}, (err, finalResults) => {
+                if(err){
+                    return res.json({
+                        success: false,
+                        message: err.message
+                    })
+                }
+
+                return res.json({
+                    success: true,
+                    message: 'Password updated successfully',
+                    finalResults
+                })
+
+            })
+        })
+    }
 
 }

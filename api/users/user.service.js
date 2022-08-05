@@ -1,4 +1,17 @@
 const pool = require("../../config/database");
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    service: "gmail",
+    auth: {
+      user: 'univtraze.2022@gmail.com',
+      pass:  process.env.EMAIL_PASSWORD
+    }
+
+});
+
 
 module.exports = {
 
@@ -422,6 +435,72 @@ module.exports = {
             }
         )
     },
+    updateUserRecoveryPassword: (data, callBack) => {
+        pool.query(
+            `update users set recovery_password = ? where id = ?`,
+            [
+                data.recovery_password,
+                data.id
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results);
+            }
+        )
+    },
+    sendLinkToEmail: (data, callBack) => {
 
-    
+        let recovery_code = data.recovery_password
+
+        var mailOptions = {
+            from: "Univtraze App",
+            to: data.email,
+            subject: "Univtraze Recovery Password",
+            text: "User password reset request.",
+            html: `This email is requesting for new password for Univtraze user credential: <br /> Please use this code : ${recovery_code}`
+          };
+        
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return callBack(error);
+            } else {
+                return callBack(null, info.response);
+            }
+          });
+    },
+    checkIfEmailAndRecoveryPasswordMatched: (data, callBack) => {
+        pool.query(
+            `select * from users where email = ? and recovery_password = ? `,
+            [
+                data.email,
+                data.recovery_password
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results);
+            }
+        )
+    },
+    updateUserPassword: (data, callBack) => {
+        pool.query(
+            `update users set password = ? where id = ?`,
+            [
+                data.new_password,
+                data.id
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results);
+            }
+        )
+    }
 };
