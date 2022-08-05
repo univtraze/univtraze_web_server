@@ -1,7 +1,9 @@
 const {emailClinicAdminCheck, createClinicAdmin, getClinicAdminByEmail, 
     getTotalActiveEmergencyReports, getTotalCommunicableDiseaseReports,
     getTotalCommunicableDiseaseReportedOngoing, getTotalCommunicableDiseaseReportedResolved, 
-    getTotalResolvedEmergencyReports, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved, updateNewPassword, checkIfEmailExist, addClinicRecoveryPassword, sendLinkToEmail,checkIfEmailAndRecoveryPasswordMatched, updateClinicCredentials} = require("./clinicAdmin.service");
+    getTotalResolvedEmergencyReports, getTotalCommunicableDiseaseReportedTodayOngoing, getTotalCommunicableDiseaseReportedTodayResolved, 
+    updateNewPassword, checkIfEmailExist, addClinicRecoveryPassword, sendLinkToEmail,checkIfEmailAndRecoveryPasswordMatched, 
+    updateClinicCredentials,  checkIfIdAndPasswordMatched} = require("./clinicAdmin.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 const moment = require('moment')
@@ -177,7 +179,7 @@ module.exports = {
         })
 
     },
-    updateClinicPassword: (req, res) => {
+    changeClinicPassword: (req, res) => {
         const body = req.body
         
         checkIfIdAndPasswordMatched(body, (err, results) => {
@@ -188,14 +190,17 @@ module.exports = {
                 })
             }
 
+            let returnedData = []
+            returnedData.push(results[0])
+
             if(results.length === 0){
                 return res.json({
                     success: false,
-                    message: 'User not found'
+                    message: 'Password not matched',
                 })
             }
 
-            const checkIfMatched = compareSync(body.old_password, results.password)
+            const checkIfMatched = compareSync(body.old_password, returnedData[0].password)
 
             if(!checkIfMatched){
                 return res.json({
@@ -207,22 +212,19 @@ module.exports = {
             const salt = genSaltSync(10);
             const new_password = hashSync(body.new_password, salt)
 
-            updateNewPassword({user_id: body.user_id, new_password: new_password}, (err, results) => {
-
+            updateNewPassword({new_password, user_id: body.user_id}, (err, finalResults) => {
                 if(err){
                     return res.json({
                         success: false,
-                        message: 'Failed updating your password.'
+                        message: err.message
                     })
                 }
+                
 
                 return res.json({
                     success: true,
-                    message: 'Password updated successfully.',
-                    results: results
-                })
-
-
+                    message: "Password updated successfully!"
+               })
             })
         })
     
@@ -323,6 +325,8 @@ module.exports = {
             })
         })
 
-    }
+    },
+
+
 
 }
