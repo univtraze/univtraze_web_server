@@ -215,7 +215,7 @@ module.exports = {
     },
     sendLinkToEmail: (data, callBack) => {
 
-        let link = `https://admin.univtraze.net/reset-password-from-email/${data.email}&${data.recovery_password}`
+        let link = `https://clinic.univtraze.net/reset-password-from-email/${data.email}&${data.recovery_password}`
 
         var mailOptions = {
             from: "Univtraze Clinic",
