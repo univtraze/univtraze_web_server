@@ -64,7 +64,7 @@ module.exports = {
     },
     getTotalActiveClinicNotifications: (callBack) => {
         pool.query(
-            `SELECT COUNT(notification_is_viewed) AS total_active_notifications FROM admin_notifications WHERE notification_is_viewed = 0`,
+            `SELECT COUNT(notification_is_viewed) AS total_active_notifications FROM clinic_notifications WHERE notification_is_viewed = 0`,
             [],
             (error, results, fields) => {
                 if(error) {
@@ -74,5 +74,23 @@ module.exports = {
             }
         )
     },
+
+    updateClinicNotificationStatus: (data, callBack) => {
+        pool.query(
+            `UPDATE clinic_notifications SET notification_is_viewed= ?  WHERE id = ?`,
+            [   
+                data.is_viewed,
+                data.id
+               
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
 
 }
