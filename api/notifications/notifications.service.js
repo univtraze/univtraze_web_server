@@ -115,7 +115,7 @@ module.exports = {
                     cid: 'image'
                }],
                 html: `<b>Hi ${data.reporter_name}, your ${data.report_type} under the victim name : ${data.patient_name} has been recieved by our Univtraze clinic. The prescriptions is attached in this email.</b>
-                       <p>Case number: ${data.case_number}<br>Date reported: ${data.reported_date}</p><br>Date prescription sent: ${data.presecription_sent_date}</p> 
+                       <p>Case number: ${data.case_number}<br>Date reported: ${data.reported_date}</p><br>Date prescription sent: ${data.presecription_sent_date}</p> <br />
                        <img src='cid:image'></img>`
               };
             
