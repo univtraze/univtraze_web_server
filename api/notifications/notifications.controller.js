@@ -1,7 +1,10 @@
 const { getAdminNotifications, updateAdminNotificationStatus, getTotalActiveAdminNotifications,
     getClinicNotifications,
     getTotalActiveClinicNotifications,
-    updateClinicNotificationStatus} = require("./notifications.service");
+    updateClinicNotificationStatus, sendEmergencyReportPrescriptionViaEmail} = require("./notifications.service");
+
+const moment = require('moment')
+
 
 module.exports = {
     adminNotifications: (req, res) => {
@@ -112,6 +115,27 @@ module.exports = {
             return res.json({
                 success: true,
                 data: results
+            })
+        })
+    },
+    sendEmergencyReportPrescriptionViaEmail: (req, res) => {
+
+        const body = req.body
+        body['presecription_sent_date'] = moment().format('YYYY-MM-DD hh:mm a')
+
+        sendEmergencyReportPrescriptionViaEmail(body, (err, results) => {
+            if(err){
+                return res.json(
+                    {
+                        success: 0,
+                        message: "Error sending prescription via email" + err
+                    }
+                )
+            }
+
+            return res.json({
+                success: 1,
+                message: results
             })
         })
     }
