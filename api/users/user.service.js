@@ -226,7 +226,7 @@ module.exports = {
 
     updateEmployeeDetails: (data, callBack) => {
         pool.query(
-            `UPDATE employee_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,department=?,position=?,birthday=?,employee_id=?,email=?, profile_url=?, front_id_photo=?, back_id_photo=? WHERE user_id=?`,
+            `UPDATE employee_details SET firstname=?,lastname=?,middlename=?,suffix=?,gender=?,address=?,department=?,position=?,birthday=?,employee_id=?,mobile_number=?, email=?, profile_url=?, front_id_photo=?, back_id_photo=? WHERE user_id=?`,
             [
                 data.firstname,
                 data.lastname,
@@ -238,6 +238,7 @@ module.exports = {
                 data.position,
                 data.birthday,
                 data.employee_id,
+                data.mobile_number,
                 data.email,
                 data.profile_url, 
                 data.back_id_photo, 
