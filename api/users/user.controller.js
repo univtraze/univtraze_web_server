@@ -783,7 +783,7 @@ module.exports = {
             if(results.length === 0){
                 return res.json({
                     success: false,
-                    message: 'Recovery password do not matched. Please try again'
+                    message: 'Recovery password do not matched.'
                 })
             }
 
@@ -792,7 +792,6 @@ module.exports = {
                 results: results
             })
 
-            
         })
 
     },
