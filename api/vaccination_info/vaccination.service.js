@@ -43,5 +43,19 @@ module.exports = {
             }
         )
     },
+    checkIfVaccineRecordExists:(data, callBack) => {
+        pool.query(
+            `select * from vaccination_record where user_id = ?`,
+            [
+                data.user_id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
    
 };
