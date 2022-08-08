@@ -769,6 +769,33 @@ module.exports = {
             body
         })
     },
+    checkRecoveryPasswordAndEmailMatched: (req, res) => {
+        const body = req.body
+        
+        checkIfEmailAndRecoveryPasswordMatched(body, (err, results) => {
+            if(err){
+               return res.json({ 
+                    success: false,
+                    message: err.message   
+                })
+            }
+
+            if(results.length === 0){
+                return res.json({
+                    success: false,
+                    message: 'Recovery password do not matched. Please try again'
+                })
+            }
+
+            return res.json({
+                success: true,
+                results: results
+            })
+
+            
+        })
+
+    },
 
     updateUserPasswordFromRecovery: (req, res) => {
         const body = req.body
