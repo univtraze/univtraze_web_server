@@ -273,8 +273,8 @@ module.exports = {
 
     addEmployeeDetails: (data, callBack) => {
         pool.query(
-            `INSERT INTO employee_details(user_id, firstname, lastname, middlename, suffix, gender, address, department, position, birthday, employee_id, email, profile_url, front_id_photo, back_id_photo) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            `INSERT INTO employee_details(user_id, firstname, lastname, middlename, suffix, gender, address, department, position, birthday, employee_id,mobile_number, email, profile_url, front_id_photo, back_id_photo) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
             [
                 data.user_id,
                 data.firstname,
@@ -287,6 +287,7 @@ module.exports = {
                 data.position,
                 data.birthday,
                 data.employee_id,
+                data.mobile_number,
                 data.email,
                 data.profile_url, 
                 data.back_id_photo, 
