@@ -1,7 +1,7 @@
 const { getAdminNotifications, updateAdminNotificationStatus, getTotalActiveAdminNotifications,
-    getClinicNotifications,
-    getTotalActiveClinicNotifications,
-    updateClinicNotificationStatus, sendEmergencyReportPrescriptionViaEmail, sendSendCommunicableDiseaseReportPrescriptionViaEmail} = require("./notifications.service");
+    getClinicNotifications, getTotalActiveClinicNotifications,updateClinicNotificationStatus, sendEmergencyReportPrescriptionViaEmail, 
+    sendSendCommunicableDiseaseReportPrescriptionViaEmail, getUserNotificationsById, getTotalActiveUserNotificationsById, updateUserNotificationStatus,
+    getTotalUsers, getTotalCommunicableDisease } = require("./notifications.service");
 
 const moment = require('moment')
 
@@ -159,6 +159,96 @@ module.exports = {
                 message: results
             })
         })
-    }
+    },
+    getUserNotificationsById: (req, res) => {
+        const body = req.body
 
+        getUserNotificationsById(body, (err, results) => {
+            if(err){
+                return res.json({
+                    success: 0,
+                    message: 'Database connection error'
+                })
+                
+            }
+            
+            return res.json({
+                success: 1,
+                results: results
+            })
+
+
+        })
+    },
+    getTotalActiveUserNotifications: (req, res) => {
+
+        const body = req.body
+
+        getTotalActiveUserNotificationsById(body, (err, results) => {
+            if(err){
+                return res.json({
+                    success: 0,
+                    message: "Database connection error"
+                })
+            }
+
+            return res.json({
+                success: 1,
+                results: results
+            })
+        })
+    },
+    updateUserNotificationStatus: (req, res) => {
+        const body = req.body
+
+        updateUserNotificationStatus(body, (err, results) => {
+            if(err){
+                return res.json({
+                    success: 0,
+                    message: 'Database connection error'
+                })
+            }
+
+            return res.json({
+                success: 1,
+                message: 'Updated notification status successfully!'
+            })
+        })
+    },
+    getUnivtrazeDataForLanding: async (req, res) => {
+        let totalUsers = await new Promise((resolve, reject) => {
+            getTotalUsers((err, results) => {
+                if(err){
+                    return reject()
+                }
+
+                return resolve(results)
+
+            })
+        })
+
+        let totalCommunicableDisease = await new Promise((resolve, reject) => {
+            getTotalCommunicableDisease((err, results) => {
+                if(err){
+                    return reject()
+                }
+
+                return resolve(results)
+
+            })
+        })
+
+        if(!totalUsers || !totalCommunicableDisease){
+            return res.json({
+                success: 0,
+                message: 'Database connection error'
+            })
+        }
+
+        return res.json({
+            success: 1,
+            total_users: totalUsers.total_users,
+            total_communicable_disease: totalCommunicableDisease.total_communicable_disease,
+        })
+    }
 }

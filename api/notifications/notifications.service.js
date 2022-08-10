@@ -152,7 +152,74 @@ module.exports = {
             }
           });
     
-}
+    },
+    
+    getUserNotificationsById: (data, callBack) => {
+        pool.query(`SELECT * FROM users_notifications WHERE notification_for = ? order by createdAt limit 5 OFFSET ?`,
+            [
+                data.user_id,
+                data.start_at
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+    getTotalActiveUserNotificationsById: (data, callBack) => {
+        pool.query(`SELECT COUNT(notification_is_viewed) AS total_notifications FROM users_notifications WHERE notification_for = ? AND notification_is_viewed = 0`,
+            [
+                data.user_id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results[0])
+            }
+        )
+    },
+    updateUserNotificationStatus: (data, callBack) => {
+        pool.query(`UPDATE users_notifications SET notification_is_viewed = ? WHERE id = ?`,
+            [
+                data.notification_is_viewed,
+                data.notification_id
+            ],
+            (error, results, fields) => {
+                if(error) {
+                    return callBack(error)
+                }
+                    return callBack(null, results)
+            }
+        )
+    },
+
+    getTotalUsers: callBack => {
+        pool.query('SELECT COUNT(id) AS total_users FROM users',
+        []
+        ,
+        (error, results, fields) => {
+            if(error) {
+                return callBack(error)
+            }
+                return callBack(null, results[0])
+        }
+        )
+    },
+    getTotalCommunicableDisease: callBack => {
+        pool.query('SELECT COUNT(id) as total_communicable_disease FROM `communicable_disease_reporting` WHERE 1',
+        []
+        ,
+        (error, results, fields) => {
+            if(error) {
+                return callBack(error)
+            }
+                return callBack(null, results[0])
+        }
+        )
+    }
 
 
 
