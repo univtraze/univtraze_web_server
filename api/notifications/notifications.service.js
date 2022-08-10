@@ -155,7 +155,7 @@ module.exports = {
     },
     
     getUserNotificationsById: (data, callBack) => {
-        pool.query(`SELECT * FROM users_notifications WHERE notification_for = ? order by createdAt DESC limit 5 OFFSET ? `,
+        pool.query(`SELECT * FROM users_notifications WHERE notification_for = ? order by createdAt DESC limit 100 OFFSET ? `,
             [
                 data.user_id,
                 data.start_at
@@ -182,10 +182,10 @@ module.exports = {
         )
     },
     updateUserNotificationStatus: (data, callBack) => {
-        pool.query(`UPDATE users_notifications SET notification_is_viewed = ? WHERE id = ?`,
+        pool.query(`UPDATE users_notifications SET notification_is_viewed = ? WHERE notification_for = ?`,
             [
                 data.notification_is_viewed,
-                data.notification_id
+                data.notification_for
             ],
             (error, results, fields) => {
                 if(error) {
