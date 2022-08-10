@@ -155,7 +155,7 @@ module.exports = {
     },
     
     getUserNotificationsById: (data, callBack) => {
-        pool.query(`SELECT * FROM users_notifications WHERE notification_for = ? order by createdAt limit 5 OFFSET ?`,
+        pool.query(`SELECT * FROM users_notifications WHERE notification_for = ? order by createdAt DESC limit 5 OFFSET ? `,
             [
                 data.user_id,
                 data.start_at
