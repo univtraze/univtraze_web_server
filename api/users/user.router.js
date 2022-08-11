@@ -1,7 +1,7 @@
 const { createUser, getUsers, login, updateUserType, addStudentDetails, addEmployeeDetails, addVisitorDetails,
      updateStudentDocs,updateEmployeeDocs, updateVisitorDocs, getStudentDetailsById, getEmployeeDetailsById, 
      getVisitorDetailsById, getAllUsers, getUserDetailsById, getUserDetailsByIds, sendRecoveryPasswordViaEmail,
-      updateUserPassword, updateUserPasswordFromRecovery, checkRecoveryPasswordAndEmailMatched} = require("./user.controller")
+      updateUserPassword, updateUserPasswordFromRecovery, checkRecoveryPasswordAndEmailMatched, changePassword} = require("./user.controller")
 
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validator")
@@ -25,5 +25,6 @@ router.post("/visitor", checkToken, getVisitorDetailsById);
 router.post("/sendRecoveryPasswordViaEmail", sendRecoveryPasswordViaEmail);
 router.post("/updateUserPasswordFromRecovery", updateUserPasswordFromRecovery);
 router.post("/checkRecoveryPasswordAndEmailMatched", checkRecoveryPasswordAndEmailMatched);
+router.post("/changePassword", checkToken, changePassword)
 
 module.exports = router;

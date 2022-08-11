@@ -1,6 +1,8 @@
 const { addRoom, getAllRooms, addVisitedRoom,checkIfRoomExists, searchRoomNumber, userVisitedRooms,
      addUserNotification, userTodaysTemperature,  searchUsersByRoomId, searchRoomsViaDateAndId, getUserById
-    , getEmployeeDetailsById, getStudentDetailsById, getVisitorDetailsById} = require("./room.service");
+    , getEmployeeDetailsById, getStudentDetailsById, getVisitorDetailsById, addRoomVisitedNotificationToUser} = require("./room.service");
+
+    const moment = require('moment')
 
 module.exports = {
     addRoom: (req, res) => {
@@ -101,7 +103,7 @@ module.exports = {
        
         body = req.body
 
-            addVisitedRoom(body, (err, results) => {
+            addVisitedRoom(body, async (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({
@@ -110,7 +112,24 @@ module.exports = {
                     });
                 }
 
+                //Add notification to user
 
+                await new Promise((resolve, reject) => {
+                    addRoomVisitedNotificationToUser({    
+                    notification_title: 'Room visited',
+                    notification_description: 'You visited room id : ' + body.room_id, 
+                    notification_source: 'room_visited', 
+                    notification_type: 'room_visited', 
+                    notification_is_viewed: 0,
+                    notification_for: body.user_id
+                    }, (err, results) => {
+                        if(err){
+                            return reject('Failed adding notification')
+                        }
+
+                        return resolve('Successfully added Notification')
+                    })
+                }) 
 
                 return res.status(200).json({
                     success: 1,

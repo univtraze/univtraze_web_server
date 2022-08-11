@@ -72,7 +72,7 @@ module.exports = {
     },
     getUserById: (id, callBack) => {
         pool.query(
-            `SELECT id, type, email, provider FROM users WHERE id = ?`,
+            `SELECT id, type, email, password, provider FROM users WHERE id = ?`,
             [
             id
             ],
@@ -495,6 +495,22 @@ module.exports = {
             [
                 data.new_password,
                 data.id
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results);
+            }
+        )
+    },
+    checkIfIdAndPasswordMatched: (data, callBack) => {
+        pool.query(
+            `SELECT * FROM users WHERE id = ? and password = ?`,
+            [
+                data.user_id,
+                data.old_password
             ],
             
             (error, results, fields) => {
