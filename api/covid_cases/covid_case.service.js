@@ -187,7 +187,7 @@ module.exports = {
         )
 
     },
-    addEmergencyReportNotificationToUser: (data, callBack) => {
+    addReportNotificationToUser: (data, callBack) => {
         pool.query(
             `INSERT INTO users_notifications(notification_title, notification_description, notification_source, notification_type, notification_is_viewed, notification_for) VALUES (?,?,?,?,?,?)`,
             [

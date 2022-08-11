@@ -2,7 +2,7 @@
 const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate, 
     addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved, 
     getAllEmergencyReportsByStatus, updateEmergencyReportCaseStatus, deleteEmergencyReportCase, 
-    getAllEmergencyReportsByVictimName, getAllEmergencyReported, addEmergencyReportNotificationToUser} = require("./covid_case.service");
+    getAllEmergencyReportsByVictimName, getAllEmergencyReported, addReportNotificationToUser} = require("./covid_case.service");
 
 module.exports = {
     getAllEmergencyReported: (req, res) => {
@@ -29,7 +29,7 @@ module.exports = {
         
         const body = req.body;
 
-        addCommunicableDiseaseCase(body, (err, results) => {
+        addCommunicableDiseaseCase(body, async (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
@@ -40,7 +40,22 @@ module.exports = {
             }
 
             //Adding notification to user, clinic, admin
+            await new Promise((resolve, reject) => {
+                addReportNotificationToUser({
+                    notification_title: 'Reported as communicable disease victim',
+                    notification_description: 'Communicable disease victim report has been sent successfully.', 
+                    notification_source: 'communicable_disease_report', 
+                    notification_type: 'communicable_disease_report', 
+                    notification_is_viewed: 0,
+                    notification_for: body.user_id
+                }, (err, results) => {
+                    if(err){
+                        return reject('Error adding user notification ' + err.message)
+                    }
 
+                    return resolve('Added notification successfully')
+                })
+            })
             return res.json({
                 success: 1,
                 data: results
@@ -105,7 +120,7 @@ module.exports = {
     
             //Adding notification to user, clinic, admin
             await new Promise((resolve, reject) => {
-                addEmergencyReportNotificationToUser({
+                addReportNotificationToUser({
                     notification_title: 'Emergency report sent',
                     notification_description: 'An emergency report under patient name : ' + body.patient_name + ' has been sent successfully.', 
                     notification_source: 'emergency_report', 
