@@ -240,7 +240,7 @@ module.exports = {
 
     addRoomVisitedNotificationToUser: (data, callBack) => {
         pool.query(
-            `INSERT INTO users_notifications(notification_title, notification_description, notification_source, notification_type, notification_is_viewed, notification_for) VALUES (?,?,?,?,?,?,?)`,
+            `INSERT INTO users_notifications(notification_title, notification_description, notification_source, notification_type, notification_is_viewed, notification_for) VALUES (?,?,?,?,?,?)`,
             [
                 data.notification_title,
                 data.notification_description, 

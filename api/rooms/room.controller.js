@@ -114,7 +114,7 @@ module.exports = {
 
                 //Add notification to user
 
-                await new Promise((resolve, reject) => {
+             await new Promise((resolve, reject) => {
                     addRoomVisitedNotificationToUser({    
                     notification_title: 'Room visited',
                     notification_description: 'You visited room id : ' + body.room_id, 
@@ -124,12 +124,13 @@ module.exports = {
                     notification_for: body.user_id
                     }, (err, results) => {
                         if(err){
-                            return reject('Failed adding notification')
+                            return reject('Failed adding notification: ' + err.message)
                         }
 
                         return resolve('Successfully added Notification')
                     })
-                }) 
+                })
+
 
                 return res.status(200).json({
                     success: 1,
