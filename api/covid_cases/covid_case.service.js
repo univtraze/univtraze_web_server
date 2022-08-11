@@ -3,7 +3,7 @@ const pool = require("../../config/database");
 module.exports = {
     getAllEmergencyReported: callBack => {
         pool.query(
-            `SELECT * FROM emergency_reporting`,
+            `SELECT * FROM emergency_reporting where 1 order by createdAt Desc`,
             (error, results, fields) => {
                 if(error) {
                     return callBack(error)

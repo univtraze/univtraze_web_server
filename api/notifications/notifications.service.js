@@ -14,7 +14,7 @@ var transporter = nodemailer.createTransport({
 module.exports = {
     getAdminNotifications: (data, callBack) => {
         pool.query(
-            `SELECT * FROM admin_notifications  where notification_for = ? ORDER BY createdAt LIMIT ? OFFSET ?`,
+            `SELECT * FROM admin_notifications  where notification_for = ? ORDER BY createdAt  DESC LIMIT ? OFFSET ?`,
             [   
                 data.notification_for,
                 data.page_limit,
@@ -59,7 +59,7 @@ module.exports = {
     },
     getClinicNotifications: (data, callBack) => {
         pool.query(
-            `SELECT * FROM clinic_notifications  where notification_for = ? ORDER BY createdAt LIMIT ? OFFSET ?`,
+            `SELECT * FROM clinic_notifications  where notification_for = ? ORDER BY createdAt DESC LIMIT ? OFFSET ?`,
             [   
                 data.notification_for,
                 data.page_limit,
