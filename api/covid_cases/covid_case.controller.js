@@ -2,7 +2,7 @@
 const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate, 
     addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved, 
     getAllEmergencyReportsByStatus, updateEmergencyReportCaseStatus, deleteEmergencyReportCase, 
-    getAllEmergencyReportsByVictimName, getAllEmergencyReported, addReportNotificationToUser} = require("./covid_case.service");
+    getAllEmergencyReportsByVictimName, getAllEmergencyReported, addReportNotificationToUser, addReportNotificationToClinic, addReportNotificationToAdmin} = require("./covid_case.service");
 
 module.exports = {
     getAllEmergencyReported: (req, res) => {
@@ -56,6 +56,41 @@ module.exports = {
                     return resolve('Added notification successfully')
                 })
             })
+
+            await new Promise((resolve, reject) => {
+                addReportNotificationToAdmin({
+                    notification_title: 'New communicable disease reported',
+                    notification_description: 'Communicable disease victim reported under the user ID: ' + body.user_id, 
+                    notification_source: 'communicable_disease_report', 
+                    notification_type: 'communicable_disease_report', 
+                    notification_is_viewed: 0,
+                    notification_for: 0
+                }, (err, results) => {
+                    if(err){
+                        return reject('Error adding user notification ' + err.message)
+                    }
+
+                    return resolve('Added notification successfully')
+                })
+            })
+
+            await new Promise((resolve, reject) => {
+                addReportNotificationToClinic({
+                    notification_title: 'New communicable disease reported',
+                    notification_description: 'Communicable disease victim reported under the user ID: ' + body.user_id, 
+                    notification_source: 'communicable_disease_report', 
+                    notification_type: 'communicable_disease_report', 
+                    notification_is_viewed: 0,
+                    notification_for: 0
+                }, (err, results) => {
+                    if(err){
+                        return reject('Error adding user notification ' + err.message)
+                    }
+
+                    return resolve('Added notification successfully')
+                })
+            })
+
             return res.json({
                 success: 1,
                 data: results
@@ -135,6 +170,41 @@ module.exports = {
                     return resolve('Added notification successfully')
                 })
             })
+
+            await new Promise((resolve, reject) => {
+                addReportNotificationToAdmin({
+                    notification_title: 'New emergency report reported',
+                    notification_description: 'Emergency report has been reported under patient name: ' + body.patient_name, 
+                    notification_source: 'emergency_report', 
+                    notification_type: 'emergency_report', 
+                    notification_is_viewed: 0,
+                    notification_for: 0
+                }, (err, results) => {
+                    if(err){
+                        return reject('Error adding user notification ' + err.message)
+                    }
+
+                    return resolve('Added notification successfully')
+                })
+            })
+
+            await new Promise((resolve, reject) => {
+                addReportNotificationToClinic({
+                    notification_title: 'New emergency report reported',
+                    notification_description: 'Emergency report has been reported under patient name: ' + body.patient_name, 
+                    notification_source: 'emergency_report', 
+                    notification_type: 'emergency_report', 
+                    notification_is_viewed: 0,
+                    notification_for: 0
+                }, (err, results) => {
+                    if(err){
+                        return reject('Error adding user notification ' + err.message)
+                    }
+
+                    return resolve('Added notification successfully')
+                })
+            })
+
             
             return res.json({
                 success: 1,
