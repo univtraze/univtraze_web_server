@@ -1,6 +1,6 @@
 const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, 
         updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, 
-        updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs,
+        updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs, addAccountCreatedNotificationToUser,
         getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById, getAllUsers, updateUserRecoveryPassword, sendLinkToEmail, checkIfEmailAndRecoveryPasswordMatched, updateUserPassword, checkIfIdAndPasswordMatched} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
@@ -29,7 +29,7 @@ module.exports = {
                 });
             }
 
-            create(body, (err, results) => {
+            create(body, async (err, results) => {
                 if(err){
                     console.log(err)
                     return res.json({
@@ -37,6 +37,24 @@ module.exports = {
                         message: "Database connection Error"
                     });
                 }
+
+                await new Promise((resolve, reject) => {
+                    addAccountCreatedNotificationToUser({    
+                    notification_title: 'Account created successfully',
+                    notification_description: 'Account has been created successfully', 
+                    notification_source: 'create_account', 
+                    notification_type: 'create_account', 
+                    notification_is_viewed: 0,
+                    notification_for: results.insertId
+                    }, (err, results) => {
+                        if(err){
+                            return reject('Failed adding notification: ' + err.message)
+                        }
+
+                        return resolve('Successfully added Notification')
+                    })
+                })
+
     
                 return res.status(200).json({
                     success: 1,

@@ -520,5 +520,25 @@ module.exports = {
                     return callBack(null, results);
             }
         )
+    },
+    addAccountCreatedNotificationToUser: (data, callBack) => {
+        pool.query(
+            `INSERT INTO users_notifications(notification_title, notification_description, notification_source, notification_type, notification_is_viewed, notification_for) VALUES (?,?,?,?,?,?)`,
+            [
+                data.notification_title,
+                data.notification_description, 
+                data.notification_source, 
+                data.notification_type, 
+                data.notification_is_viewed,
+                data.notification_for
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results[0]);
+            }
+        )
     }
 };
