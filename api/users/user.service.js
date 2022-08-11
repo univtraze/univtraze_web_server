@@ -540,5 +540,23 @@ module.exports = {
                     return callBack(null, results[0]);
             }
         )
-    }
+    },
+
+    deactivateAccount: (data, callBack) => {
+        pool.query(
+            `DELETE FROM users WHERE id = ?`,
+            [
+                data.id,
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results[0]);
+            }
+        )
+    },
+
+
 };

@@ -1,6 +1,6 @@
 const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, 
         updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, 
-        updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs, addAccountCreatedNotificationToUser,
+        updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs, addAccountCreatedNotificationToUser, deactivateAccount,
         getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById, getAllUsers, updateUserRecoveryPassword, sendLinkToEmail, checkIfEmailAndRecoveryPasswordMatched, updateUserPassword, checkIfIdAndPasswordMatched} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
@@ -900,6 +900,48 @@ module.exports = {
            })
         })
         
+    },
+    deactivateAccount: (req, res) => {
+        const body = req.body
+
+        getUserById(body.id, (err, results) => {
+            if(err){
+             return res.json({
+                  success: 0,
+                  message: 'Database connection error' 
+             })
+            }
+ 
+            if(!results){
+             return res.json({
+                 success: 0,
+                 message: 'User not found'
+                })
+            }  
+ 
+            let checkIfPasswordMatched = compareSync(body.password, results.password)
+            
+            if(!checkIfPasswordMatched){
+                return res.json({
+                    success: 0,
+                    message: 'Password is incorrect.'
+                })
+            }
+
+            deactivateAccount(body, (err, finalResults) => {
+                if(err){
+                    return res.json({
+                        success: 0,
+                        message: 'Database connection error.'
+                    })
+                }
+                return res.json({
+                    success: 1,
+                    message: 'Account deactivated',
+                    finalResults
+                })
+            })
+         })
     }
 
 }
