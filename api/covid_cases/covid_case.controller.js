@@ -2,7 +2,7 @@
 const { addCovidPositive, addEmergencyReport, addDailyAssessement, searchEmergencyReportsViaDate, 
     addCommunicableDiseaseCase, getAllEmergencyReports, getAllEmergencyReportsResolved, 
     getAllEmergencyReportsByStatus, updateEmergencyReportCaseStatus, deleteEmergencyReportCase, 
-    getAllEmergencyReportsByVictimName, getAllEmergencyReported} = require("./covid_case.service");
+    getAllEmergencyReportsByVictimName, getAllEmergencyReported, addEmergencyReportNotificationToUser} = require("./covid_case.service");
 
 module.exports = {
     getAllEmergencyReported: (req, res) => {
@@ -38,6 +38,8 @@ module.exports = {
                 });
                 
             }
+
+            //Adding notification to user, clinic, admin
 
             return res.json({
                 success: 1,
@@ -90,7 +92,7 @@ module.exports = {
 
     addEmergencyReport: (req, res) => {
         const body = req.body;
-        addEmergencyReport(body, (err, results) => {
+        addEmergencyReport(body, async (err, results) => {
             if(err){
                 console.log(err)
                 return res.json({
@@ -99,7 +101,26 @@ module.exports = {
                 });
                 
             }
+             
+    
+            //Adding notification to user, clinic, admin
+            await new Promise((resolve, reject) => {
+                addEmergencyReportNotificationToUser({
+                    notification_title: 'Emergency report sent',
+                    notification_description: 'An emergency report under patient name : ' + body.patient_name + ' has been sent successfully.', 
+                    notification_source: 'emergency_report', 
+                    notification_type: 'emergency_report', 
+                    notification_is_viewed: 0,
+                    notification_for: body.reported_by
+                }, (err, results) => {
+                    if(err){
+                        return reject('Error adding user notification ' + err.message)
+                    }
 
+                    return resolve('Added notification successfully')
+                })
+            })
+            
             return res.json({
                 success: 1,
                 data: results
