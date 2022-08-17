@@ -1,7 +1,8 @@
 const { create,emailCheck, getUsers, getUserById, getUserByEmail, updateUserType, addStudentDetails, checkStudentDetailsExist, 
         updateStudentDetails, addEmployeeDetails, checkEmployeeDetailsExist, updateEmployeeDetails, checkVisitorDetailsExist, 
         updateVisitorDetails,addVisitorDetails,updateEmployeeDocs, updateStudentDocs, updateVisitorDocs, addAccountCreatedNotificationToUser, deactivateAccount,
-        getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById, getAllUsers, updateUserRecoveryPassword, sendLinkToEmail, checkIfEmailAndRecoveryPasswordMatched, updateUserPassword, checkIfIdAndPasswordMatched} = require("./user.service");
+        getEmployeeDetailsById, getVisitorDetailsById, getStudentDetailsById, getAllUsers, updateUserRecoveryPassword, sendLinkToEmail, checkIfEmailAndRecoveryPasswordMatched, 
+        updateUserPassword, checkIfIdAndPasswordMatched, updateProfileInfoStudent, updateProfileInfoEmployee, updateProfileInfoVisitor} = require("./user.service");
 const {genSaltSync, hashSync, compareSync} = require('bcrypt');
 const { sign } = require("jsonwebtoken")
 var generator = require('generate-password');
@@ -942,6 +943,64 @@ module.exports = {
                 })
             })
          })
-    }
+    },
 
+    updatePersonalInfo: (req, res) => {
+        const body = req.body
+
+        if(body.type === 'Student'){
+            updateProfileInfoStudent(body, (err, results) => {
+                if(err){
+                    return res.json({
+                        success: 0,
+                        message: 'Database connection error.'
+                    })
+                }
+
+                return res.json({
+                    success: 1,
+                    message: 'Personal information updated successfully.',
+                    results: results
+                })
+
+            })
+
+            return
+        }
+
+        if(body.type === 'Employee'){
+            updateProfileInfoEmployee(body, (err, results) => {
+                if(err){
+                    return res.json({
+                        success: 0,
+                        message: 'Database connection error.'
+                    })
+                }
+
+                return res.json({
+                    success: 1,
+                    message: 'Personal information updated successfully.',
+                    results: results
+                })
+
+            })
+            return
+        }
+
+        updateProfileInfoVisitor(body, (err, results) => {
+            if(err){
+                return res.json({
+                    success: 0,
+                    message: 'Database connection error.'
+                })
+            }
+
+            return res.json({
+                success: 1,
+                message: 'Personal information updated successfully.',
+                results: results
+            })
+
+        })
+    }
 }

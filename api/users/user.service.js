@@ -558,5 +558,61 @@ module.exports = {
         )
     },
 
+    updateProfileInfoStudent: (data, callBack) => {
+        pool.query(
+            `UPDATE student_details SET course=?, year_section=?,mobile_number=?,profile_url=? WHERE user_id = ?`,
+            [   
+                data.course,
+                data.year_section,
+                data.mobile_number,
+                data.profile_url,
+                data.user_id
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results);
+            }
+        )
+    },
 
+    
+    updateProfileInfoEmployee: (data, callBack) => {
+        pool.query(
+            `UPDATE employee_details SET department=?, position=?,mobile_number=?,profile_url=? WHERE user_id = ?`,
+            [   
+                data.department,
+                data.position,
+                data.mobile_number,
+                data.profile_url,
+                data.user_id
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results);
+            }
+        )
+    },
+    updateProfileInfoVisitor: (data, callBack) => {
+        pool.query(
+            `UPDATE visitor_details SET mobile_number=?,profile_url=? WHERE user_id = ?`,
+            [   
+                data.mobile_number,
+                data.profile_url,
+                data.user_id
+            ],
+            
+            (error, results, fields) => {
+                if(error){
+                    return callBack(error)
+                }
+                    return callBack(null, results);
+            }
+        )
+    },
 };
