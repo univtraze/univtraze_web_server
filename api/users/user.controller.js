@@ -960,7 +960,8 @@ module.exports = {
                 return res.json({
                     success: 1,
                     message: 'Personal information updated successfully.',
-                    results: results
+                    results: results,
+                    body
                 })
 
             })
@@ -980,7 +981,8 @@ module.exports = {
                 return res.json({
                     success: 1,
                     message: 'Personal information updated successfully.',
-                    results: results
+                    results: results,
+                    body
                 })
 
             })
@@ -998,7 +1000,8 @@ module.exports = {
             return res.json({
                 success: 1,
                 message: 'Personal information updated successfully.',
-                results: results
+                results: results,
+                body
             })
 
         })
