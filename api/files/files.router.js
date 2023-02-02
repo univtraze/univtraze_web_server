@@ -1,18 +1,6 @@
 const router = require("express").Router()
 const cloudinary = require("../../config/cloudinary-config")
 const multer = require('multer')
-const streamifier = require('streamifier')
-const fileUpload = multer()
-const path = require('path');
-const fs = require("fs");
-
-if (!fs.existsSync("./api/uploads")) {
-  try {
-    fs.mkdirSync("./api/uploads");
-  } catch (error) {
-    console.log(error)
-  }
-}
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
