@@ -7,7 +7,11 @@ const path = require('path');
 const fs = require("fs");
 
 if (!fs.existsSync("./api/uploads")) {
-  fs.mkdirSync("./api/uploads");
+  try {
+    fs.mkdirSync("./api/uploads");
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 var storage = multer.diskStorage({
