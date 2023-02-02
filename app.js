@@ -16,13 +16,6 @@ const fileRouter = require("./api/files/files.router")
 const bodyParser = require('body-parser');
 const cors = require("cors");
 
-//THis is where cloudinary staart
-const multer = require('multer')
-const cloudinary = require('cloudinary').v2
-const streamifier = require('streamifier')
-const fileUpload = multer()
-
-
 app.use(cors({origin: "*"}));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -40,12 +33,9 @@ app.use("/api/mailer", mailerRouter)
 app.use("/api/victims", victimsRouter)
 app.use("/api/notifications", notificationsRouter)
 
-
-// None
-
 app.use('/api/files', fileRouter)
 const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
-    console.log('Server up and Running on Port: ', process.env.PORT)
+    console.log('Server up and Running on Port: ', port)
 })
